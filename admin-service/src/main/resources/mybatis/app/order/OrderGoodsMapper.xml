@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hmsh.app.dao.order.OrderGoodsDao">
+  <resultMap id="BaseResultMap" type="com.hmsh.app.vo.order.OrderGoods">
+    <id column="dmId" jdbcType="BIGINT" property="dmid" />
+    <result column="orderId" jdbcType="BIGINT" property="orderid" />
+    <result column="goodsName" jdbcType="VARCHAR" property="goodsname" />
+    <result column="goodsNum" jdbcType="INTEGER" property="goodsnum" />
+    <result column="goodsTotalPrice" jdbcType="DECIMAL" property="goodstotalprice" />
+    <result column="goodsPrice" jdbcType="DECIMAL" property="goodsprice" />
+    <result column="goodsId" jdbcType="BIGINT" property="goodsid" />
+    <result column="skuId" jdbcType="BIGINT" property="skuid" />
+    <result column="imgs" jdbcType="VARCHAR" property="imgs" />
+    <result column="couponTotalPrice" jdbcType="DECIMAL" property="coupontotalprice" />
+    <result column="deductionTotalPrice" jdbcType="DECIMAL" property="deductiontotalprice" />
+    <result column="returnTotalPrice" jdbcType="DECIMAL" property="returntotalprice" />
+    <result column="refundStatus" jdbcType="INTEGER" property="refundstatus" />
+  </resultMap>
+ 
+</mapper>

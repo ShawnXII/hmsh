@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"  xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"  xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+	<head>
+		<!--/*/ <th:block th:include="fragments/headerinc :: head"></th:block> /*/-->
+		<title>店铺管理</title> 	  
+	</head>
+	<body class="page-sidebar-closed-hide-logo page-content-white page-header-fixed  page-footer-fixed page-sidebar-fixed">
+	<!--/*/ <th:block th:include="fragments/headerinc :: top"></th:block> /*/-->
+	<div class="clearfix"></div>
+	<div class="page-container">
+		<!--/*/ <th:block th:include="fragments/headerinc :: menu"></th:block> /*/-->
+		<div class="page-content-wrapper">
+		<div class="page-content">
+		<!--/*/ <th:block th:include="fragments/headerinc :: bar"></th:block> /*/-->
+		<div class="row">
+			<div class="portlet light" >
+				<div class="portlet-title">
+					<div class="caption font-red-sunglo">
+						<i class="icon-user"></i> 
+						<span class="caption-subject font-green bold uppercase">店铺管理</span>
+					</div>
+					<div class="actions">
+						<div class="dt-buttons">
+							<a class="dt-button btn blue btn-outline" data-role="add"> 
+							 	<span>添加</span>
+							</a>
+						</div>
+					</div>
+				</div>
+				<div class="portlet-body">
+					<div class="row table-search"> 
+						<form action="" role="form" class="form-inline" id="search_form" autocomplete="off" data-role="search">
+		                     <button type="button" class="btn btn-sm green" id="search" >搜索<i class="fa fa-search"></i></button>  
+						</form>
+					</div>
+					<table class="table table-striped table-bordered table-hover dt-responsive overflow" width="100%" id="table"
+					data-unique-id="dmId" 
+					data-side-pagination="server"
+					data-pagination="true"
+					data-toolbar="#search_form"
+					th:attr="data-url=@{/consumptionRecommendBonus/query}">
+						<thead>
+							<tr>
+								<!-- {title:'商家呢称',bSortable:false,data:'user.nickname',render:function(row,type,set){
+							 return isEmpty(row)?'':row; 
+							 //return Select2.getText('joiningFee_key',row);
+						}},
+						{title:'头像',bSortable:false,data:'name',className:'none',width:90,render:function(row,type,set){
+					    	console.log(set);
+							 return isEmpty(row)?'':row;
+					    }},
+						{title:'行业类别',bSortable:false,data:'user.categorys',className:'none',render:function(row,type,set){
+							var result='';
+							if($.isArray(row)){
+								$.each(row,function(i,v){
+									if(i>0)result+=',';
+									result+=v.name;
+									var categoryList=v.categoryList;
+									if($.isArray(categoryList)){
+										$.each(categoryList,function(i,v1){
+											result+=','+v1.name;
+										});
+									}
+								});
+							}
+							return result; 
+						}},
+						{title:'是否外卖',bSortable:false,data:'isSend',render:function(row,type,set){
+							//whether
+							 return Select2.getText('whether',row); 
+						}},
+						{title:'积分消费',bSortable:false,data:'user.isIntegral',render:function(row,type,set){	 
+							 return  row==1?'是':'否';
+						}},
+						{title:'店铺评分',bSortable:false,data:'rating',render:function(row,type,set){	 
+							 return  isEmpty(row)?'-':row; 
+						}},
+						{title:'店铺地址',bSortable:false,data:'user.userRegion',className:'none',render:function(row,type,set){	 
+							 return  isEmpty(row)?'':row.region+'-'+row.address; 
+						}},
+						{title:'起送费',bSortable:false,data:'deductionRatio',className:'none',render:function(row,type,set){	 
+							 return  (isEmpty(row)?'0':row)+"%"; 
+						}},
+						{title:'配送费',bSortable:false,data:'deductionRatio',className:'none',render:function(row,type,set){	 
+							 return  (isEmpty(row)?'0':row)+"%"; 
+						}},
+						{title:'免派送费',bSortable:false,data:'deductionRatio',className:'none',render:function(row,type,set){	 
+							 return  (isEmpty(row)?'0':row)+"%"; 
+						}},
+						{title:'免包装费',bSortable:false,data:'deductionRatio',className:'none',render:function(row,type,set){	 
+							 return  (isEmpty(row)?'0':row)+"%"; 
+						}},
+						{title:'折扣',bSortable:false,data:'deductionRatio',className:'none',render:function(row,type,set){	 
+							 return  (isEmpty(row)?'0':row)+"%"; 
+						}},
+						{title:'返现比列',bSortable:false,data:'deductionRatio',className:'none',render:function(row,type,set){	 
+							 return  (isEmpty(row)?'0':row)+"%"; 
+						}},
+						{title:'积分赠送比例',bSortable:false,data:'deductionRatio',className:'none',render:function(row,type,set){	 
+							 return  (isEmpty(row)?'0':row)+"%"; 
+						}},
+						{title:'最高赠送',bSortable:false,data:'deductionRatio',className:'none',render:function(row,type,set){	 
+							 return  (isEmpty(row)?'0':row)+"%"; 
+						}},
+						{title:'最高返现',bSortable:false,data:'deductionRatio',className:'none',render:function(row,type,set){	 
+							 return  (isEmpty(row)?'0':row)+"%"; 
+						}},
+						{title:'有效期限',bSortable:false,data:'startTime',render:function(row,type,set){	 
+							 return  isEmpty(row)?'无':LongToDateStr(row)+'至'+LongToDateStr(set.endTime); 
+						}},
+						{title:'状态',bSortable:false,data:'status',render:function(row,type,set){
+							//再次计算当前的结束时间在当天跟结束后的7天的时间内的话就标识为即将过期 msgInfo
+							/*<![CDATA[*/
+							var stateStr=row==0?'正常':'关闭'+(isEmpty(set.msgInfo)?'':'-'+set.msgInfo);
+							var time=7*24*60*60*1000;
+							var endTime=set.endTime;
+							var timestamp = Date.parse(new Date());
+							if(row==0&&endTime-timestamp<=time){
+								stateStr='即将过期';
+							}
+							/*]]>*/
+							 return  stateStr; 
+						}},
+						{title:'是否屏蔽',bSortable:false,data:'deductionRatio',render:function(row,type,set){	 
+							 return  (isEmpty(row)?'0':row)+"%"; 
+						}},
+						{title:'运营图片',bSortable:false,data:'deductionRatio',className:'none',render:function(row,type,set){	 
+							 return  isEmpty(row)?'':row; 
+						}},
+						{title:'是否使用运营图',bSortable:false,data:'deductionRatio',render:function(row,type,set){	 
+							 return  (isEmpty(row)?'0':row)+"%"; 
+						}},
+						{title:'操作',bSortable:false,data:'dmId',width:270,render:function(row,type,set){
+							 var token=/*[[${_csrf.token}]]*/;
+						   	 var name=/*[[${_csrf.parameterName}]]*/;
+							var btn='<a class="btn btn-xs grey-cascade" onclick="JoiningFee.edit('+row+')">修改<i class="fa fa-edit"></i></a>';
+							btn+='<a class="btn btn-xs red" onclick="JoiningFee.remove('+row+',\''+name+'\',\''+token+'\');">删除<i class="fa fa-delete"></i></a>';
+							return  btn;
+						}} -->
+								<th data-field="name">商家呢称</th>
+								<th data-field="name">头像</th>
+								<th data-field="name">行业类别</th>
+								<th data-field="name">是否外卖</th>
+								<th data-field="name">店铺评分</th>
+								<th data-field="name">店铺地址</th>
+								<th data-field="name">起送费</th>
+								<th data-field="name">配送费</th>
+								<th data-field="name">免派送费</th>
+								<th data-field="name">免包装费</th>
+								<th data-field="name">折扣</th>
+								<th data-field="name">返现比列</th>
+								<th data-field="name">积分赠送比例</th>
+								<th data-field="name">最高赠送</th>
+								<th data-field="name">最高返现</th>
+								<th data-field="name">有效期限</th>
+								<th data-field="name">状态</th>
+								<th data-field="name">是否屏蔽</th>
+								<th data-field="name">运营图片</th>
+								<th data-field="name">是否使用运营图</th>
+								<th data-field="name">操作</th>
+							</tr>
+						</thead>
+					</table>
+				</div>
+			</div>
+		</div>
+		</div>
+		</div>
+		</div>
+		<div class="modal fade" tabindex="-1" aria-hidden="true" data-role="modal">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+						<h4 class="modal-title">添加加盟费用规则</h4>
+					</div>
+					<div class="modal-body">
+						<form th:action="@{/shop/sellerStore/save}" class="form-horizontal" autocomplete="off"  novalidate="novalidate" id="account_form" role="form" method="post" data-role="form">
+						<input type="hidden"  id="dmId" name="dmId"/>
+							<div class="form-body">
+								<div class="form-group">
+									<label class="col-md-3 control-label" for="username">名称</label>
+									<div class="col-md-9">
+										<div class="input-icon">
+		                                    <i class="fa fa-user"></i>
+											<input type="text" id="name" name="name" class="form-control string required" maxlength="20" placeholder="请输入名称" value=""/>
+										</div>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-3 control-label" for="hiredate">规则类型 </label>
+									<div class="col-md-9">
+										 <select class="form-control select2" name="key" id="key"  data-down="joiningFee_key">
+										 	
+										 </select>	
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-md-3 control-label" for="password">全额费用</label>
+									<div class="col-md-9">
+										<div class="input-group bootstrap-touchspin">
+											<input type="text" id="fullCost" name="fullCost" class="form-control double required" maxlength="20" placeholder="请输入全额费用" value="" />
+										</div>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-md-3 control-label " for="repassword">诚意金</label>
+									<div class="col-md-9">
+									<div class="input-group bootstrap-touchspin">
+											<input type="text" id="earnestMoney" name="earnestMoney" class="form-control double required" maxlength="20" placeholder="请输入诚意金" value="" />
+										</div>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="control-label col-md-3" for="nickName">收益扣除比例</label>
+									<div class="col-md-9">
+										<div class="input-group bootstrap-touchspin">
+											<input type="text" id="deductionRatio" name="deductionRatio" class="" maxlength="20" placeholder="收益扣除比例" value="" />
+										</div>				
+									</div>
+								</div>
+								
+								
+							</div>
+						</form>
+					</div>
+					<div class="modal-footer">
+	                     <button type="button" data-dismiss="modal" class="btn dark btn-outline">关闭</button>
+	                     <button type="button" class="btn green" data-role="save">保存</button>
+	                 </div>
+				</div>
+			</div>
+		</div>
+		<!--/*/ <th:block th:include="fragments/headerinc :: footer"></th:block> /*/-->
+		<!--/*/ <th:block th:include="fragments/headerinc :: script"></th:block> /*/-->
+		<script th:src="@{/assets/global/scripts/data.conversion.js}" type="text/javascript"></script>
+		<script type="text/javascript" th:inline="javascript">
+			$(function(){
+				Conversion.init();
+			})
+		</script>
+	   <script type="text/javascript" th:inline="javascript">
+		 
+		   //页面 colums
+		   function colums(){
+			   return [
+					    
+						{title:'商家呢称',bSortable:false,data:'user.nickname',render:function(row,type,set){
+							 return isEmpty(row)?'':row; 
+							 //return Select2.getText('joiningFee_key',row);
+						}},
+						{title:'头像',bSortable:false,data:'name',className:'none',width:90,render:function(row,type,set){
+					    	console.log(set);
+							 return isEmpty(row)?'':row;
+					    }},
+						{title:'行业类别',bSortable:false,data:'user.categorys',className:'none',render:function(row,type,set){
+							var result='';
+							if($.isArray(row)){
+								$.each(row,function(i,v){
+									if(i>0)result+=',';
+									result+=v.name;
+									var categoryList=v.categoryList;
+									if($.isArray(categoryList)){
+										$.each(categoryList,function(i,v1){
+											result+=','+v1.name;
+										});
+									}
+								});
+							}
+							return result; 
+						}},
+						{title:'是否外卖',bSortable:false,data:'isSend',render:function(row,type,set){
+							//whether
+							 return Select2.getText('whether',row); 
+						}},
+						{title:'积分消费',bSortable:false,data:'user.isIntegral',render:function(row,type,set){	 
+							 return  row==1?'是':'否';
+						}},
+						{title:'店铺评分',bSortable:false,data:'rating',render:function(row,type,set){	 
+							 return  isEmpty(row)?'-':row; 
+						}},
+						{title:'店铺地址',bSortable:false,data:'user.userRegion',className:'none',render:function(row,type,set){	 
+							 return  isEmpty(row)?'':row.region+'-'+row.address; 
+						}},
+						{title:'起送费',bSortable:false,data:'deductionRatio',className:'none',render:function(row,type,set){	 
+							 return  (isEmpty(row)?'0':row)+"%"; 
+						}},
+						{title:'配送费',bSortable:false,data:'deductionRatio',className:'none',render:function(row,type,set){	 
+							 return  (isEmpty(row)?'0':row)+"%"; 
+						}},
+						{title:'免派送费',bSortable:false,data:'deductionRatio',className:'none',render:function(row,type,set){	 
+							 return  (isEmpty(row)?'0':row)+"%"; 
+						}},
+						{title:'免包装费',bSortable:false,data:'deductionRatio',className:'none',render:function(row,type,set){	 
+							 return  (isEmpty(row)?'0':row)+"%"; 
+						}},
+						{title:'折扣',bSortable:false,data:'deductionRatio',className:'none',render:function(row,type,set){	 
+							 return  (isEmpty(row)?'0':row)+"%"; 
+						}},
+						{title:'返现比列',bSortable:false,data:'deductionRatio',className:'none',render:function(row,type,set){	 
+							 return  (isEmpty(row)?'0':row)+"%"; 
+						}},
+						{title:'积分赠送比例',bSortable:false,data:'deductionRatio',className:'none',render:function(row,type,set){	 
+							 return  (isEmpty(row)?'0':row)+"%"; 
+						}},
+						{title:'最高赠送',bSortable:false,data:'deductionRatio',className:'none',render:function(row,type,set){	 
+							 return  (isEmpty(row)?'0':row)+"%"; 
+						}},
+						{title:'最高返现',bSortable:false,data:'deductionRatio',className:'none',render:function(row,type,set){	 
+							 return  (isEmpty(row)?'0':row)+"%"; 
+						}},
+						{title:'有效期限',bSortable:false,data:'startTime',render:function(row,type,set){	 
+							 return  isEmpty(row)?'无':LongToDateStr(row)+'至'+LongToDateStr(set.endTime); 
+						}},
+						{title:'状态',bSortable:false,data:'status',render:function(row,type,set){
+							//再次计算当前的结束时间在当天跟结束后的7天的时间内的话就标识为即将过期 msgInfo
+							/*<![CDATA[*/
+							var stateStr=row==0?'正常':'关闭'+(isEmpty(set.msgInfo)?'':'-'+set.msgInfo);
+							var time=7*24*60*60*1000;
+							var endTime=set.endTime;
+							var timestamp = Date.parse(new Date());
+							if(row==0&&endTime-timestamp<=time){
+								stateStr='即将过期';
+							}
+							/*]]>*/
+							 return  stateStr; 
+						}},
+						{title:'是否屏蔽',bSortable:false,data:'deductionRatio',render:function(row,type,set){	 
+							 return  (isEmpty(row)?'0':row)+"%"; 
+						}},
+						{title:'运营图片',bSortable:false,data:'deductionRatio',className:'none',render:function(row,type,set){	 
+							 return  isEmpty(row)?'':row; 
+						}},
+						{title:'是否使用运营图',bSortable:false,data:'deductionRatio',render:function(row,type,set){	 
+							 return  (isEmpty(row)?'0':row)+"%"; 
+						}},
+						{title:'操作',bSortable:false,data:'dmId',width:270,render:function(row,type,set){
+							 var token=/*[[${_csrf.token}]]*/;
+						   	 var name=/*[[${_csrf.parameterName}]]*/;
+							var btn='<a class="btn btn-xs grey-cascade" onclick="JoiningFee.edit('+row+')">修改<i class="fa fa-edit"></i></a>';
+							btn+='<a class="btn btn-xs red" onclick="JoiningFee.remove('+row+',\''+name+'\',\''+token+'\');">删除<i class="fa fa-delete"></i></a>';
+							return  btn;
+						}}
+		               ];
+		  	 }
+	   </script>
+	</body>
+</html>

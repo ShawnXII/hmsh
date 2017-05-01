@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>角色管理</title>
+		 <!--/*/ <th:block th:include="fragments/headerinc :: head"></th:block> /*/-->
+		 	  
+	</head>
+	<body class="gray-bg">
+		<div class="portlet light tasks-widget bordered wrapper wrapper-content  animated fadeInRight">
+			<div class="portlet-title">
+				<div class="caption">
+					<i class="fa fa-bars"></i> 
+					<span class="caption-subject font-green bold uppercase">系统菜单</span>
+				</div>
+				<div class="actions">
+					<div class="dt-buttons">
+						<a class="dt-button btn blue btn-outline" onclick="Menu1.add();"> 
+						 	<span>添加</span>
+						</a>
+					</div>
+				</div>
+			</div>
+			<div class="portlet-body" >
+				<div class="row">
+					<div class="col-md-3">
+                        <div id="menu_tree">
+                        	
+                        </div>  
+                   </div>
+                   <div class="col-md-9">
+                   		<div class="ibox float-e-margins" id="menu_view">
+		                    
+		                </div>
+                   </div>
+				</div>
+			</div>
+		</div>
+		<form th:action="@{/system/menu/delete}" method="post" id="delete_menu">
+			<input type="hidden" id="id" name="id"/>
+		</form>
+		<div id="add_menu" class="modal inmodal fade" tabindex="-1" aria-hidden="true" role="dialog">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+						<h4 class="modal-title">添加系统菜单</h4>
+					</div>
+					<div class="modal-body">
+						<form th:action="@{/system/menu/save}" class="form-horizontal" autocomplete="off"  novalidate="novalidate" id="menu_form" role="form" method="post">
+							<input type="hidden" class="not_empty" name="state" id="state" value="0"/>
+							<input type="hidden" class="" name="level" id="level" value="0"/>
+							<input type="hidden" class="" name="id" id="id"/>
+							<div class="form-body">
+								<div class="form-group">
+									<label class="col-md-3 control-label" for="title">菜单名称</label>
+									<div class="col-md-9">
+										<div class="input-icon">
+		                                    <i class="fa fa-navicon"></i>
+											<input type="text" id="title" name="title" class="form-control" maxlength="20" placeholder="请输入菜单名称" value="" th:action="@{/system/menu/check}"/>
+										</div>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-md-3 control-label" for="password">菜单图标</label>
+									<div class="col-md-9">
+										<select  id="icon" name="icon" class="form-control select2"></select>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-md-3 control-label" for="url">链接地址</label>
+									<div class="col-md-9">
+										获取资源地址	
+		                                <select  id="url" name="url" class="form-control select2" data-condition-type="0"></select>	
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-md-3 control-label " for="target">跳转方式</label>
+									<div class="col-md-9">
+										<select  id="target" name="target" class="form-control select2"></select>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="control-label col-md-3" for="sequence">排序号</label>
+									<div class="col-md-9">
+										<div class="input-icon">
+		                                    <i class="fa fa-sort-numeric-desc"></i>
+											<input type="text" id="sequence" name="sequence" class="form-control mask_number" maxlength="20" placeholder="排序号" value="" />
+										</div>				
+									</div>
+								</div>
+								<div class="form-group" id="parent_div">
+									<label class="col-sm-3 control-label" for="parent_title">上级菜单 </label>
+									<div class="col-md-9">
+										<input type="hidden" id="parentId" name="parentId"/>
+										<input class="form-control" id="parent_title" type="text" value="" readonly="readonly"/>	
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-3 control-label" for="hiredate">备注 </label>
+									<div class="col-md-9">
+										 <textarea class="form-control" rows="3" name="info" id="info" placeholder="备注" maxLength="100"></textarea>
+									</div>
+								</div>
+								
+							</div>
+						</form>
+					</div>
+					<div class="modal-footer">
+	                     <button type="button" data-dismiss="modal" class="btn dark btn-outline">关闭</button>
+	                     <button type="button" class="btn green" id="submitBtn" onclick="Menu.save(this);">保存</button>
+	                 </div>
+				</div>
+			</div>
+		</div>	
+		<!--/*/ <th:block th:include="fragments/common :: scripts"></th:block> /*/-->
+	    <script th:src="@{/hplus/js/customer/system/menu.js}"></script>
+	</body>
+</html>

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans        
+    http://www.springframework.org/schema/beans/spring-beans.xsd 
+    http://code.alibabatech.com/schema/dubbo        
+    http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+    
+    <!-- 提供方应用信息，用于计算依赖关系 -->
+	<dubbo:application name="admin-service" />
+	<!-- 使用zookeeper注册中心暴露服务地址 -->
+	<dubbo:registry protocol="zookeeper" address="${zookeeper.servers}" file="${dubbo.registry.file}"/>
+	<!-- 用dubbo协议在20880端口暴露服务 -->
+	<dubbo:protocol name="dubbo" port="${dubbo.port}"
+		threads="${dubbo.threads}" serialization="kryo"/>
+	<!-- 服务提供者,超时时间全局设为5秒(dubbo默认为1秒),需要根据具体情况在service上来设置 -->
+	<dubbo:provider version="1.0.0" timeout="5000" retries="0"/>
+	<!-- 消费者,需要根据具体情况在reference上来设置 -->
+	<dubbo:consumer version="1.0.0" check="false" />
+	<!-- ##################################对外提供的服务################################## -->
+	<!-- 帐号管理 -->
+	<!-- <dubbo:service interface="com.hmsh.admin.service.facade.user.AccountFacadeService" ref="accountService" />
+	
+	<dubbo:service interface="com.hmsh.app.service.facade.goods.GoodsFacadeService" ref="goodsService" />
+	
+	<dubbo:service interface="com.hmsh.admin.service.facade.system.MenuFacadeService" ref="menuService" /> -->
+	
+	<!-- 用户信息管理 -->
+	<!-- <dubbo:service interface="com.hmsh.admin.service.account.InfoFacadeService" ref="infoService" />
+	用户日志管理
+	<dubbo:service interface="com.hmsh.admin.service.account.AccountSecurityLogFacadeService" ref="accountSecurityLogService" />
+	系统菜单
+	<dubbo:service interface="com.hmsh.admin.service.settings.MenuFacadeService" ref="menuService" />
+	系统字典
+	<dubbo:service interface="com.hmsh.admin.service.settings.DictionariesFacadeService" ref="dictionariesService" />
+	资源管理 该链接时间可以适当的放长点
+	<dubbo:service interface="com.hmsh.admin.service.settings.ResourceFacadeService" ref="resourceService" timeout="10000"/>
+	角色管理 该链接时间可以适当的放长点
+	<dubbo:service interface="com.hmsh.admin.service.settings.RoleFacadeService" ref="roleService" />	
+	登录Service
+	<dubbo:service interface="com.hmsh.admin.service.account.LoginFacadeService" ref="loginService" /> -->
+	
+	<!-- Mongo  -->	
+	<!-- 个人用户 -->
+	<!-- <dubbo:service interface="com.hmsh.admin.service.user.UserFacadeService" ref="userService" />
+	
+	<dubbo:service interface="com.hmsh.admin.service.user.UserPersonFacadeService" ref="userPersonService" />
+	
+	<dubbo:service interface="com.hmsh.admin.service.user.UserShopFacadeService" ref="userShopService" />
+	
+	订单
+	<dubbo:service interface="com.hmsh.admin.service.order.OrderFacadeService" ref="orderService" timeout="10000"/>
+	订单商品
+	<dubbo:service interface="com.hmsh.admin.service.order.OrderGoodsFacadeService" ref="orderGoodsService" timeout="10000"/>
+	年费订单
+	<dubbo:service interface="com.hmsh.admin.service.order.AnnualFeeOrderFacadeService" ref="annualFeeOrderService" timeout="10000"/>
+	年费订单商品
+	<dubbo:service interface="com.hmsh.admin.service.order.AnnualFeeOrderGoodsFacadeService" ref="annualFeeOrderGoodsService" timeout="10000"/>
+	支付记录
+	<dubbo:service interface="com.hmsh.admin.service.pay.TpPayLogFacadeService" ref="tpPayLogService" timeout="10000"/>
+	广告管理
+	<dubbo:service interface="com.hmsh.admin.service.system.AdvertisManageFacadeService" ref="advertisManageService" />
+	行业配置
+	<dubbo:service interface="com.hmsh.admin.service.system.CategoryFacadeService" ref="categoryService" />
+	分享设置
+	<dubbo:service interface="com.hmsh.admin.service.system.ShareMessageFacadeService" ref="shareMessageService" />
+	用户钱包
+	<dubbo:service interface="com.hmsh.admin.service.user.UserwalletFacadeService" ref="userwalletService" timeout="15000"/>
+	用户申请提现
+	<dubbo:service interface="com.hmsh.admin.service.user.UwExtractapplyFacadeService" ref="uwExtractapplyService" timeout="10000"/>
+	首页设置
+	<dubbo:service interface="com.hmsh.admin.service.system.AppIndexManageFacadeService" ref="appIndexManageService" />
+	消息设置
+	<dubbo:service interface="com.hmsh.admin.service.system.CustomMsgFacadeService" ref="customMsgService" />
+	订单日志
+	<dubbo:service interface="com.hmsh.admin.service.order.OrderLogFacadeService" ref="orderLogService" timeout="10000"/>
+	店铺信息
+	<dubbo:service interface="com.hmsh.admin.service.seller.SellerStoreFacadeService" ref="sellerStoreService" />
+	店铺操作日志
+	<dubbo:service interface="com.hmsh.admin.service.seller.SellerStoreOpreateFacadeService" ref="sellerStoreOpreateService" />
+	首页设置操作日志
+	<dubbo:service interface="com.hmsh.admin.service.system.AppIndexOperationLogFacadeService" ref="appIndexOperationLogService" />
+	消费流水
+	<dubbo:service interface="com.hmsh.admin.service.flow.UwConsumeflowFacadeService" ref="uwConsumeflowService" timeout="10000"/>
+	消费流水记录
+	<dubbo:service interface="com.hmsh.admin.service.flow.UwConsumeflowcountFacadeService" ref="uwConsumeflowcountService" timeout="10000"/>
+	用户操作日志
+	<dubbo:service interface="com.hmsh.admin.service.user.UserOperationLogFacadeService" ref="userOperationLogService" />
+	银行卡管理
+	<dubbo:service interface="com.hmsh.admin.service.system.BankCardInfoFacadeService" ref="bankCardInfoService" />
+	推荐人消费额分红表
+	<dubbo:service interface="com.hmsh.app.service.rule.ConsumptionRecommendBonusFacadeService" ref="consumptionRecommendBonusService" />
+	加盟费用表
+	<dubbo:service interface="com.hmsh.admin.service.rules.JoiningFeeFacadeService" ref="joiningFeeService" />
+	卖家扣点表
+	<dubbo:service interface="com.hmsh.admin.service.rules.SellersPointsFacadeService" ref="sellersPointsService" />
+	服务费用分红表
+	<dubbo:service interface="com.hmsh.admin.service.rules.ServiceFeeBonusFacadeService" ref="serviceFeeBonusService" />
+	服务费用
+	<dubbo:service interface="com.hmsh.admin.service.rules.ServiceFeeFacadeService" ref="serviceFeeService" />
+	推荐人营业额分红表
+	<dubbo:service interface="com.hmsh.admin.service.rules.TurnoverRecommendBonusFacadeService" ref="turnoverRecommendBonusService" />
+	诚意金
+	<dubbo:service interface="com.hmsh.admin.service.pay.PayJoiningFeeFacadeService" ref="payJoiningFeeService" />
+	诚意金操作记录
+	<dubbo:service interface="com.hmsh.admin.service.pay.PayJoiningFeeLogFacadeService" ref="payJoiningFeeLogService" />
+	商品管理
+	<dubbo:service interface="com.hmsh.admin.service.goods.GoodsFacadeService" ref="goodsService" timeout="10000"/>
+	商品SKU
+	<dubbo:service interface="com.hmsh.admin.service.goods.GoodsSkuFacadeService" ref="goodsSkuService" />
+	
+	代理区域管理
+	<dubbo:service interface="com.hmsh.admin.service.agent.AgentFacadeService" ref="agentService" />
+	商品分类
+	<dubbo:service interface="com.hmsh.admin.service.goods.GoodsClassFacadeService" ref="goodsClassService" />
+	
+	<dubbo:service interface="com.hmsh.admin.service.goods.GoodsCategoryApplyFacadeService" ref="goodsCategoryApplyService" />
+	
+	<dubbo:service interface="com.hmsh.admin.service.goods.ActivitiesFacadeService" ref="activitiesService" />
+	
+	商品SKU属性
+	<dubbo:service interface="com.hmsh.admin.service.goods.GoodsSpecificationFacadeService" ref="goodsSpecificationService" />
+	商品SKU属性key
+	<dubbo:service interface="com.hmsh.admin.service.goods.GoodsSpecpropertyFacadeService" ref="goodsSpecpropertyService" />
+	
+	<dubbo:service interface="com.hmsh.code.system.build.facade.CodeGenerationFacadeService" ref="codeGenerationService" />
+	
+	<dubbo:service interface="com.hmsh.admin.service.goods.MallSupplierFacadeService" ref="mallSupplierService" /> -->
+   </beans>

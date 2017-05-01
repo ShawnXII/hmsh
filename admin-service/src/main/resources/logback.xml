@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%date{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+		</encoder>
+	</appender>
+	    <!-- 综合时间与大小的滚动策略，先按小时滚动，小时内的文件大于100mb时再按大小滚动 -->
+	<appender name="serviceLtErrorLogFile"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<filter class="ch.qos.logback.classic.filter.LevelFilter"><!-- 打印低于错误日志级别的日志 -->
+			<level>ERROR</level>
+			<onMatch>DENY</onMatch>
+			<onMismatch>ACCEPT</onMismatch>
+		</filter>
+		<file>${logback.path}/admin-service/admin-service.log.tmp</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${logback.path}/admin-service/admin-service-%d{yyyy-MM-dd_HH}.%i.log</fileNamePattern>
+			<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>100MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+		<encoder>
+			<pattern>%date{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg{}%n</pattern>
+		</encoder>
+	</appender>
+	<!-- 综合时间与大小的滚动策略，先按小时滚动，小时内的文件大于10mb时再按大小滚动 -->
+	<appender name="serviceErrorLogFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<filter class="ch.qos.logback.classic.filter.LevelFilter"><!-- 只打印错误日志 -->
+			<level>ERROR</level>
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>DENY</onMismatch>
+		</filter>
+		<file>${logback.path}/admin-service/admin-service-error.log.tmp</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${logback.path}/admin-service/admin-service-%d{yyyy-MM-dd_HH}.%i.error.log</fileNamePattern>
+			<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>10MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+		<encoder>
+			<pattern>%date{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %F:%line - %msg{}%n</pattern>
+		</encoder>
+	</appender>
+	<logger name="org.springframework" level="warn" additivity="false"/>
+	<logger name="org.apache.zookeeper" level="warn" additivity="false"/>
+	<logger name="com.mangofactory" level="warn" additivity="false"/>
+	<logger name="com.alibaba" level="warn" additivity="false"/>
+	<root level="${logback.level}">
+		<appender-ref ref="console" />
+		<appender-ref ref="serviceLtErrorLogFile" />
+		<appender-ref ref="serviceErrorLogFile" />
+	</root>
+	     
+</configuration>

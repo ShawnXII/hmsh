@@ -1,0 +1,576 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hmsh.app.dao.goods.GoodsDao">
+	<resultMap type="com.hmsh.app.vo.goods.Goods" id="GoodsResultMap">
+		<result column="dmId"  property="dmId" jdbcType="BIGINT"/>
+        <result column="name"  property="name" jdbcType="VARCHAR"/>
+        <result column="price"  property="price" jdbcType="DECIMAL"/>
+        <result column="marketPrice"  property="marketPrice" jdbcType="DECIMAL"/>
+        <result column="scmGoodsId"  property="scmGoodsId" jdbcType="VARCHAR"/>
+        <result column="remarks"  property="remarks" jdbcType="VARCHAR"/>
+        <result column="goodsClassId"  property="goodsClassId" jdbcType="BIGINT"/>
+        <result column="type"  property="type" jdbcType="INTEGER"/>
+        <result column="state"  property="state" jdbcType="INTEGER"/>
+        <result column="isCoupon"  property="isCoupon" jdbcType="INTEGER"/>
+        <result column="limited"  property="limited" jdbcType="INTEGER"/>
+        <result column="unit"  property="unit" jdbcType="VARCHAR"/>
+        <result column="unitId"  property="unitId" jdbcType="BIGINT"/>
+        <result column="goodsClassName"  property="goodsClassName" jdbcType="VARCHAR"/>
+        <result column="goodsType"  property="goodsType" jdbcType="INTEGER"/>
+        <result column="volume"  property="volume" jdbcType="VARCHAR"/>
+        <result column="weight"  property="weight" jdbcType="DECIMAL"/>
+        <result column="createBy"  property="createBy" jdbcType="VARCHAR"/>
+        <result column="createTime"  property="createTime" jdbcType="BIGINT"/>
+        <result column="updateBy"  property="updateBy" jdbcType="VARCHAR"/>
+        <result column="updateTime"  property="updateTime" jdbcType="BIGINT"/>
+        <result column="salesVolume"  property="salesVolume" jdbcType="INTEGER"/>
+        <result column="purchasePrice"  property="purchasePrice" jdbcType="DECIMAL"/>
+        <result column="shelfLifePeriod"  property="shelfLifePeriod" jdbcType="INTEGER"/>
+        <result column="mallSupplierId"  property="mallSupplierId" jdbcType="INTEGER"/>
+        <result column="isForeign" property="mallSupplierId" jdbcType="INTEGER"/>
+        <association property="mallSupplier"  resultMap="MallSupplierResultMap"></association>
+		<collection property="goodsSkuList" column="dmId" ofType="com.hmsh.app.vo.goods.GoodsSku" select="findSkuByGoodsId"/>
+	</resultMap>
+	
+	<resultMap id="MallSupplierResultMap" type="com.hmsh.app.vo.goods.MallSupplier">
+        <result column="mall_dmId"  property="dmId" jdbcType="BIGINT"/>
+        <result column="mall_name"  property="name" jdbcType="VARCHAR"/>
+        <result column="mall_phoneNum"  property="phoneNum" jdbcType="VARCHAR"/>
+        <result column="mall_address"  property="address" jdbcType="VARCHAR"/>
+    </resultMap>
+    
+	<resultMap type="com.hmsh.app.vo.goods.GoodsSku" id="GoodsSkuResultMap">
+		<result column="dmId"  property="dmId" jdbcType="BIGINT"/>
+        <result column="name"  property="name" jdbcType="VARCHAR"/>
+        <result column="price"  property="price" jdbcType="DECIMAL"/>
+        <result column="marketPrice"  property="marketPrice" jdbcType="DECIMAL"/>
+        <result column="scmGoodsId"  property="scmGoodsId" jdbcType="VARCHAR"/>
+        <result column="remarks"  property="remarks" jdbcType="VARCHAR"/>
+        <result column="state"  property="state" jdbcType="INTEGER"/>
+        <result column="isCoupon"  property="isCoupon" jdbcType="INTEGER"/>
+        <result column="createBy"  property="createBy" jdbcType="VARCHAR"/>
+        <result column="createTime"  property="createTime" jdbcType="BIGINT"/>
+        <result column="updateBy"  property="updateBy" jdbcType="VARCHAR"/>
+        <result column="updateTime"  property="updateTime" jdbcType="BIGINT"/>
+        <result column="goodsId"  property="goodsId" jdbcType="BIGINT"/>
+        <result column="volume"  property="volume" jdbcType="VARCHAR"/>
+        <result column="weight"  property="weight" jdbcType="DECIMAL"/>
+        <result column="rebateConsumers"  property="rebateConsumers" jdbcType="DECIMAL"/>
+        <result column="rebateSeller"  property="rebateSeller" jdbcType="DECIMAL"/>
+        <result column="rebateSupply"  property="rebateSupply" jdbcType="DECIMAL"/>
+        <result column="rebateProvince"  property="rebateProvince" jdbcType="DECIMAL"/>
+        <result column="rebateCity"  property="rebateCity" jdbcType="DECIMAL"/>
+        <result column="rebateArea"  property="rebateArea" jdbcType="DECIMAL"/>
+        <result column="purchasePrice"  property="purchasePrice" jdbcType="DECIMAL"/>
+        <result column="mainImage"  property="mainImage" jdbcType="VARCHAR"/>
+        <result column="details"  property="details" jdbcType="VARCHAR"/>
+        <result column="forVipMall"  property="forVipMall" jdbcType="INTEGER"/>
+        <result column="returnPointPercent"  property="returnPointPercent" jdbcType="DECIMAL"/>
+        <result column="deductPricePercent"  property="deductPricePercent" jdbcType="DECIMAL"/>
+        
+        <collection property="goodsDetailsList" ofType="com.hmsh.app.vo.goods.GoodsDetails">
+        	<result column="details_goodsId"  property="goodsId" jdbcType="BIGINT"/>
+        	<result column="details_context"  property="context" jdbcType="VARCHAR"/>
+        </collection>
+        <collection property="photoList" resultMap="com.hmsh.app.vo.goods.GoodsPhoto">
+        	<result column="photo_path"  property="path" jdbcType="VARCHAR"/>
+	        <result column="photo_type"  property="type" jdbcType="INTEGER"/>
+	        <result column="photo_sequence"  property="sequence" jdbcType="INTEGER"/>
+	        <result column="photo_goodsSkuId"  property="goodsSkuId" jdbcType="BIGINT"/>
+	        <result column="photo_goodsId"  property="goodsId" jdbcType="BIGINT"/>
+        </collection>
+        <collection property="specList" javaType="ArrayList" ofType="com.hmsh.app.vo.goods.GoodsSpecproperty" column="dmId" select="querySpec" />
+	</resultMap>
+	
+	<resultMap type="com.hmsh.app.vo.goods.GoodsSpecproperty" id="GoodsSpecpropertyResultMap">
+		<result column="dmId"  property="dmId" jdbcType="BIGINT"/>
+        <result column="value"  property="value" jdbcType="VARCHAR"/>
+        <result column="sequence"  property="sequence" jdbcType="INTEGER"/>
+        <result column="type"  property="type" jdbcType="VARCHAR"/>
+        <result column="goodsSpecificationId"  property="goodsSpecificationId" jdbcType="BIGINT"/>
+        <result column="createBy"  property="createBy" jdbcType="VARCHAR"/>
+        <result column="createTime"  property="createTime" jdbcType="BIGINT"/>
+        <result column="updateBy"  property="updateBy" jdbcType="VARCHAR"/>
+        <result column="updateTime"  property="updateTime" jdbcType="BIGINT"/>
+        <result column="image"  property="image" jdbcType="VARCHAR"/>
+		<association property="goodsSpecification"  resultMap="GoodsSpecificationResultMap" />
+	</resultMap>
+	
+	<resultMap type="com.hmsh.app.vo.goods.GoodsSpecification" id="GoodsSpecificationResultMap">
+		<result column="spec_dmId"  property="dmId" jdbcType="BIGINT"/>
+        <result column="spec_title"  property="title" jdbcType="VARCHAR"/>
+        <result column="spec_sequence"  property="sequence" jdbcType="INTEGER"/>
+        <result column="spec_createBy"  property="createBy" jdbcType="VARCHAR"/>
+        <result column="spec_createTime"  property="createTime" jdbcType="BIGINT"/>
+        <result column="spec_updateBy"  property="updateBy" jdbcType="VARCHAR"/>
+        <result column="spec_updateTime"  property="updateTime" jdbcType="BIGINT"/>
+	</resultMap>
+	
+	<sql id="goods_column_List" >
+		goods.isForeign,goods.dmId, goods.name, goods.price, goods.marketPrice, goods.scmGoodsId, goods.remarks, goods.goodsClassId, goods.type,
+		goods.state, goods.isCoupon, goods.limited, goods.unit, goods.unitId, goods.goodsClassName, goods.goodsType,goods.volume, goods.weight,
+		goods.createBy, goods.createTime, goods.updateBy, goods.updateTime, goods.salesVolume, goods.purchasePrice, goods.shelfLifePeriod,
+		goods.mallSupplierId,mall.dmId mall_dmId, mall.name mall_name, mall.phoneNum mall_phoneNum, mall.address mall_address
+	</sql>
+	
+	<sql id="goods_where">
+		<where>
+			<if test="dmId != null ">
+                and goods.dmId=#{dmId}
+            </if>
+            <if test="name != null ">
+                and goods.name=#{name}
+            </if>
+            <if test="price != null ">
+                and goods.price=#{price}
+            </if>
+            <if test="marketPrice != null ">
+                and goods.marketPrice=#{marketPrice}
+            </if>
+            <if test="scmGoodsId != null ">
+                and goods.scmGoodsId=#{scmGoodsId}
+            </if>
+            <if test="remarks != null ">
+                and goods.remarks=#{remarks}
+            </if>
+            <if test="goodsClassId != null ">
+                and goods.goodsClassId=#{goodsClassId}
+            </if>
+            <if test="type != null ">
+                and goods.type=#{type}
+            </if>
+            <if test="state != null ">
+                and goods.state=#{state}
+            </if>
+            <if test="isCoupon != null ">
+                and goods.isCoupon=#{isCoupon}
+            </if>
+            <if test="limited != null ">
+                and goods.limited=#{limited}
+            </if>
+            <if test="unit != null ">
+                and goods.unit=#{unit}
+            </if>
+            <if test="unitId != null ">
+                and goods.unitId=#{unitId}
+            </if>
+            <if test="goodsClassName != null ">
+                and goods.goodsClassName=#{goodsClassName}
+            </if>
+            <if test="goodsType != null ">
+                and goods.goodsType=#{goodsType}
+            </if>
+            <if test="volume != null ">
+                and goods.volume=#{volume}
+            </if>
+            <if test="weight != null ">
+                and goods.weight=#{weight}
+            </if>
+            <if test="createBy != null ">
+                and goods.createBy=#{createBy}
+            </if>
+            
+            <if test="updateBy != null ">
+                and goods.updateBy=#{updateBy}
+            </if>
+            
+            <if test="salesVolume != null ">
+                and goods.salesVolume=#{salesVolume}
+            </if>
+            <if test="purchasePrice != null ">
+                and goods.purchasePrice=#{purchasePrice}
+            </if>
+            <if test="shelfLifePeriod != null ">
+                and goods.shelfLifePeriod=#{shelfLifePeriod}
+            </if>
+            <if test="mallSupplierId != null ">
+                and goods.mallSupplierId=#{mallSupplierId}
+            </if>
+            <if test="isForeign != null ">
+                and goods.isForeign=#{isForeign}
+            </if>
+            
+            <if test="mallSupplier!=null &amp;&amp; mallSupplier.name != null ">
+                and mall.name=#{mallSupplier.name}
+            </if>
+            
+            <if test="mallSupplier!=null &amp;&amp; mallSupplier.phoneNum != null ">
+                and mall.phoneNum=#{mallSupplier.phoneNum}
+            </if>
+            
+		</where>
+	</sql>
+	<insert id="insert" parameterType="com.hmsh.app.vo.goods.Goods">
+		insert into novel_goods
+		(dmId, name, price, marketPrice, scmGoodsId, remarks, goodsClassId, type, state, isCoupon, limited, unit, unitId,
+		 goodsClassName, goodsType, volume, weight, createBy, createTime, salesVolume, purchasePrice,
+		 shelfLifePeriod,isForeign,mallSupplierId)
+		 values 
+		 (#{dmId}, #{name}, #{price}, #{marketPrice}, #{scmGoodsId}, #{remarks}, #{goodsClassId}, #{type}, #{state}, #{isCoupon},
+		  #{limited},#{unit}, #{unitId},#{goodsClassName}, #{goodsType}, #{volume}, #{weight}, #{createBy}, #{createTime},
+		  #{salesVolume}, #{purchasePrice},#{shelfLifePeriod},#{isForeign},#{mallSupplierId});
+		  
+		 <if test="goodsSkuList!=null &amp;&amp; goodsSkuList.size() > 0">
+		 	insert into novel_goods_sku
+		 	(dmId, name, price, marketPrice, scmGoodsId, remarks, state, isCoupon, createBy, createTime, goodsId, volume, weight,
+		 	 rebateConsumers, rebateSeller, rebateSupply, rebateProvince, rebateCity, rebateArea, purchasePrice, mainImage,
+		 	 details,forVipMall,returnPointPercent,deductPricePercent) 
+		 	 values
+		 	 <foreach collection="goodsSkuList" item="item" index="index" separator="," close=";">
+		 	 	(#{item.dmId}, #{item.name}, #{item.price}, #{item.marketPrice}, #{item.scmGoodsId}, #{item.remarks}, #{item.state},
+		 	 	 #{item.isCoupon}, #{createBy}, #{createTime}, #{item.goodsId}, #{item.volume}, #{item.weight},
+			 	 #{item.rebateConsumers}, #{item.rebateSeller}, #{item.rebateSupply}, #{item.rebateProvince}, #{item.rebateCity},
+			 	 #{item.rebateArea}, #{item.purchasePrice}, #{item.mainImage},
+				 #{item.details},#{item.forVipMall},#{item.returnPointPercent},#{item.deductPricePercent})
+		 	 </foreach>
+		 </if>
+		 
+		 <if test="photoList!=null &amp;&amp; photoList.size() > 0">
+		 	insert into novel_goods_photo 
+		 	(path, type, sequence, goodsSkuId, goodsId)
+		 	values
+		 	<foreach collection="photoList" item="item" index="index" separator="," close=";">
+		 		(#{item.path}, #{item.type}, #{item.sequence}, #{item.goodsSkuId}, #{item.goodsId})
+		 	</foreach>
+		 </if>
+		 
+		 <if test="goodsDetailsList!=null &amp;&amp; goodsDetailsList.size()>0">
+		 	insert into novel_goods_details
+		 	(goodsId,context)
+		 	values
+		 	<foreach collection="goodsDetailsList" item="item" index="index" separator="," close=";">
+		 		(#{item.goodsId}, #{item.context})
+		 	</foreach>
+		 </if>
+		 
+		  <if test="shopList!=null &amp;&amp; shopList.size() > 0">
+		  	insert into novel_shop_goods_sku
+		  	(dmId, userShopId, goodsSkuId, discount, salesNum, stockNum, remarks, createBy, createTime)
+		  	values
+		  	<foreach collection="mallSupplierList" item="item" index="index" separator="," close=";">
+		  		(#{item.dmId}, #{item.userShopId}, #{item.goodsSkuId}, #{item.discount}, #{item.salesNum}, #{item.stockNum}, 
+		  		#{item.remarks}, #{createBy}, #{createTime})
+		  	</foreach>
+		  </if> 		 
+	</insert>
+	<update id="updateNotNull" parameterType="com.hmsh.app.vo.goods.Goods">
+		update novel_goods
+		<set>
+			<if test="name!=null">
+				name=#{name},
+			</if>
+			<if test="price!=null">
+				price=#{price},
+			</if>
+			<if test="marketPrice!=null">
+				marketPrice=#{marketPrice},
+			</if>
+			<if test="scmGoodsId!=null">
+				scmGoodsId=#{scmGoodsId},
+			</if>
+			<if test="remarks!=null">
+				remarks=#{remarks},
+			</if>
+			<if test="goodsClassId!=null">
+				goodsClassId=#{goodsClassId},
+			</if>
+			<if test="type!=null">
+				type=#{type},
+			</if>
+			<if test="state!=null">
+				state=#{state},
+			</if>
+			<if test="isCoupon!=null">
+				isCoupon=#{isCoupon},
+			</if>
+			<if test="limited!=null">
+				limited=#{limited},
+			</if>
+			<if test="unit!=null">
+				unit=#{unit},
+			</if>
+			<if test="unitId!=null">
+				unitId=#{unitId},
+			</if>
+			<if test="goodsClassName!=null">
+				goodsClassName=#{goodsClassName},
+			</if>
+			<if test="goodsType!=null">
+				goodsType=#{goodsType},
+			</if>
+			<if test="volume!=null">
+				volume=#{volume},
+			</if>
+			<if test="weight!=null">
+				weight=#{weight},
+			</if>
+			<if test="updateBy!=null">
+				updateBy=#{updateBy},
+			</if>
+			<if test="updateTime!=null">
+				updateTime=#{updateTime},
+			</if>
+			<if test="salesVolume!=null">
+				salesVolume=#{salesVolume},
+			</if>
+			<if test="purchasePrice!=null">
+				purchasePrice=#{purchasePrice},
+			</if>
+			<if test="shelfLifePeriod!=null">
+				shelfLifePeriod=#{shelfLifePeriod},
+			</if>
+			<if test="mallSupplierId!=null">
+				 mallSupplierId=#{mallSupplierId},
+			</if>
+			<if test="isForeign!=null">
+				isForeign=#{isForeign}
+			</if>
+		</set>
+		where dmId=#{dmId};
+		<if test="goodsSkuList!=null &amp;&amp; goodsSkuList.size() > 0">
+			<foreach collection="mallSupplierList" item="item" index="index" separator=";" close=";">
+				update novel_goods_sku
+				<set>
+					<if test="item.name!=null">
+						name=#{item.name},
+					</if>
+					<if test="item.price!=null">
+						price=#{item.price},
+					</if>
+					<if test="item.marketPrice!=null">
+						marketPrice=#{item.marketPrice},
+					</if>
+					<if test="item.scmGoodsId!=null">
+						scmGoodsId=#{item.scmGoodsId},
+					</if>
+					<if test="item.remarks!=null">
+						remarks=#{item.remarks},
+					</if>
+					<if test="item.state!=null">
+						state=#{item.state},
+					</if>
+					<if test="item.isCoupon!=null">
+						isCoupon=#{item.isCoupon},
+					</if>
+					<if test="updateBy!=null">
+						updateBy=#{updateBy},
+					</if>
+					<if test="updateTime!=null">
+						updateTime=#{updateTime},
+					</if>
+					<if test="item.volume!=null">
+						volume=#{item.volume},
+					</if>
+					<if test="item.weight!=null">
+						weight=#{item.weight},
+					</if>
+					<if test="item.rebateConsumers!=null">
+						rebateConsumers=#{item.rebateConsumers},
+					</if>
+					<if test="item.rebateSeller!=null">
+						rebateSeller=#{item.rebateSeller},
+					</if>
+					<if test="item.rebateSupply!=null">
+						rebateSupply=#{item.rebateSupply},
+					</if>
+					<if test="item.rebateProvince!=null">
+						rebateProvince=#{item.rebateProvince},
+					</if>
+					<if test="item.rebateCity!=null">
+						rebateCity=#{item.rebateCity},
+					</if>
+					<if test="item.rebateArea!=null">
+						rebateArea=#{item.rebateArea},
+					</if>
+					<if test="item.purchasePrice!=null">
+						purchasePrice=#{item.purchasePrice},
+					</if>
+					<if test="item.mainImage!=null">
+						mainImage=#{item.mainImage},
+					</if>
+					<if test="item.details!=null">
+						details=#{item.details},
+					</if>
+					<if test="item.forVipMall!=null">
+		        		forVipMall=#{item.forVipMall},
+		        	</if>
+		        	<if test="item.returnPointPercent!=null">
+		        		returnPointPercent=#{item.returnPointPercent},
+		        	</if>
+		        	<if test="item.deductPricePercent!=null">
+		        		deductPricePercent=#{item.deductPricePercent},
+		        	</if>
+				</set>
+				where dmId=#{item.dmId}
+				<if test="photoList!=null &amp;&amp; photoList.size() > 0">
+					;delete from novel_goods_photo where goodsSkuId=#{item.dmId}
+				</if>
+				<if test="goodsDetailsList!=null &amp;&amp; goodsDetailsList.size()>0">
+					;delete from novel_goods_details where goodsId=#{item.dmId}
+				</if>
+			</foreach>
+		</if>
+		<!-- 修改相册 -->
+		<if test="photoList!=null &amp;&amp; photoList.size() > 0">	
+			insert into novel_goods_photo 
+		 	(path, type, sequence, goodsSkuId, goodsId)
+		 	values
+		 	<foreach collection="photoList" item="item" index="index" separator="," close=";">
+		 		(#{item.path}, #{item.type}, #{item.sequence}, #{item.goodsSkuId}, #{item.goodsId})
+		 	</foreach>
+		</if>
+		<if test="goodsDetailsList!=null &amp;&amp; goodsDetailsList.size()>0">
+		 	insert into novel_goods_details
+		 	(goodsId,context)
+		 	values
+		 	<foreach collection="goodsDetailsList" item="item" index="index" separator="," close=";">
+		 		(#{item.goodsId}, #{item.context})
+		 	</foreach>
+		 </if>
+		 <if test="shopList!=null &amp;&amp; shopList.size() > 0">
+		  	<foreach collection="shopList" item="item" index="index" separator=";" close=";">
+		  		update novel_shop_goods_sku 
+		  		<set>
+		  			<if test="item.discount!=null">
+		  				 discount=#{item.discount},
+		  			</if>
+		  			<if test="item.salesNum!=null">
+		  				 salesNum=#{item.salesNum},
+		  			</if>
+		  			<if test="item.stockNum!=null">
+		  				 stockNum=#{item.stockNum},
+		  			</if>
+		  			<if test="item.remarks!=null">
+		  				 remarks=#{item.remarks},
+		  			</if>
+		  			<if test="updateTime!=null">
+		  				 updateTime=#{updateTime},
+		  			</if>
+		  			<if test="updateBy!=null">
+		  				 updateBy=#{updateBy},
+		  			</if>
+		  		</set>
+		  		where dmId=#{item.dmId}
+		  	</foreach>
+		  </if> 	
+	</update>
+	
+	<update id="update" parameterType="com.hmsh.app.vo.goods.Goods">
+		update novel_goods set 
+		name=#{name}, price=#{price} , marketPrice=#{marketPrice}, scmGoodsId=#{scmGoodsId},remarks=#{remarks},
+		goodsClassId=#{goodsClassId}, type=#{type}, state=#{state}, isCoupon=#{isCoupon}, limited=#{limited}, 
+		unit=#{unit}, unitId=#{unitId},goodsClassName=#{goodsClassName}, goodsType=#{goodsType}, volume=#{volume},
+		weight=#{weight}, salesVolume=#{salesVolume},purchasePrice=#{purchasePrice},updateBy=#{updateBy},updateTime=#{updateTime},
+		shelfLifePeriod=#{shelfLifePeriod},isForeign=#{isForeign},mallSupplierId=#{mallSupplierId}
+		where dmId=#{dmId};
+		<if test="goodsSkuList!=null &amp;&amp; goodsSkuList.size() > 0">
+			<foreach collection="goodsSkuList" item="item" index="index" separator=";" close=";">
+				update novel_goods_sku set 
+				name=#{item.name}, price=#{item.price}, marketPrice=#{item.marketPrice},scmGoodsId=#{item.scmGoodsId}, 
+				remarks=#{item.remarks}, state=#{item.state},
+				isCoupon=#{item.isCoupon}, updateBy=#{updateBy}, updateTime=#{updateTime},
+				volume=#{item.volume}, 
+				weight=#{item.weight},rebateConsumers=#{item.rebateConsumers}, rebateSeller=#{item.rebateSeller}, 
+				rebateSupply=#{item.rebateSupply},
+				rebateProvince=#{item.rebateProvince},rebateCity=#{item.rebateCity}, rebateArea=#{item.rebateArea},
+				purchasePrice=#{item.purchasePrice},
+				mainImage=#{item.mainImage},details=#{item.details},forVipMall=#{item.forVipMall},
+				returnPointPercent=#{item.returnPointPercent},
+				deductPricePercent=#{item.deductPricePercent}
+				where dmId=#{item.dmId}
+				<if test="photoList!=null &amp;&amp; photoList.size() > 0">
+					;delete from novel_goods_photo where goodsSkuId=#{item.dmId}
+				</if>
+				<if test="goodsDetailsList!=null &amp;&amp; goodsDetailsList.size()>0">
+					;delete from novel_goods_details where goodsId=#{item.dmId}
+				</if>
+			</foreach>
+		</if>
+		<!-- 修改相册 -->
+		<if test="photoList!=null &amp;&amp; photoList.size() > 0">	
+			insert into novel_goods_photo 
+		 	(path, type, sequence, goodsSkuId, goodsId)
+		 	values
+		 	<foreach collection="photoList" item="item" index="index" separator="," close=";">
+		 		(#{item.path}, #{item.type}, #{item.sequence}, #{item.goodsSkuId}, #{item.goodsId})
+		 	</foreach>
+		</if>
+		<if test="goodsDetailsList!=null &amp;&amp; goodsDetailsList.size()>0">
+		 	insert into novel_goods_details
+		 	(goodsId,context)
+		 	values
+		 	<foreach collection="goodsDetailsList" item="item" index="index" separator="," close=";">
+		 		(#{item.goodsId}, #{item.context})
+		 	</foreach>
+		 </if>
+		 <if test="shopList!=null &amp;&amp; shopList.size() > 0">
+		  	<foreach collection="shopList" item="item" index="index" separator=";" close=";">
+		  		update novel_shop_goods_sku set
+		  		 discount=#{item.discount}, salesNum=#{item.salesNum}, stockNum=#{item.stockNum}, remarks=#{item.remarks},
+		  		 updateBy=#{updateBy}, updateTime=#{updateTime}
+		  		 where dmId=#{item.dmId}
+		  	</foreach>
+		  </if> 	
+	</update>
+	
+	<delete id="remove" parameterType="com.hmsh.app.vo.goods.Goods">
+		<if test="state!=0">
+			delete from novel_goods where dmId=#{dmId} ;
+			<if test="goodsSkuList!=null &amp;&amp; goodsSkuList.size() > 0">
+				<foreach collection="goodsSkuList" item="item" index="index" separator=";" close=";">
+					<if test="item.dmId!=null">
+						delete from novel_goods_sku where dmId=#{item.dmId} ;
+						delete from novel_goods_photo where goodsSkuId=#{item.dmId};
+						delete from novel_goods_details where goodsId=#{item.dmId};
+						delete from novel_shop_goods_sku where goodsSkuId=#{item.dmId}
+					</if>
+				</foreach>
+			</if>
+		</if>
+	</delete>
+	
+	<select id="findAll" resultMap="GoodsResultMap" parameterType="com.hmsh.app.vo.goods.Goods">
+		 select <include refid="goods_column_List" /> from novel_goods goods left join mall_supplier mall on(goods.mallSupplierId=mall.dmId)
+		 <include refid="goods_where"/>
+	</select>
+	
+	<select id="count"  resultType="java.lang.Long" parameterType="com.hmsh.app.vo.goods.Goods">
+		select count(goods.dmId) from novel_goods goods left join mall_supplier mall on(goods.mallSupplierId=mall.dmId)
+		<include refid="goods_where"/>
+	</select>
+	
+	<sql id="goods_sku_column_List">
+		sku.dmId, sku.name, sku.price, sku.marketPrice, sku.scmGoodsId, sku.remarks, sku.state, sku.isCoupon, sku.createBy, sku.createTime, sku.updateBy, 
+    	sku.updateTime, sku.goodsId, sku.volume, sku.weight, sku.rebateConsumers, sku.rebateSeller, sku.rebateSupply, sku.rebateProvince, sku.rebateCity,
+    	sku.rebateArea, sku.purchasePrice, sku.mainImage, sku.details,sku.forVipMall,sku.returnPointPercent,sku.deductPricePercent,
+    	photo.path photo_path, photo.type photo_type, photo.sequence photo_sequence, photo.goodsSkuId photo_goodsSkuId, photo.goodsId photo_goodsId,
+    	details.goodsId details_goodsId, details.context details_context	
+	</sql>
+	
+	<select id="findSkuByGoodsId" resultMap="GoodsSkuResultMap" parameterType="java.lang.Long">
+		select <include refid="goods_sku_column_List" /> from 
+		novel_goods_sku sku 
+		left join novel_goods_details details on(sku.dmId=details.goodsId)
+		left join novel_goods_photo  photo on(sku.dmId=photo.goodsSkuId) 
+		left join novel_shop_goods_sku shop on(sku.dmId=shop.goodsSkuId)
+		where 
+		sku.goodsId=#{id}
+	</select>
+	
+	<sql id="goods_specproperty_column_List">
+		property.dmId, property.value, property.sequence, property.type, property.goodsSpecificationId, property.createBy, property.createTime, 
+		property.updateBy, property.updateTime, property.image,
+		spec.dmId spec_dmId, spec.title spec_title, spec.sequence spec_sequence, spec.createBy spec_createBy, spec.createTime spec_createTime, spec.updateBy spec_updateBy,
+		spec.updateTime spec_updateTime
+	</sql>
+	
+	<select id="querySpec" resultMap="GoodsSpecpropertyResultMap" parameterType="java.lang.Long">
+		select <include refid="goods_specproperty_column_List" /> from 
+		novel_relevancy_goods_spec gs 
+		left join novel_goods_specproperty property on(gs.specPropertyId=property.dmId) 
+		left join novel_goods_specification specification on(spec.goodsSpecificationId=specification.dmId)
+		where gs.goodsId=#{id}
+	</select>
+	
+	
+</mapper>

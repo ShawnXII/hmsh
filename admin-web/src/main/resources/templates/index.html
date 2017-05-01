@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"  xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"  xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en"  xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <!--/*/ <th:block th:include="fragments/headerinc :: head"></th:block> /*/-->
+    <link th:href="@{/assets/global/plugins/animsition/css/animsition.min.css}" rel="stylesheet" type="text/css" />
+    <title>主页</title>
+</head>
+<!-- 固定菜单和底部 -->
+<body  class="page-sidebar-closed-hide-logo page-content-white page-header-fixed  page-footer-fixed page-sidebar-fixed no-title">
+	<!--/*/ <th:block th:include="fragments/headerinc :: top"></th:block> /*/-->
+	<div class="clearfix"></div>
+	<div class="page-container">
+		<!--/*/ <th:block th:include="fragments/headerinc :: menu"></th:block> /*/-->
+		<div class="page-content-wrapper">
+		<div class="page-content">
+		 <div class="page-bar">
+             <ul class="page-breadcrumb">
+                 <li>
+                     <a href="index.html">Home</a>
+                     <i class="fa fa-circle"></i>
+                 </li>
+                 <li>
+                     <span>Dashboard</span>
+                 </li>
+             </ul>
+             <div class="page-toolbar">
+                 <div id="dashboard-report-range" class="pull-right tooltips btn btn-sm" data-container="body" data-placement="bottom" data-original-title="选择统计的时间">
+                     <i class="icon-calendar"></i>&nbsp;
+                     <span class="thin uppercase hidden-xs"></span>&nbsp;
+                     <i class="fa fa-angle-down"></i>
+                 </div>
+             </div>
+         </div>
+         <h3>主页</h3>
+	 	 <div class="row">
+	 	 	<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                  <a class="dashboard-stat dashboard-stat-v2 blue" href="#">
+                      <div class="visual">
+                          <i class="fa fa-comments"></i>
+                      </div>
+                      <div class="details">
+                          <div class="number">
+                              <span data-counter="counterup" data-value="1349">1349</span>
+                          </div>
+                          <div class="desc"> 新用户 </div>
+                      </div>
+                  </a>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                   <a class="dashboard-stat dashboard-stat-v2 red" href="#">
+                       <div class="visual">
+                           <i class="fa fa-bar-chart-o"></i>
+                       </div>
+                       <div class="details">
+                           <div class="number">
+                               <span data-counter="counterup" data-value="12,5">0</span>M$ </div>
+                           <div class="desc"> 新商户 </div>
+                       </div>
+                   </a>
+               </div>
+               <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                 <a class="dashboard-stat dashboard-stat-v2 purple" href="#">
+                     <div class="visual">
+                         <i class="fa fa-globe"></i>
+                     </div>
+                     <div class="details">
+                         <div class="number"> +
+                             <span data-counter="counterup" data-value="89"></span>% </div>
+                         <div class="desc"> 新供应商 </div>
+                     </div>
+                 </a>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                  <a class="dashboard-stat dashboard-stat-v2 green" href="#">
+                      <div class="visual">
+                          <i class="fa fa-shopping-cart"></i>
+                      </div>
+                      <div class="details">
+                          <div class="number">
+                              <span data-counter="counterup" data-value="549">0</span>
+                          </div>
+                          <div class="desc"> 新订单 </div>
+                      </div>
+                  </a>
+              </div>
+             <div class="clearfix"></div>
+              
+	 	 </div>
+		</div>	
+		</div>
+	</div>
+	<!--/*/ <th:block th:include="fragments/headerinc :: footer"></th:block> /*/-->
+    <!--/*/ <th:block th:include="fragments/headerinc :: script"></th:block> /*/-->
+    <script type="text/javascript" th:src="@{/assets/global/plugins/counterup/jquery.waypoints.min.js}"></script>
+    <script type="text/javascript" th:src="@{/assets/global/plugins/counterup/jquery.counterup.min.js}"></script>
+</body>
+</html>

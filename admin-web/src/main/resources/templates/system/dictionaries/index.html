@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"  xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"  xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+<!--/*/ <th:block th:include="fragments/headerinc :: head"></th:block> /*/-->
+<title>系统字典</title>
+</head>
+<!-- 固定菜单和底部 -->
+<body
+	class="page-sidebar-closed-hide-logo page-content-white page-header-fixed  page-footer-fixed page-sidebar-fixed">
+	<!--/*/ <th:block th:include="fragments/headerinc :: top"></th:block> /*/-->
+	<div class="clearfix"></div>
+	<div class="page-container">
+		<!--/*/ <th:block th:include="fragments/headerinc :: menu"></th:block> /*/-->
+		<div class="page-content-wrapper">
+			<div class="page-content">
+				<!--/*/ <th:block th:include="fragments/headerinc :: bar"></th:block> /*/-->
+				<div class="row">
+					<div class="portlet light bordered">
+						<div class="portlet-body">
+							<div id="dictionaries-buttons">
+								<form class="form-inline " autocomplete="off" novalidate="novalidate">
+									<div class="form-group">
+                                       <label class="sr-only" for="searchName">关键字 :</label>
+                                       <input type="text" class="form-control" id="searchName" name="searchName" placeholder="标签/描述/键值" /> 
+                                     </div>
+                                     
+									 <div class="form-group">
+                                       <label class="sr-only" for="searchName">类型  :</label>
+                                       <select class="form-control select2 select2-allow-clear select2-multiple  input-medium"  data-width="230px" name="type" id="type" >
+											<option value=" ">全部</option>
+											<option th:each="dictionaries : ${type}" th:text="${dictionaries}"></option>
+										</select>
+                                     </div>
+									
+									<button type="button" class="btn btn-default" data-type="search">
+										<i class="fa fa-search"></i> <span data-zh="搜索">搜索</span>
+									</button>
+									<button type="button" class="btn btn-default" data-type="add">
+										<i class="fa fa-plus"></i> <span data-zh="转换">新增</span>
+									</button>
+								</form>
+							</div>
+							<table
+								class="table table-striped table-bordered table-hover dt-responsive"
+								id="table" data-unique-id="dmId" data-side-pagination="server"
+								data-pagination="true" data-toolbar="#dictionaries-buttons"
+								data-height="680"
+								th:attr="data-url=@{/dictionaries/query}">
+								<thead>
+									<tr>
+										<th data-field="label" data-formatter="">标签</th>
+										<th data-field="value" data-formatter="">键值</th>
+										<th data-field="type" data-formatter="">类型</th>
+										<th data-field="sequence" data-formatter=""
+											data-sortable="true">排序号</th>
+										<th data-field="info" data-formatter="">描述</th>
+										<th data-field="dmId" data-formatter="" data-width="270">操作</th>
+									</tr>
+								</thead>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!--/*/ <th:block th:include="fragments/headerinc :: footer"></th:block> /*/-->
+	<!--/*/ <th:block th:include="fragments/headerinc :: script"></th:block> /*/-->
+	<script type="text/javascript" th:inline="javascript">
+		$(function() {
+			/* var spec=[
+				{id:'info',type:'textarea'},
+			          ];
+			var params={
+					spec:spec,
+					table:$('#table'),
+					ignore:['sequence|+','info','type']
+			}
+			Conversion.init(params); */
+		})
+	</script>
+</body>
+</html>

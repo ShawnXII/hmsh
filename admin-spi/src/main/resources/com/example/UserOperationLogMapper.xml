@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hmsh.app.dao.user.UserOperationLogMapper">
+  <resultMap id="BaseResultMap" type="com.hmsh.app.vo.user.UserOperationLog">
+    <id column="dmId" jdbcType="BIGINT" property="dmid" />
+    <result column="operUserId" jdbcType="BIGINT" property="operuserid" />
+    <result column="operUserName" jdbcType="VARCHAR" property="operusername" />
+    <result column="operContent" jdbcType="VARCHAR" property="opercontent" />
+    <result column="operResult" jdbcType="VARCHAR" property="operresult" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+    <result column="userId" jdbcType="BIGINT" property="userid" />
+    <result column="userType" jdbcType="INTEGER" property="usertype" />
+    <result column="crtime" jdbcType="BIGINT" property="crtime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    dmId, operUserId, operUserName, operContent, operResult, remarks, userId, userType, 
+    crtime
+  </sql>
+  <select id="selectByExample" parameterType="com.hmsh.app.vo.user.UserOperationLogExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from user_operation_log
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from user_operation_log
+    where dmId = #{dmid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from user_operation_log
+    where dmId = #{dmid,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.hmsh.app.vo.user.UserOperationLogExample">
+    delete from user_operation_log
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.hmsh.app.vo.user.UserOperationLog">
+    insert into user_operation_log (dmId, operUserId, operUserName, 
+      operContent, operResult, remarks, 
+      userId, userType, crtime
+      )
+    values (#{dmid,jdbcType=BIGINT}, #{operuserid,jdbcType=BIGINT}, #{operusername,jdbcType=VARCHAR}, 
+      #{opercontent,jdbcType=VARCHAR}, #{operresult,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR}, 
+      #{userid,jdbcType=BIGINT}, #{usertype,jdbcType=INTEGER}, #{crtime,jdbcType=BIGINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.hmsh.app.vo.user.UserOperationLog">
+    insert into user_operation_log
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="dmid != null">
+        dmId,
+      </if>
+      <if test="operuserid != null">
+        operUserId,
+      </if>
+      <if test="operusername != null">
+        operUserName,
+      </if>
+      <if test="opercontent != null">
+        operContent,
+      </if>
+      <if test="operresult != null">
+        operResult,
+      </if>
+      <if test="remarks != null">
+        remarks,
+      </if>
+      <if test="userid != null">
+        userId,
+      </if>
+      <if test="usertype != null">
+        userType,
+      </if>
+      <if test="crtime != null">
+        crtime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="dmid != null">
+        #{dmid,jdbcType=BIGINT},
+      </if>
+      <if test="operuserid != null">
+        #{operuserid,jdbcType=BIGINT},
+      </if>
+      <if test="operusername != null">
+        #{operusername,jdbcType=VARCHAR},
+      </if>
+      <if test="opercontent != null">
+        #{opercontent,jdbcType=VARCHAR},
+      </if>
+      <if test="operresult != null">
+        #{operresult,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null">
+        #{userid,jdbcType=BIGINT},
+      </if>
+      <if test="usertype != null">
+        #{usertype,jdbcType=INTEGER},
+      </if>
+      <if test="crtime != null">
+        #{crtime,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hmsh.app.vo.user.UserOperationLogExample" resultType="java.lang.Long">
+    select count(*) from user_operation_log
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update user_operation_log
+    <set>
+      <if test="record.dmid != null">
+        dmId = #{record.dmid,jdbcType=BIGINT},
+      </if>
+      <if test="record.operuserid != null">
+        operUserId = #{record.operuserid,jdbcType=BIGINT},
+      </if>
+      <if test="record.operusername != null">
+        operUserName = #{record.operusername,jdbcType=VARCHAR},
+      </if>
+      <if test="record.opercontent != null">
+        operContent = #{record.opercontent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operresult != null">
+        operResult = #{record.operresult,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remarks != null">
+        remarks = #{record.remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userid != null">
+        userId = #{record.userid,jdbcType=BIGINT},
+      </if>
+      <if test="record.usertype != null">
+        userType = #{record.usertype,jdbcType=INTEGER},
+      </if>
+      <if test="record.crtime != null">
+        crtime = #{record.crtime,jdbcType=BIGINT},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update user_operation_log
+    set dmId = #{record.dmid,jdbcType=BIGINT},
+      operUserId = #{record.operuserid,jdbcType=BIGINT},
+      operUserName = #{record.operusername,jdbcType=VARCHAR},
+      operContent = #{record.opercontent,jdbcType=VARCHAR},
+      operResult = #{record.operresult,jdbcType=VARCHAR},
+      remarks = #{record.remarks,jdbcType=VARCHAR},
+      userId = #{record.userid,jdbcType=BIGINT},
+      userType = #{record.usertype,jdbcType=INTEGER},
+      crtime = #{record.crtime,jdbcType=BIGINT}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hmsh.app.vo.user.UserOperationLog">
+    update user_operation_log
+    <set>
+      <if test="operuserid != null">
+        operUserId = #{operuserid,jdbcType=BIGINT},
+      </if>
+      <if test="operusername != null">
+        operUserName = #{operusername,jdbcType=VARCHAR},
+      </if>
+      <if test="opercontent != null">
+        operContent = #{opercontent,jdbcType=VARCHAR},
+      </if>
+      <if test="operresult != null">
+        operResult = #{operresult,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null">
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null">
+        userId = #{userid,jdbcType=BIGINT},
+      </if>
+      <if test="usertype != null">
+        userType = #{usertype,jdbcType=INTEGER},
+      </if>
+      <if test="crtime != null">
+        crtime = #{crtime,jdbcType=BIGINT},
+      </if>
+    </set>
+    where dmId = #{dmid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hmsh.app.vo.user.UserOperationLog">
+    update user_operation_log
+    set operUserId = #{operuserid,jdbcType=BIGINT},
+      operUserName = #{operusername,jdbcType=VARCHAR},
+      operContent = #{opercontent,jdbcType=VARCHAR},
+      operResult = #{operresult,jdbcType=VARCHAR},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      userId = #{userid,jdbcType=BIGINT},
+      userType = #{usertype,jdbcType=INTEGER},
+      crtime = #{crtime,jdbcType=BIGINT}
+    where dmId = #{dmid,jdbcType=BIGINT}
+  </update>
+</mapper>

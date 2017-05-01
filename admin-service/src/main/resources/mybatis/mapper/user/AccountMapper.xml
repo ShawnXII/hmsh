@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hmsh.admin.dao.user.AccountDao">
+	<resultMap id="BaseResultMap" type="com.hmsh.admin.vo.user.Account">
+		<id column="id" jdbcType="BIGINT" property="id" />
+		<result column="username" jdbcType="VARCHAR" property="username" />
+		<result column="password" jdbcType="VARCHAR" property="password" />
+		<result column="salt" jdbcType="VARCHAR" property="salt" />
+		<result column="email" jdbcType="VARCHAR" property="email" />
+		<result column="mobile" jdbcType="VARCHAR" property="mobile" />
+		<result column="state" jdbcType="TINYINT" property="state" />
+		<result column="type" jdbcType="TINYINT" property="type" />
+		<result column="create_time" jdbcType="BIGINT" property="createTime" />
+		<result column="ip" jdbcType="VARCHAR" property="ip" />
+		<result column="is_modify_password" jdbcType="TINYINT"
+			property="isModifyPassword" />
+		<result column="last_login_time" jdbcType="BIGINT" property="lastLoginTime" />
+		<association property="userInfo" javaType="com.hmsh.admin.vo.user.UserInfo">
+			<id column="info_id" jdbcType="BIGINT" property="id" />
+			<result column="info_surname" jdbcType="VARCHAR" property="surname" />
+			<result column="info_name" jdbcType="VARCHAR" property="name" />
+			<result column="info_en_name" jdbcType="VARCHAR" property="enName" />
+			<result column="info_nickname" jdbcType="VARCHAR" property="nickname" />
+			<result column="info_card_no" jdbcType="VARCHAR" property="cardNo" />
+			<result column="info_email" jdbcType="VARCHAR" property="email" />
+			<result column="info_mobile" jdbcType="VARCHAR" property="mobile" />
+			<result column="info_phone" jdbcType="VARCHAR" property="phone" />
+			<result column="info_autograph" jdbcType="VARCHAR" property="autograph" />
+			<result column="info_remarks" jdbcType="VARCHAR" property="remarks" />
+			<result column="info_birthday" jdbcType="VARCHAR" property="birthday" />
+			<result column="info_address" jdbcType="VARCHAR" property="address" />
+			<result column="info_sex" jdbcType="TINYINT" property="sex" />
+			<result column="info_account_id" jdbcType="BIGINT" property="accountId" />
+			<result column="info_job_id" jdbcType="BIGINT" property="jobId" />
+			<association property="job" javaType="com.hmsh.admin.vo.system.Job">
+				<id column="job_id" jdbcType="BIGINT" property="id" />
+				<result column="job_name" jdbcType="VARCHAR" property="name" />
+				<result column="job_abbreviation" jdbcType="VARCHAR"
+					property="abbreviation" />
+				<result column="job_code" jdbcType="VARCHAR" property="code" />
+				<result column="job_dept_power" jdbcType="TINYINT" property="deptPower" />
+				<result column="job_state" jdbcType="TINYINT" property="state" />
+				<result column="job_create_time" jdbcType="BIGINT" property="createTime" />
+				<result column="job_founding_time" jdbcType="BIGINT"
+					property="foundingTime" />
+				<result column="job_dept_id" jdbcType="BIGINT" property="deptId" />
+				<association property="dept" javaType="com.hmsh.admin.vo.system.Dept">
+					<id column="dept_id" jdbcType="BIGINT" property="id" />
+					<result column="dept_name" jdbcType="VARCHAR" property="name" />
+					<result column="dept_abbreviation" jdbcType="VARCHAR"
+						property="abbreviation" />
+					<result column="dept_code" jdbcType="VARCHAR" property="code" />
+					<result column="dept_state" jdbcType="INTEGER" property="state" />
+					<result column="dept_create_time" jdbcType="BIGINT"
+						property="createTime" />
+					<result column="dept_founding_time" jdbcType="BIGINT"
+						property="foundingTime" />
+					<collection property="resources" column="dept_id"
+						javaType="ArrayList" select="selectDeptResources" />
+				</association>
+				<collection property="resources" column="info_id"
+					javaType="ArrayList" select="selectJobResources" />
+			</association>
+		</association>
+	</resultMap>
+	<!-- 查询字段 -->
+	<sql id="column_list">
+		u.id, u.username, u.password, u.email, u.mobile, u.state,
+		u.type, u.create_time, u.ip, u.is_modify_password,
+		u.last_login_time,
+		info.id info_id, info.surname info_surname, info.name info_name,
+		info.en_name
+		info_en_name, info.nickname info_nickname,
+		info.card_no
+		info_card_no,info.email info_email, info.mobile info_mobile,
+		info.phone info_phone,
+		info.autograph info_autograph, info.remarks
+		info_remarks, info.birthday
+		info_birthday, info.address info_address,
+		info.sex info_sex,info.account_id info_account_id, info.job_id
+		info_job_id,
+		job.id job_id, job.name job_name, job.abbreviation
+		job_abbreviation,
+		job.code job_code, job.dept_power job_dept_power,
+		job.state job_state, job.create_time job_create_time,
+		job.founding_time
+		job_founding_time, job.dept_id job_dept_id,
+		dept.id
+		dept_id,dept.name dept_name, dept.abbreviation dept_abbreviation,
+		dept.code dept_code, dept.state dept_state,
+		dept.create_time
+		dept_create_time, dept.founding_time dept_founding_time
+	</sql>
+	<!-- 查询条件 -->
+	<sql id="where_clause">
+
+	</sql>
+
+	<select id="query" resultMap="BaseResultMap" parameterType="com.hmsh.admin.vo.user.Account">
+		select
+		<include refid="column_list" />
+		from
+		user_account u left join user_info info on(u.id=info.account_id)
+		left join system_job job on(info.job_id = job.id)
+		left join system_dept
+		dept on(job.dept_id = dept.id)
+		<include refid="where_clause" />
+	</select>
+
+	<!-- 查询部门权限 -->
+	<select id="selectDeptResources">
+		
+	</select>
+
+	<!-- 查询工作权限 -->
+	<select id="selectJobResources">
+		
+	</select>
+
+</mapper>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hmsh.admin.dao.system.MenuConfigDao">
+  <resultMap id="BaseResultMap" type="com.hmsh.admin.vo.system.MenuConfig">
+    <result column="menu_id" jdbcType="BIGINT" property="menuId" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="label" jdbcType="VARCHAR" property="label" />
+    <result column="value" jdbcType="VARCHAR" property="value" />
+    <result column="id" jdbcType="BIGINT" property="id" />
+  </resultMap>
+ 
+</mapper>

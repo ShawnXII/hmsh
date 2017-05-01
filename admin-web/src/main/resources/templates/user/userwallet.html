@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>钱包管理</title> 	  
+	</head>
+	<body>
+		<div class="row">
+			<div class="portlet light" >
+				<div class="portlet-title">
+					<div class="caption font-red-sunglo">
+						<i class="icon-user"></i> 
+						<span class="caption-subject font-green bold uppercase">钱包管理</span>
+					</div>
+				</div>
+				<div class="portlet-body">
+					<div class="row table-search"> 
+						<form action="" role="form" class="form-inline" id="search_form" autocomplete="off" data-role="search">
+		                     <button type="button" class="btn btn-sm green" id="search" >搜索<i class="fa fa-search"></i></button>  
+						</form>
+					</div>
+					<table class="table table-striped table-bordered table-hover dt-responsive overflow" width="100%" id="userwallet_table" th:action="@{/finance/userwallet/query}" data-role="table">
+					</table>
+				</div>
+			</div>
+		</div>
+		
+	   <script type="text/javascript">
+		  
+		   //页面 colums
+		   function columsPerson(){
+			   return [
+					    {title:'用户图像',bSortable:false,data:'headimg',render:function(row,type,set){
+					    	return isEmpty(row)?'<img src="" style="width:50px;height:50px"></img>':'<img src="' + row + '" width="50px" height="50px"/>';
+					    }},
+						{title:'用户',bSortable:true,data:'nickname',render:function(row,type,set){
+							 return isEmpty(row)?'':row; 
+						}},
+						{title:'手机',bSortable:true,data:'mphonenum',render:function(row,type,set){
+							 return isEmpty(row)?'':row; 
+						}},
+						{title:'分润总额',bSortable:true,data:'runSubTotalAmount',render:function(row,type,set){
+							 return isEmpty(row)?'':row; 
+						}},
+						{title:'退款总额',bSortable:true,data:'reimburseTotalAmount',render:function(row,type,set){
+							 return isEmpty(row)?'':row; 
+						}},
+						{title:'对账中总额',bSortable:true,data:'reconciliationTotalAmount',render:function(row,type,set){
+							 return isEmpty(row)?'':row; 
+						}},
+						{title:'返现总额',bSortable:true,data:'cashBackTotalAmount',render:function(row,type,set){
+							 return isEmpty(row)?'':row; 
+						}},
+						{title:'积分总额',bSortable:true,data:'goldTotalAmount',render:function(row,type,set){
+							 return isEmpty(row)?'':row; 
+						}},
+						{title:'操作',bSortable:false,data:'dmId',width:220,render:function(row,type,set){
+							return '<a class="editcls" href="#" onclick="queryWalletWater('+row+')" >钱包流水  </a>'+
+							'<a class="editcls" href="#" onclick="queryhistoryWalletWater('+row+')" >历史账户流水 </a>'+
+							'<a href="#" class="editcls" onclick="queryGoldWalletWater('+row+')" >积分流水  </a>&nbsp;'+
+	                        '<a class="editcls" href="javascript:void(0)" onclick="editData('+row+')">编辑   </a>&nbsp;'+
+	    					'<a class="editcls" href="javascript:void(0)" onclick="getBankCard('+row+')">银行卡管理  </a>'+
+	    					'<a class="editcls" onclick="searchLog('+ row +')" href="javascript:void(0)">被操作记录</a>';
+						}}
+		               ];
+		  	 }
+		     /*function columsBusiness(){
+			   return [
+					    {title:'用户图像',bSortable:false,data:'headimg',render:function(row,type,set){
+					    	var showStr ="";
+					    	if(!isEmpty(row)){
+								showStr = '<img src='+row+' style="width:50px;height:50px"></img>';
+							}else{
+								showStr = '<img src="" style="width:50px;height:50px"></img>';
+							}
+					    	return  showStr;
+					    }},
+						{title:'用户',bSortable:true,data:'nickname',render:function(row,type,set){
+							 return isEmpty(row)?'':row; 
+						}},
+						{title:'手机',bSortable:true,data:'mphonenum',render:function(row,type,set){
+							 return isEmpty(row)?'':row; 
+						}},
+						{title:'分润总额',bSortable:true,data:'runSubTotalAmount',render:function(row,type,set){
+							 return isEmpty(row)?'':row; 
+						}},
+						{title:'货款总额',bSortable:true,data:'goodsTotalAmount',render:function(row,type,set){
+							 return isEmpty(row)?'':row; 
+						}},
+						{title:'对账中总额',bSortable:true,data:'reconciliationTotalAmount',render:function(row,type,set){
+							 return isEmpty(row)?'':row; 
+						}},
+						{title:'返现总额',bSortable:true,data:'cashBackTotalAmount',render:function(row,type,set){
+							 return isEmpty(row)?'':row; 
+						}},
+						{title:'商家消费保障金余额',bSortable:true,data:'cashdepositTotalAmount',render:function(row,type,set){
+							 return isEmpty(row)?'':row; 
+						}},
+						{title:'积分总额',bSortable:true,data:'goldTotalAmount',render:function(row,type,set){
+							 return isEmpty(row)?'':row; 
+						}},
+						{title:'操作',bSortable:false,data:'dmId',width:100,render:function(row,type,set){
+							return '<a class="editcls" href="#" onclick="queryWalletWater('+row+')" >钱包流水</a>'+
+							'<a class="editcls" href="#" onclick="queryhistoryWalletWater('+row+')" >历史账户流水</a>'+
+							'<a href="#" class="editcls" onclick="queryGoldWalletWater('+row+')" >积分流水</a>'+
+	                        '<a class="editcls" href="javascript:void(0)" onclick="editData('+row+')">编辑</a>'+
+	    					'<a class="editcls" href="javascript:void(0)" onclick="getBankCard('+row+')">银行卡管理</a>'+
+	    					'<a class="editcls" onclick="searchLog(\''+ row +'\',5)" href="javascript:void(0)">被操作记录</a>';
+						}}
+		               ];
+		  	  }*/
+	   </script>
+	</body>
+</html>

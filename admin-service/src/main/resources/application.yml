@@ -1,0 +1,77 @@
+customer:   
+    datasource:
+      - name: admin
+        url: ${JDBC_URL}
+        username: ${JDBC_USERNAME}
+        password: ${JDBC_PASSWORD}
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver: com.mysql.jdbc.Driver
+        filters: stat
+        maxActive: 20
+        initialSize: 1
+        maxWait: 60000
+        minIdle: 1
+        timeBetweenEvictionRunsMillis: 60000
+        minEvictableIdleTimeMillis: 300000
+        validationQuery: select 'x'
+        testWhileIdle: true
+        testOnBorrow: false
+        testOnReturn: false
+        poolPreparedStatements: true
+        maxOpenPreparedStatements: 20
+        maxPoolPreparedStatementPerConnectionSize: 20
+      - name: app
+        url: ${JDBC2_URL}
+        username: ${JDBC2_USERNAME}
+        password: ${JDBC2_PASSWORD}
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver: com.mysql.jdbc.Driver
+        filters: stat
+        maxActive: 20
+        initialSize: 1
+        maxWait: 60000
+        minIdle: 1
+        timeBetweenEvictionRunsMillis: 60000
+        minEvictableIdleTimeMillis: 300000
+        validationQuery: select 'x'
+        testWhileIdle: true
+        testOnBorrow: false
+        testOnReturn: false
+        poolPreparedStatements: true
+        maxOpenPreparedStatements: 20
+        maxPoolPreparedStatementPerConnectionSize: 20
+
+    
+mybatils:
+    config:
+        - name: admin
+          #该配置文件里面配置了MyBatils分页插件和缓存设置
+          configLocation: classpath:mybatis/configuration.xml
+          #配置xml文件的目录
+          mapperLocations: classpath:mybatis/mapper/**/*.xml
+          #实体类包路径
+          typeAliasesPackage: com.hmsh.admin.vo
+          #DAO 类包路径
+          basePackage: com.hmsh.admin.model
+        - name: app
+          #该配置文件里面配置了MyBatils分页插件和缓存设置
+          configLocation: classpath:mybatis/configuration.xml
+          #配置xml文件的目录
+          mapperLocations: classpath:mybatis/app/**/*.xml
+          #实体类包路径
+          typeAliasesPackage: com.hmsh.app.vo
+          #DAO 类包路径
+          basePackage: com.hmsh.app.dao
+
+spring:
+    data:
+      mongodb:
+        host: ${MONGO_HOST}
+        port: ${MONGO_PORT}
+        database: ${MONGO_DB}
+        authenticationDatabase: ${MONGO_DB} 
+    datasource:
+      driver-class-name: com.mysql.jdbc.Driver
+      url: ${JDBC2_URL}
+      username: ${JDBC2_USERNAME}
+      password: ${JDBC2_PASSWORD}       

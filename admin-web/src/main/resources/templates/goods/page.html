@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>商品管理</title>
+	</head>
+	<body>
+		<div class="row goods-tab" id="goods-list">
+			<div class="portlet light" >
+				<div class="portlet-title">
+					<div class="actions">
+						<div class="dt-buttons">
+							<a class="dt-button btn blue btn-outline" onclick="Goods.add('#goods-add');"> 
+							 	<span>添加</span>
+							</a>
+						</div>
+					</div>
+				</div>
+				
+				<div class="portlet-body">
+				<form action="" role="form" class="form-inline" id="search_form" autocomplete="off">  
+					<div class="row" id="goods-paging-select">
+						
+		                   <!--  <div class="col-lg-8">
+		                         <div class="input-group">
+		                             <input type="text" class="form-control" placeholder="关键字..." />
+		                             <span class="input-group-btn">
+		                                 <button class="btn green-soft uppercase bold" type="button">搜索</button>
+		                             </span>
+		                         </div>
+		                     </div> 
+						 -->
+					</div>
+					</form>
+					<div class="row">
+						<div class="mt-element-card mt-element-overlay">
+							<div  id="goods-list-falls" th:action="@{/goods/query}">
+				 				
+							</div> 
+							<div class="dataTables_wrapper" id="goods-paging">
+								
+							</div>
+						</div>		
+					</div>			
+				</div>
+			</div>
+		</div>
+		<!-- sku列表 -->
+		<div class="row goods-tab hide" id="goods-sku">
+			<div class="gohome"><a class="animated bounceInUp" href="javascript:;" title="返回商品列表" onclick="Goods.toList();"><i class="fa fa-align-justify"></i></a></div>
+			<div class="mt-element-card mt-element-overlay" data-role="skuList">
+				
+			</div>
+			
+		</div>
+		<!-- 商品添加 步骤添加-->
+		<div class="row goods-tab hide" id="goods-add">
+			<div class="gohome"><a class="animated bounceInUp" href="javascript:;" title="返回商品列表" onclick="Goods.toList();"><i class="fa fa-align-justify"></i></a></div>
+			<div class="portlet light bordered" id="form_wizard_add_goods">
+				<div class="portlet-title">
+					 <div class="caption">
+	                     <i class=" icon-layers font-red"></i>
+	                     <span class="caption-subject font-red bold uppercase"> 添加商品 -
+	                         <span class="step-title"> 步骤 1 / 5 </span>
+	                     </span>
+	                 </div>
+	                 <div class="actions">
+	                      <a class="btn btn-circle btn-icon-only btn-default" href="javascript:;" onclick="Goods.reload();" title="刷新">
+	                          <i class="fa fa-retweet"></i>
+	                      </a>
+                  	</div>
+	            </div>
+	            <div class="portlet-body form">
+            		<div class="form-wizard">
+            			<div class="form-body">
+            				<ul class="nav nav-pills nav-justified steps" data-wizard="step">
+								<li class="active">
+                                      <a href="#step1" data-toggle="tab" class="step" aria-expanded="true">
+                                           <span class="number"> 1 </span>
+                                           <span class="desc">
+                                           <i class="fa fa-check"></i> 选择商品分类 </span>
+                                       </a>
+                                   </li>
+								<li>
+                                      <a href="#step2" data-toggle="tab" class="step" aria-expanded="true">
+                                          <span class="number"> 2 </span>
+                                          <span class="desc">
+                                          <i class="fa fa-check"></i> 商品主体信息录入 </span>
+                                      </a>
+                                 	 </li>
+                                  <li>
+                                      <a href="#step3" data-toggle="tab" class="step">
+                                          <span class="number"> 3 </span>
+                                          <span class="desc">
+                                           <i class="fa fa-check"></i> 选择SKU属性 </span>
+                                      </a>
+                                  </li>
+                                  <li>
+                                      <a href="#step4" data-toggle="tab" class="step">
+                                          <span class="number"> 4 </span>
+                                          <span class="desc">
+                                          <i class="fa fa-check"></i> SKU商品编辑 </span>
+                                      </a>
+                                  </li>
+                                  <li>
+                                     <a href="#step5" data-toggle="tab" class="step">
+                                         <span class="number"> 5 </span>
+                                         <span class="desc">
+                                          <i class="fa fa-check"></i>完成</span>
+                                     </a>
+                                  </li>
+							</ul>
+						   <div class="progress progress-striped" role="progressbar" data-wizard="bar">
+                                 <div class="progress-bar progress-bar-success" style="width: 20%;"> </div>
+                             </div>
+                             <form class="form-horizontal" th:action="@{/goods/save}" id="add_goods_form" method="POST" novalidate="novalidate" autocomplete="off" enctype="multipart/form-data" >
+                               <input type="hidden" id="goodsClassId" name="goodsClassId"/>
+                                <input type="hidden" id="dmId" name="dmId"/>
+                                <input type="hidden" id="skuId" name="skuId"/>
+                               <input type="hidden" name="images" id="images" value="0"/> 
+                               <div class="tab-content" data-wizard="content">
+                               		<!-- 选择商品分类 -->
+                               		<div id="step1" class="tab-pane active" data-step="1">
+                               			<h3 class="block">选择商品分类</h3>
+                                   		<div class="form-group" id="goodsClassId_group">
+                                              <label class="col-md-3 control-label">商品分类
+                                                  <span class="required" aria-required="true"> * </span>
+                                              </label>
+                                              <div class="col-md-9">
+                                                  <select  class="form-control" size="4" name="goodsClass" id="goodsClass"></select>
+                                              </div>
+                                          </div>
+                               		</div>
+                               		<!-- 填写商品信息 -->
+                               		<div id="step2" class="tab-pane" data-step="2">
+                               			<h3 class="block">录入商品主体信息</h3>
+                               			<div class="form-group">
+                                            <label class="control-label col-md-3">商品分类
+                                                <span class="required" aria-required="true"> * </span>
+                                            </label>
+                                            <div class="col-md-4">
+                                                <input type="text" class="form-control" id="goodsClassTitle" name="goodsClassTitle" readonly="readonly"/>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                              <label class="control-label col-md-3">供应商
+                                                  <span class="required" aria-required="true"> * </span>
+                                              </label>
+                                              <div class="col-md-4">
+                                                 <select class="form-control select2-multiple  input-medium" name="mallSupplierId" id="mallSupplierId" >
+                                                 </select>
+                                              </div>
+                                          </div>
+                                  		<div class="form-group">
+                                             <label class="control-label col-md-3">商品名称
+                                                 <span class="required" aria-required="true"> * </span>
+                                             </label>
+                                             <div class="col-md-4">
+                                                 <input type="text" class="form-control" name="name" id="name"/>
+                                             </div>
+                                         </div>
+                                         <div class="form-group">
+                                             <label class="control-label col-md-3">零售价
+                                                 <span class="required" aria-required="true"> * </span>
+                                             </label>
+                                             <div class="col-md-4">
+                                                 <input type="text" class="form-control" name="price" id="price"/>
+                                             </div>
+                                         </div>
+                                         <div class="form-group">
+                                             <label class="control-label col-md-3">成本价
+                                                 <span class="required" aria-required="true"> * </span>
+                                             </label>
+                                             <div class="col-md-4">
+                                                 <input type="text" class="form-control" name="purchasePrice" id="purchasePrice"/>
+                                             </div>
+                                         </div>
+                                          <div class="form-group">
+                                             <label class="control-label col-md-3">库存
+                                                 <span class="required" aria-required="true"> * </span>
+                                             </label>
+                                             <div class="col-md-4">
+                                                 <input type="text" class="form-control" name="stockNum" id="stockNum" />
+                                             </div>
+                                         </div>
+                                         <div class="form-group">
+                                             <label class="control-label col-md-3">限量 </label>
+                                             <div class="col-md-4">
+                                                 <input type="text" class="form-control" name="limited" id="limited" value="0"/>
+                                                 <span class="help-block">小于等于0表示不限量</span>
+                                             </div>
+                                         </div>
+                                         <div class="form-group">
+                                             <label class="control-label col-md-3">体积</label>
+                                             <div class="col-md-4">
+                                                 <input type="text" class="form-control" name="volume" id="volume"/>
+                                                 
+                                             </div>
+                                         </div>
+                                         <div class="form-group">
+                                             <label class="control-label col-md-3">重量</label>
+                                             <div class="col-md-4">
+                                                 <input type="text" class="form-control" name="weight" id="weight"/>
+                                             </div>
+                                         </div>
+                                         
+                                         <div class="form-group ignore">
+                                             <label class="control-label col-md-3">保质时间</label>
+                                             <div class="col-md-4">
+                                                 <input type="text" class="form-control" name="shelfLifePeriod" id="shelfLifePeriod"/>
+                                             </div>
+                                         </div>
+                                         <div class="form-group ignore">
+                                             <label class="control-label col-md-3">消费者返利
+                                                 <span class="required" aria-required="true">  </span>
+                                             </label>
+                                             <div class="col-md-4">
+                                                 <input type="text" class="form-control percent" name="rebateConsumers" id="rebateConsumers" value="0"/>
+                                             </div>
+                                         </div>
+                                 		<div class="form-group ignore">
+                                             <label class="control-label col-md-3">商家返利
+                                                 <span class="required" aria-required="true">  </span>
+                                             </label>
+                                             <div class="col-md-4">
+                                                 <input type="text" class="form-control percent" name="rebateSeller" id="rebateSeller" value="0"/>
+                                             </div>
+                                         </div>
+                                         <div class="form-group ignore">
+                                             <label class="control-label col-md-3">供应链返利
+                                                 <span class="required" aria-required="true">  </span>
+                                             </label>
+                                             <div class="col-md-4">
+                                                 <input type="text" class="form-control percent" name="rebateSupply" id="rebateSupply" value="0"/>
+                                             </div>
+                                         </div>
+                                         <div class="form-group ignore">
+                                             <label class="control-label col-md-3">代理商(县)返利
+                                                 <span class="required" aria-required="true">  </span>
+                                             </label>
+                                             <div class="col-md-4">
+                                                 <input type="text" class="form-control percent" name="rebateProvince" id="rebateProvince" value="0"/>
+                                             </div>
+                                         </div>
+                                         <div class="form-group ignore">
+                                             <label class="control-label col-md-3">代理商(市)返利
+                                                 <span class="required" aria-required="true">  </span>
+                                             </label>
+                                             <div class="col-md-4">
+                                                 <input type="text" class="form-control percent" name="rebateCity" id="rebateCity" value="0"/>
+                                             </div>
+                                         </div>
+                                         <div class="form-group ignore">
+                                             <label class="control-label col-md-3">代理商(县/区)返利
+                                                 <span class="required" aria-required="true">  </span>
+                                             </label>
+                                             <div class="col-md-4">
+                                                 <input type="text" class="form-control percent" name="rebateArea" id="rebateArea" value="0"/>
+                                             </div>
+                                         </div>
+										 <div class="form-group">
+                                              <label class="control-label col-md-3">现金消费返积分比例
+                                                  <span class="required" aria-required="true">  </span>
+                                              </label>
+                                              <div class="col-md-4">
+                                                  <input type="text" class="form-control percent" name="returnPointPercent" id="returnPointPercent" value="0"/>
+                                              </div>
+                                          </div>
+                                          <div class="form-group">
+                                              <label class="control-label col-md-3">积分消费抵扣百分比
+                                                  <span class="required" aria-required="true">  </span>
+                                              </label>
+                                              <div class="col-md-4">
+                                                  <input type="text" class="form-control percent" name="deductPricePercent" id="deductPricePercent" value="0"/>
+                                              </div>
+                                          </div>
+                                           <div class="form-group">
+                                              <label class="control-label col-md-3">是否VIP商城商品
+                                                  <span class="required" aria-required="true">  </span>
+                                              </label>
+                                              <div class="col-md-4">
+                                                  <input type="checkbox" class="make-switch" checked="checked" data-on-text="是" data-off-text="否" name="forVipMall" id="forVipMall" value="0" disabled="disabled"/> 
+                                              </div>
+                                          </div>
+                                          <div class="form-group">
+                                              <label class="control-label col-md-3">商品属性类型
+                                                  <span class="required" aria-required="true"> * </span>
+                                              </label>
+                                              <div class="col-md-4">
+                                             		<input type="checkbox" class="make-switch" checked="checked" data-on-text="商品" data-off-text="虚拟商品" name="type" id="type" value="0"/> 
+                                              </div>
+                                          </div>
+                                          <div class="form-group">
+                                              <label class="control-label col-md-3">是否支持优惠券
+                                                  <span class="required" aria-required="true"> * </span>
+                                              </label>
+                                              <div class="col-md-4">
+                                                  <input type="checkbox" class="make-switch" checked="checked" data-on-text="支持" data-off-text="不支持" name="isCoupon" id="isCoupon" value="0"/> 
+                                              </div>
+                                          </div>
+                                           <div class="form-group">
+                                              <label class="control-label col-md-3">商品类型
+                                                  <span class="required" aria-required="true"> * </span>
+                                              </label>
+                                              <div class="col-md-4">
+                                                  <input type="checkbox" class="make-switch" checked="checked" data-on-text="普通商品" data-off-text="自营商品" name="goodsType" id="goodsType" value="0"/> 
+                                              </div>
+                                          </div>
+                                          <div class="form-group">
+                                          	<label class="control-label col-md-3">商品组图
+                                                  <span class="required" aria-required="true"> * </span>
+                                              </label>
+                                              <div class="col-md-4" >
+                                                  <button id="pickfiles" class="btn green start" type="button"><i class="fa fa-plus"></i>选择文件</button>
+                                              </div>
+                                          </div>
+                                          <div class="form-group hide" id="update_field_image">
+                                          	<label class="control-label col-md-3">商品原图
+                                                  <span class="required" aria-required="true"> * </span>
+                                              </label>
+                                              <div class="col-md-4" >
+                                                  <div class="dropzone dropzone-file-area">
+                                                  	<div class="row show-image " id="update_field_image_show">
+                                                  		<div class="col-md-4 main-image">
+                                                  			<div class="dz-preview dz-processing  dz-complete dz-image-preview">
+                                                  				<div class="dz-image">
+                                                  					<img data-dz-thumbnail="" alt="07.jpg" src="" width="120" height="120" />
+                                                  				</div>
+                                                  			</div>
+                                                  		 </div>
+                                                  	</div>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                          <div class="form-group">
+                                              <label class="control-label col-md-3">商品详情
+                                              </label>
+                                              <div class="col-md-4">
+                                                  <textarea class="form-control" rows="3" id="details" name="details"></textarea> 
+                                                  <div name="details" id="details"> </div>
+                                              </div>
+                                          </div>
+                               		</div>
+                               		<!-- 选择SKU -->
+                               		<div id="step3" class="tab-pane" data-step="3">
+                               			
+                               		</div>
+                               		<!-- 查看编辑SKU属性 -->
+                               		<div id="step4" class="tab-pane" data-step="4">
+                               			
+                               		</div>
+                               		<!-- 完成编辑操作 查看系统检测商品是否合法-->
+                               		<!-- 检测合法条件：无国家或者平台禁止的敏感词 价格波动是否符合国家标准 返利规则是否符合平台标准  -->
+                               		<div id="step5" class="tab-pane" data-step="5">
+                               			
+                               		</div>
+                               </div>
+                               <div class="form-actions">
+                                      <div class="row">
+                                          <div class="col-md-offset-3 col-md-9">
+                                              <a href="javascript:;" class="btn default button-previous disabled hide button-prev" ><i class="fa fa-angle-left"></i> 上一步 </a>
+                                              <a href="javascript:;" class="btn btn-outline green button-next" > 下一步<i class="fa fa-angle-right"></i></a>
+                                              <a href="javascript:;" class="btn green button-submit hide" onclick="Goods.submit(this);"> 提交<i class="fa fa-check"></i></a>
+                                          </div>
+                                      </div>
+                                  </div>
+                             </form>
+            			</div>
+            		</div>
+	            </div>
+			</div>
+		</div>
+		
+	   <script type="text/javascript" th:src="@{/assets/custom/goods/goods.js}"></script>
+	   <script type="text/javascript" th:inline="javascript">
+		   jQuery(document).ready(function() {
+			   var token=/*[[${_csrf.token}]]*/;
+			   var name=/*[[${_csrf.parameterName}]]*/;
+			   Goods.init(token,name);	
+		   });
+	   </script>
+	</body>
+</html>

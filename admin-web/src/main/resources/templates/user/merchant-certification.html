@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"  xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"  xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+<!--/*/ <th:block th:include="fragments/headerinc :: head"></th:block> /*/-->
+<title>商家认证</title>
+</head>
+<body
+	class="page-sidebar-closed-hide-logo page-content-white page-header-fixed  page-footer-fixed page-sidebar-fixed">
+	<!--/*/ <th:block th:include="fragments/headerinc :: top"></th:block> /*/-->
+	<div class="clearfix"></div>
+	<div class="page-container">
+		<!--/*/ <th:block th:include="fragments/headerinc :: menu"></th:block> /*/-->
+		<div class="page-content-wrapper">
+			<div class="page-content">
+				<!--/*/ <th:block th:include="fragments/headerinc :: bar"></th:block> /*/-->
+				<div class="row">
+					<div class="portlet light bordered">
+						<div class="portlet-body form">
+							<div class="tab-content">
+								<div class="tab-pane fade in active" id="mc_list">
+									<div id="mc-buttons" class="btn-group btn-default">
+										<button class="btn btn-default" data-type="add">
+											<i class="fa fa-plus"></i> <span data-zh="转换">新增</span>
+										</button>
+										<button class="btn btn-default">
+											<i class="glyphicon glyphicon-trash"></i> <span data-zh="摧毁">批量删除</span>
+										</button>
+									</div>
+									<table
+										class="table table-striped table-bordered table-hover dt-responsive"
+										width="100%" id="mc_table" data-unique-id="dmId"
+										data-toolbar="#mc-buttons" data-height="600"
+										data-pagination="true" data-side-pagination="server"
+										th:attr="data-url=@{/mc/query}">
+										<thead>
+											<tr>
+												<th>手机号</th>
+												<th>昵称</th>
+												<th>性别</th>
+												<th>认证类型</th>
+												<th>注册时间</th>
+												<th>邀请码</th>
+												<th data-field="vistUserCode" data-formatter="$transformation.toBusinessCard">邀请人</th>
+												<th>状态</th>
+												<th>是否完善</th>
+												<th>头像</th>
+												<th data-field="dmId" data-formatter="$transformation.toBtn" data-width="270" data-buttons="edit,more" th:attr="data-urlprefix=@{/mc}">操作</th>
+											</tr>
+										</thead>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--/*/ <th:block th:include="fragments/headerinc :: footer"></th:block> /*/-->
+	<!--/*/ <th:block th:include="fragments/headerinc :: script"></th:block> /*/-->
+	<!-- <div class="row">
+		<div class="portlet light">
+			<div class="portlet-title">
+				<div class="caption font-red-sunglo">
+					<i class="fa fa-gg-circle"></i> <span
+						class="caption-subject font-green bold uppercase">商家认证</span>
+				</div>
+			</div>
+			<div class="portlet-body">
+				<form class="form-inline table-search" role="form"
+					autocomplete="off" data-role="search">
+					<div class="form-group">
+						<label class="" for="keyword">关键字:</label> <input type="text"
+							class="form-control input-medium" placeholder="手机号/呢称"
+							name="keyword" id="keyword" />
+					</div>
+					<div class="form-group">
+						<label class="" for="search_time">申请时间:</label> <input type="text"
+							class="form-control input-medium" placeholder="注册时间"
+							name="search_time" id="search_time" readonly="readonly" />
+					</div>
+					<div class="form-group">
+						<label class="" for="authen">审核状态:</label> <select
+							class="form-control select2-multiple  input-medium" name="authen"
+							id="authen" data-down="authentication_type" />
+					</div>
+					<div class="form-group">
+						<label class="" for="state">状态:</label> <select
+							class="form-control select2-multiple  input-medium" name="state"
+							id="state" data-down="authentication_auditing_state" />
+					</div>
+					<button type="button" class="btn btn-sm green" id="search">
+						搜索<i class="fa fa-search"></i>
+					</button>
+				</form>
+				一定要保证Table ID 的唯一性,因为这是dataTable 用来区分表格的
+				<table
+					class="table table-striped table-bordered table-hover dt-responsive"
+					width="100%" id="mc_table"
+					th:action="@{/user/merchant-certification/query}" data-role="table">
+
+				</table>
+			</div>
+		</div>
+	</div> -->
+	<script type="text/javascript">
+		function colums() {
+			return [
+					{
+						title : '手机号',
+						bSortable : false,
+						searchable : false,
+						data : 'mphonenum',
+						className : 'all',
+						render : function(row, type, set) {
+							return isEmpty(row) ? '' : row;
+						}
+					},
+					{
+						title : '昵称',
+						bSortable : false,
+						searchable : false,
+						data : 'nickname',
+						render : function(row, type, set) {
+							return isEmpty(row) ? '' : row;
+						}
+					},
+					{
+						title : '性别',
+						bSortable : false,
+						className : '',
+						searchable : false,
+						data : 'sex',
+						render : function(row, type, set) {
+							return row == 0 ? '<i class="fa fa-female"></i>女'
+									: row == 1 ? '<i class="fa fa-male"></i>男'
+											: '<i class="fa fa-question"></i>保密';
+						}
+					},
+					{
+						title : '认证类型',
+						bSortable : false,
+						data : 'authen',
+						render : function(row, type, set) {
+							return row == 1 ? '<span class="label label-sm label-success">已认证</span>'
+									: '<span class="label label-sm label-danger">未认证</span>';
+						}
+					},
+					{
+						title : '注册时间',
+						bSortable : true,
+						data : 'ctrime',
+						render : function(row, type, set) {
+							return LongToDateStr(row);
+						}
+					},
+					{
+						title : '邀请码',
+						bSortable : false,
+						data : 'vistCode',
+						render : function(row, type, set) {
+							return isEmpty(row) ? '' : row;
+						}
+					},
+					{
+						title : '邀请人',
+						bSortable : false,
+						data : 'vistUserCode',
+						render : function(row, type, set) {
+							return isEmpty(row) ? '' : row;
+						}
+					},
+					{
+						title : '状态',
+						bSortable : false,
+						data : 'status',
+						render : function(row, type, set) {
+							return row == 1 ? '<span class="label label-sm label-danger">屏蔽</span>'
+									: row == 0 ? '<span class="label label-sm label-success">正常</span>'
+											: '<span class="label label-sm label-warning"> 注销</span>';
+						}
+					},
+					{
+						title : '是否完善',
+						bSortable : false,
+						data : 'steps',
+						render : function(row, type, set) {
+							return row == 1 ? '<span class="label label-sm label-danger">注册</span>'
+									: row == 2 ? '<span class="label label-sm label-success">完善</span>'
+											: row == 3 ? '<span class="label label-sm label-warning">等待审核</span>'
+													: '<span class="label label-sm label-danger label-mini">未开</span>';
+						}
+					},
+					{
+						title : '头像',
+						bSortable : false,
+						data : 'headimg',
+						className : 'none',
+						render : function(row, type, set) {
+							return '<img src="'
+									+ row
+									+ '" alt="'
+									+ set.mphonenum
+									+ '" onerror="nofind(this);" width="75px" height="75px"/>';
+						}
+					}, {
+						title : '操作',
+						bSortable : false,
+						data : 'id',
+						render : function(row, type, set) {
+							var btn = '<a>重置密码</a>';
+							var state = set.state;
+							btn += '<a></a>';
+							btn = '';
+							return btn;
+						}
+					} ];
+		}
+	</script>
+</body>
+</html>

@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hmsh.admin.dao.user.AccountSecurityLogMapper">
+  <resultMap id="BaseResultMap" type="com.hmsh.admin.vo.user.AccountSecurityLog">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="event_code" jdbcType="VARCHAR" property="eventCode" />
+    <result column="event_describe" jdbcType="VARCHAR" property="eventDescribe" />
+    <result column="event_data" jdbcType="VARCHAR" property="eventData" />
+    <result column="ip" jdbcType="VARCHAR" property="ip" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="create_time" jdbcType="BIGINT" property="createTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, event_code, event_describe, event_data, ip, username, create_time
+  </sql>
+  <select id="selectByExample" parameterType="com.hmsh.admin.vo.user.AccountSecurityLogExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from user_account_security_log
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from user_account_security_log
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from user_account_security_log
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.hmsh.admin.vo.user.AccountSecurityLogExample">
+    delete from user_account_security_log
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.hmsh.admin.vo.user.AccountSecurityLog">
+    insert into user_account_security_log (id, event_code, event_describe, 
+      event_data, ip, username, 
+      create_time)
+    values (#{id,jdbcType=BIGINT}, #{eventCode,jdbcType=VARCHAR}, #{eventDescribe,jdbcType=VARCHAR}, 
+      #{eventData,jdbcType=VARCHAR}, #{ip,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hmsh.admin.vo.user.AccountSecurityLog">
+    insert into user_account_security_log
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="eventCode != null">
+        event_code,
+      </if>
+      <if test="eventDescribe != null">
+        event_describe,
+      </if>
+      <if test="eventData != null">
+        event_data,
+      </if>
+      <if test="ip != null">
+        ip,
+      </if>
+      <if test="username != null">
+        username,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="eventCode != null">
+        #{eventCode,jdbcType=VARCHAR},
+      </if>
+      <if test="eventDescribe != null">
+        #{eventDescribe,jdbcType=VARCHAR},
+      </if>
+      <if test="eventData != null">
+        #{eventData,jdbcType=VARCHAR},
+      </if>
+      <if test="ip != null">
+        #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hmsh.admin.vo.user.AccountSecurityLogExample" resultType="java.lang.Long">
+    select count(*) from user_account_security_log
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update user_account_security_log
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.eventCode != null">
+        event_code = #{record.eventCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.eventDescribe != null">
+        event_describe = #{record.eventDescribe,jdbcType=VARCHAR},
+      </if>
+      <if test="record.eventData != null">
+        event_data = #{record.eventData,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ip != null">
+        ip = #{record.ip,jdbcType=VARCHAR},
+      </if>
+      <if test="record.username != null">
+        username = #{record.username,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=BIGINT},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update user_account_security_log
+    set id = #{record.id,jdbcType=BIGINT},
+      event_code = #{record.eventCode,jdbcType=VARCHAR},
+      event_describe = #{record.eventDescribe,jdbcType=VARCHAR},
+      event_data = #{record.eventData,jdbcType=VARCHAR},
+      ip = #{record.ip,jdbcType=VARCHAR},
+      username = #{record.username,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=BIGINT}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hmsh.admin.vo.user.AccountSecurityLog">
+    update user_account_security_log
+    <set>
+      <if test="eventCode != null">
+        event_code = #{eventCode,jdbcType=VARCHAR},
+      </if>
+      <if test="eventDescribe != null">
+        event_describe = #{eventDescribe,jdbcType=VARCHAR},
+      </if>
+      <if test="eventData != null">
+        event_data = #{eventData,jdbcType=VARCHAR},
+      </if>
+      <if test="ip != null">
+        ip = #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null">
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hmsh.admin.vo.user.AccountSecurityLog">
+    update user_account_security_log
+    set event_code = #{eventCode,jdbcType=VARCHAR},
+      event_describe = #{eventDescribe,jdbcType=VARCHAR},
+      event_data = #{eventData,jdbcType=VARCHAR},
+      ip = #{ip,jdbcType=VARCHAR},
+      username = #{username,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

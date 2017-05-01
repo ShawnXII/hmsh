@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hmsh.app.dao.order.MallOrderGoodsDao">
+  <resultMap id="BaseResultMap" type="com.hmsh.app.vo.order.MallOrderGoods">
+    <id column="dmId" jdbcType="BIGINT" property="dmid" />
+    <result column="mallOrderId" jdbcType="BIGINT" property="mallorderid" />
+    <result column="goodsName" jdbcType="VARCHAR" property="goodsname" />
+    <result column="goodsSkuId" jdbcType="BIGINT" property="goodsskuid" />
+    <result column="goodsNum" jdbcType="INTEGER" property="goodsnum" />
+    <result column="goodsPrice" jdbcType="DECIMAL" property="goodsprice" />
+    <result column="purchasePrice" jdbcType="DECIMAL" property="purchaseprice" />
+    <result column="imgUrl" jdbcType="VARCHAR" property="imgurl" />
+  </resultMap>
+  
+</mapper>

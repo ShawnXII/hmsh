@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hmsh.app.dao.user.UwExtractapplyDao">
+  <resultMap id="BaseResultMap" type="com.hmsh.app.vo.user.UwExtractapply">
+    <id column="dmId" jdbcType="BIGINT" property="dmid" />
+    <result column="sourceType" jdbcType="SMALLINT" property="sourcetype" />
+    <result column="applyTime" jdbcType="TIMESTAMP" property="applytime" />
+    <result column="userId" jdbcType="BIGINT" property="userid" />
+    <result column="amount" jdbcType="DECIMAL" property="amount" />
+    <result column="bankName" jdbcType="VARCHAR" property="bankname" />
+    <result column="bankBranch" jdbcType="VARCHAR" property="bankbranch" />
+    <result column="bankNo" jdbcType="VARCHAR" property="bankno" />
+    <result column="cardholderName" jdbcType="VARCHAR" property="cardholdername" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="createBy" jdbcType="VARCHAR" property="createby" />
+    <result column="createOn" jdbcType="BIGINT" property="createon" />
+    <result column="dealBy" jdbcType="BIGINT" property="dealby" />
+    <result column="dealOn" jdbcType="TIMESTAMP" property="dealon" />
+    <result column="dealRemark" jdbcType="VARCHAR" property="dealremark" />
+    <result column="updateBy" jdbcType="BIGINT" property="updateby" />
+    <result column="updateOn" jdbcType="TIMESTAMP" property="updateon" />
+    <result column="statisticsDate" jdbcType="TIMESTAMP" property="statisticsdate" />
+    <result column="userType" jdbcType="TINYINT" property="usertype" />
+    <result column="releaseDate" jdbcType="BIGINT" property="releasedate" />
+    <result column="arrival_amount" jdbcType="DECIMAL" property="arrivalAmount" />
+    <result column="tax_dedu_rate" jdbcType="DECIMAL" property="taxDeduRate" />
+    <result column="tax_dedu_money" jdbcType="DECIMAL" property="taxDeduMoney" />
+    <result column="single_source_id" jdbcType="BIGINT" property="singleSourceId" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+ 
+</mapper>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hmsh.app.dao.agent.AgentDayAchievementDao">
+	<resultMap id="BaseResultMap" type="com.hmsh.app.vo.agent.AgentDayAchievement">
+		<id column="dmId" jdbcType="BIGINT" property="dmid" />
+		<result column="tradingDate" jdbcType="BIGINT" property="tradingdate" />
+		<result column="agentId" jdbcType="BIGINT" property="agentid" />
+		<result column="region" jdbcType="VARCHAR" property="region" />
+		<result column="provinceId" jdbcType="BIGINT" property="provinceid" />
+		<result column="cityId" jdbcType="BIGINT" property="cityid" />
+		<result column="countyId" jdbcType="BIGINT" property="countyid" />
+		<result column="contactName" jdbcType="VARCHAR" property="contactname" />
+		<result column="contactPhone" jdbcType="VARCHAR" property="contactphone" />
+		<result column="dayTargetAmount" jdbcType="DECIMAL" property="daytargetamount" />
+		<result column="tradeAmount" jdbcType="DECIMAL" property="tradeamount" />
+		<result column="tradeBalnceAmount" jdbcType="DECIMAL" property="tradebalnceamount" />
+		<result column="achieveFlag" jdbcType="TINYINT" property="achieveflag" />
+		<result column="createBy" jdbcType="BIGINT" property="createby" />
+		<result column="createTime" jdbcType="BIGINT" property="createtime" />
+		<result column="updateOn" jdbcType="BIGINT" property="updateon" />
+		<result column="updateBy" jdbcType="BIGINT" property="updateby" />
+	</resultMap>
+
+</mapper>

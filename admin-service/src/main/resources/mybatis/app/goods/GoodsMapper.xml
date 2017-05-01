@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hmsh.app.dao.goods.GoodsDao">
+  <resultMap id="BaseResultMap" type="com.hmsh.app.vo.goods.Goods">
+    <id column="dmId" jdbcType="BIGINT" property="dmid" />
+    <result column="mallSupplierId" jdbcType="BIGINT" property="mallsupplierid" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="price" jdbcType="DECIMAL" property="price" />
+    <result column="marketPrice" jdbcType="DECIMAL" property="marketprice" />
+    <result column="scmGoodsId" jdbcType="VARCHAR" property="scmgoodsid" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+    <result column="goodsClassId" jdbcType="BIGINT" property="goodsclassid" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="state" jdbcType="INTEGER" property="state" />
+    <result column="isCoupon" jdbcType="INTEGER" property="iscoupon" />
+    <result column="limited" jdbcType="INTEGER" property="limited" />
+    <result column="unit" jdbcType="VARCHAR" property="unit" />
+    <result column="unitId" jdbcType="BIGINT" property="unitid" />
+    <result column="goodsClassName" jdbcType="VARCHAR" property="goodsclassname" />
+    <result column="goodsType" jdbcType="INTEGER" property="goodstype" />
+    <result column="volume" jdbcType="VARCHAR" property="volume" />
+    <result column="weight" jdbcType="DECIMAL" property="weight" />
+    <result column="createBy" jdbcType="VARCHAR" property="createby" />
+    <result column="createTime" jdbcType="BIGINT" property="createtime" />
+    <result column="updateBy" jdbcType="VARCHAR" property="updateby" />
+    <result column="updateTime" jdbcType="BIGINT" property="updatetime" />
+    <result column="salesVolume" jdbcType="INTEGER" property="salesvolume" />
+    <result column="purchasePrice" jdbcType="DECIMAL" property="purchaseprice" />
+    <result column="shelfLifePeriod" jdbcType="INTEGER" property="shelflifeperiod" />
+    <result column="isForeign" jdbcType="INTEGER" property="isforeign" />
+  </resultMap>
+  
+</mapper>

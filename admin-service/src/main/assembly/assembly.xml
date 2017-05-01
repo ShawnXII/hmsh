@@ -1,0 +1,51 @@
+<assembly
+	xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2 http://maven.apache.org/xsd/assembly-1.1.2.xsd">
+	<id>assembly</id>
+	<formats>
+		<format>tar.gz</format>  <!-- 其他可选格式 gzip/zip/tar.gz/ -->
+	</formats>
+	<fileSets>
+		<!-- 可执行文件目录bin -->
+		<fileSet>
+			<directory>src/main/scripts</directory>
+			<outputDirectory>bin</outputDirectory>
+			<includes>
+				<include>*.bat</include>
+			</includes>
+			<lineEnding>dos</lineEnding>
+			<fileMode>0644</fileMode>
+		</fileSet>
+		<fileSet>
+			<directory>src/main/scripts</directory>
+			<outputDirectory>bin</outputDirectory>
+			<includes>
+				<include>*.sh</include>
+			</includes>
+			<lineEnding>unix</lineEnding>
+			<fileMode>0755</fileMode>
+			<filtered>true</filtered>
+		</fileSet>
+		<!-- 字节码文件目录classes -->
+		<fileSet>
+			<directory>${project.build.directory}/classes</directory>
+			<outputDirectory>classes</outputDirectory>
+			<directoryMode>0755</directoryMode>
+			<fileMode>0644</fileMode>
+		</fileSet>
+	</fileSets>
+	<!-- 依赖jar包目录lib -->
+	<dependencySets>
+		<dependencySet>
+			<outputDirectory>lib</outputDirectory>
+			<useProjectArtifact>false</useProjectArtifact>
+			<directoryMode>0755</directoryMode>
+			<fileMode>0644</fileMode>
+			<excludes>
+				<!--打死不用log4j-->
+				<!--<exclude>log4j:log4j</exclude>-->
+			</excludes>
+		</dependencySet>
+	</dependencySets>
+</assembly>

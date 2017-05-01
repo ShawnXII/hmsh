@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"  xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"  xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+<!--/*/ <th:block th:include="fragments/headerinc :: head"></th:block> /*/-->
+<title>商家用户</title>
+</head>
+<body
+	class="page-sidebar-closed-hide-logo page-content-white page-header-fixed  page-footer-fixed page-sidebar-fixed">
+	<!--/*/ <th:block th:include="fragments/headerinc :: top"></th:block> /*/-->
+	<div class="clearfix"></div>
+	<div class="page-container">
+		<!--/*/ <th:block th:include="fragments/headerinc :: menu"></th:block> /*/-->
+		<div class="page-content-wrapper">
+			<div class="page-content">
+				<!--/*/ <th:block th:include="fragments/headerinc :: bar"></th:block> /*/-->
+				<div class="row">
+					<div class="portlet light bordered">
+						
+						<div class="portlet-body form">
+							<div class="tab-content">
+								<div class="tab-pane fade in active" id="userShop_list">
+									<div id="userShop-buttons" class="btn-group btn-default">
+										<button class="btn btn-default" data-type="add">
+											<i class="fa fa-plus"></i> <span data-zh="转换">新增</span>
+										</button>
+										<button class="btn btn-default">
+											<i class="glyphicon glyphicon-trash"></i> <span data-zh="摧毁">批量删除</span>
+										</button>
+									</div>
+									<table class="table table-striped table-bordered table-hover dt-responsive"
+									 width="100%" 
+									 id="userShop_table"
+									 data-unique-id="dmId"
+									 data-toolbar="#userShop-buttons"
+									 data-height="700" 
+									 data-pagination="true"
+					 				 data-side-pagination="server"
+									 th:attr="data-url=@{/userShop/query}">
+						 				<thead>
+						 					<tr>
+						 						<th data-checkbox="true"></th>
+						 						<th data-field="mphonenum">手机号</th>
+						 						<th data-field="nickname">昵称</th>
+						 						<th data-field="categorys">行业类型</th>
+						 						<th data-field="authen">认证类型</th>
+						 						<th data-field="firmAuthen">实名认证</th>
+						 						<th data-field="ctrime" >注册时间</th>
+						 						<th data-field="vistCode" >邀请码</th>
+						 						<th data-field="vistUserPhonenum" data-formatter="$transformation.toTime">邀请人</th>
+						 						<th data-field="status" data-formatter="$transformation.toBusinessCard">状态</th>
+						 						<th data-field="steps" >注册步骤</th>
+						 						<th data-field="isDirectCamp" >是否直营</th>
+						 						<th data-field="isIntegral" >支持积分消费</th>
+						 						<th data-field="headimg" data-formatter="$transformation.toImage">头像</th>
+						 						<th data-field="resetPhoneImg" >号码重置图片</th>
+						 						<th data-field="dmId" data-formatter="$transformation.toBtn" data-width="270" data-buttons="edit,more" th:attr="data-urlprefix=@{/individual}">操作</th>
+						 					</tr>
+						 				</thead>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- <div class="row">
+			<div class="portlet light" >
+				<div class="portlet-title">
+					<div class="caption font-red-sunglo">
+						<i class="fa fa-user"></i> 
+						<span class="caption-subject font-green bold uppercase">商家用户</span>
+					</div>
+				</div>
+				<div class="portlet-body">
+					<form class="form-inline table-search" role="form" autocomplete="off" data-role="search">
+						<div class="form-group">
+							 <label class="" for="keyword">关键字:</label>
+							 <input type="text" class="form-control input-medium" placeholder="手机号/呢称" name="keyword" id="keyword"/>
+						</div>
+						<div class="form-group">
+							 <label class="" for="search_time">注册时间:</label>
+							 <input type="text" class="form-control input-medium" placeholder="注册时间" name="search_time" id="search_time" readonly="readonly"/>
+						</div>
+						<div class="form-group">
+							 <label class="" for="authen">认证类型:</label>
+							 <select class="form-control select2-multiple  input-medium" name="authen" id="authen" data-down="authentication_type"/>
+						</div>
+						<div class="form-group">
+							 <label class="" for="state">状态:</label>
+							 <select class="form-control select2-multiple  input-medium" name="state" id="state" data-down="individual_state"/>
+						</div>
+						<div class="form-group">
+							 <label class="" for="step">完善状态:</label>
+							 <select class="form-control select2-multiple  input-medium" name="step" id="step" data-down="step"/>
+						</div>
+						<button type="button" class="btn btn-sm green" id="search" >搜索<i class="fa fa-search"></i></button>  
+					 </form>
+					<table class="table table-striped table-bordered table-hover dt-responsive" width="100%" id="userShop_table" th:action="@{/user/userShop/query}" data-role="table">
+						 
+					</table>
+				</div>
+			</div>
+		</div>
+		<div id="payJoiningFeeModel" class="modal fade" tabindex="-1" aria-hidden="true" data-role="modal">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+						<h4 class="modal-title">诚意金</h4>
+					</div>
+					<div class="modal-body">
+						<form th:action="@{/finance/payJoiningFee/save}" class="form-horizontal" autocomplete="off"  novalidate="novalidate" id="payJoiningFeeForm" role="form" method="post" data-role="form">
+							<input type="hidden"  id="dmId" name="dmId"/>
+							<input type="hidden"  id="userType" name="userType"/>
+							<input type="hidden"  id="flag" name="flag" value="update"/>
+							<input type="hidden"  id="payJoiningFeeType" name="payJoiningFeeType" value="merchant"/>
+							<div class="form-body">
+								<div class="form-group">
+									<label class="col-md-3 control-label" for="repassword">诚意金</label>
+									<div class="col-md-9">
+									<div class="input-group bootstrap-touchspin">
+											<input type="text" id="earnestMoney" name="earnestMoney" class="form-control double required" maxlength="20" placeholder="请输入诚意金" value="0" />
+										</div>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="control-label col-md-3" for="nickName">收益扣费总金额</label>
+									<div class="col-md-9">
+										<div class="input-group bootstrap-touchspin">
+											<input type="text" id="returnFee" name="returnFee"  value="0"  readonly="readonly"/>
+										</div>				
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="modal-footer">
+	                     <button type="button" data-dismiss="modal" class="btn dark btn-outline">关闭</button>
+	                     <button type="button" class="btn green"   data-role="save">保存</button>
+	                 </div>
+				</div>
+			</div>
+		</div> -->
+	<!--/*/ <th:block th:include="fragments/headerinc :: footer"></th:block> /*/-->
+	<!--/*/ <th:block th:include="fragments/headerinc :: script"></th:block> /*/-->
+	<script type="text/javascript"
+		th:src="@{/assets/custom/user/userShop.js}"></script>
+	<script type="text/javascript" th:inline="javascript">
+		
+		function more(data,rows,index,e){
+			var btn='<div class="btn-group">';
+			btn+='<button class="btn  btn-xs purple-intense dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="true">操作<i class="fa fa-angle-down"></i></button>';
+			btn+='<ul class="dropdown-menu" role="menu">';
+			btn+='<li><a href="javascript:;"><i class="fa fa-bullhorn"></i> 查看团队关系  </a></li>';
+			btn+='<li><a href="javascript:;"><i class="fa fa-file-text-o"></i> 查看操作记录  </a></li>';
+			btn+='<li class="divider"> </li>';
+			btn+='<li><a href="javascript:;"><i class="glyphicon-refresh icon-refresh"></i> 重置认证状态  </a></li>';
+			btn+='</ul>';
+			btn+='</div>';
+			btn+='<a class="btn  btn-xs red-pink" href="javascript:;" onclick="Individual.reset(this);"><i class="glyphicon-refresh icon-refresh"></i> 重置号码</a>';
+			btn+='<a class="btn  btn-xs red-intense" href="javascript:;" onclick="Individual.cancellation(this);"><i class="fa fa-sign-out"></i> 注销</a>';
+			return btn;
+		}
+	</script>
+</body>
+</html>

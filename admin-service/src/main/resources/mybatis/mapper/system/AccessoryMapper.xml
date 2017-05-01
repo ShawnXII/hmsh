@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hmsh.admin.dao.system.AccessoryDao">
+  <resultMap id="BaseResultMap" type="com.hmsh.admin.vo.system.Accessory">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="path" jdbcType="VARCHAR" property="path" />
+    <result column="size" jdbcType="DECIMAL" property="size" />
+    <result column="width" jdbcType="DECIMAL" property="width" />
+    <result column="height" jdbcType="DECIMAL" property="height" />
+    <result column="ext" jdbcType="VARCHAR" property="ext" />
+    <result column="info" jdbcType="VARCHAR" property="info" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="ip" jdbcType="VARCHAR" property="ip" />
+    <result column="create_time" jdbcType="BIGINT" property="createTime" />
+    <result column="hash_code" jdbcType="VARCHAR" property="hashCode" />
+  </resultMap>
+  
+</mapper>

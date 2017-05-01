@@ -1,0 +1,408 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hmsh.admin.wms.dao.GoodsSkuInfoDao">
+    <!-- wms_goods_info table all BaseResultMap-->
+    <resultMap id="BaseResultMap" type="com.hmsh.admin.vo.wms.GoodsSkuInfo">
+        <result column="id"  property="id"/>
+        <result column="goodsName"  property="goodsName"/>
+		<result column="goodsID"  property="goodsID"/>
+		<result column="retailPrice"  property="retailPrice"/>
+		<result column="marketPrice"  property="marketPrice"/>
+		<result column="costPrice"  property="costPrice"/>
+		<result column="unit"  property="unit"/>
+		<result column="volume"  property="volume"/>
+		<result column="weight"  property="weight"/>
+		<result column="type"  property="type"/>
+		<result column="size"  property="size"/>
+		<result column="specification"  property="specification"/>
+		<result column="shelfLifePeriod"  property="shelfLifePeriod"/>
+		<result column="dateOfProduction"  property="dateOfProduction"/>
+		<result column="custmrRebateRatio"  property="custmrRebateRatio"/>
+		<result column="shopProfitRatio"  property="shopProfitRatio"/>
+		<result column="supplyRebateRatio"  property="supplyRebateRatio"/>
+		<result column="rebateProvince"  property="rebateProvince"/>
+		<result column="rebateCity"  property="rebateCity"/>
+		<result column="rebateArea"  property="rebateArea"/>
+		<result column="intro"  property="intro"/>
+		<result column="taxRate"  property="taxRate"/>
+		<result column="spec"  property="spec"/>
+		<result column="value"  property="value"/>
+		<collection property="goodsInfos" ofType="com.hmsh.admin.vo.wms.GoodsInfo" column="goodsID" select="com.hmsh.admin.wms.dao.GoodsInfoDao.findGoodsInfo" />
+		<collection property="goodsPhotoInfos" ofType="com.hmsh.admin.vo.wms.GoodsPhotoInfo" column="id" select="com.hmsh.admin.wms.dao.GoodsPhotoInfoDao.findOnePhoto" />
+        <collection property="goodsRepertoryNums" ofType="com.hmsh.admin.vo.wms.GoodsRepertoryNum" column="id" select="com.hmsh.admin.wms.dao.GoodsRepertoryNumDao.findOneNum" />
+    </resultMap>
+    
+    <!-- wms_goods_info 表的全部字段-->
+    <sql id="Base_Column_List" >
+		id, goodsName, goodsID, retailPrice, marketPrice, costPrice, unit, volume, weight, type, size, specification ,shelfLifePeriod,dateOfProduction,custmrRebateRatio
+		,shopProfitRatio,supplyRebateRatio,rebateProvince,rebateCity,rebateArea,intro,taxRate,spec,value
+    </sql>
+    
+    <!-- 查询条件[可自行扩展]-->
+    <sql id="Example_Where_Clause">
+        <where>
+            <if test="id != null ">
+                and id=#{id}
+            </if>
+            <if test="goodsName != null ">
+                and goodsName=#{goodsName}
+            </if>
+            <if test="goodsID != null ">
+                and goodsID=#{goodsID}
+            </if>
+            <if test="retailPrice != null ">
+                and retailPrice=#{retailPrice}
+            </if>
+            <if test="marketPrice != null ">
+                and marketPrice=#{marketPrice}
+            </if>
+            <if test="costPrice != null ">
+                and costPrice=#{costPrice}
+            </if>
+            <if test="unit != null ">
+                and unit=#{unit}
+            </if>
+            <if test="volume != null ">
+                and volume=#{volume}
+            </if>
+            <if test="weight != null ">
+                and weight=#{weight}
+            </if>
+            <if test="type != null ">
+                and type=#{type}
+            </if>
+            <if test="size != null ">
+                and size=#{size}
+            </if>
+            <if test="specification != null ">
+                and specification=#{specification}
+            </if>
+            <if test="shelfLifePeriod != null ">
+                and shelfLifePeriod=#{shelfLifePeriod}
+            </if>
+            <if test="dateOfProduction != null ">
+                and dateOfProduction=#{dateOfProduction}
+            </if>
+            <if test="custmrRebateRatio != null ">
+                and custmrRebateRatio=#{custmrRebateRatio}
+            </if>
+            <if test="shopProfitRatio != null ">
+                and shopProfitRatio=#{shopProfitRatio}
+            </if>
+            <if test="supplyRebateRatio != null ">
+                and supplyRebateRatio=#{supplyRebateRatio}
+            </if>
+            <if test="rebateProvince != null ">
+                and rebateProvince=#{rebateProvince}
+            </if>
+            <if test="rebateCity != null ">
+                and rebateCity=#{rebateCity}
+            </if>
+            <if test="rebateArea != null ">
+                and rebateArea=#{rebateArea}
+            </if>
+            <if test="intro != null ">
+                and intro=#{intro}
+            </if>
+            <if test="taxRate != null ">
+                and taxRate=#{taxRate}
+            </if>
+            <if test="spec != null ">
+                and spec=#{spec}
+            </if>
+            <if test="value != null ">
+                and value=#{value}
+            </if>
+        </where>
+    </sql>
+    
+    <!-- 插入一条数据 -->
+    <insert id="insert" parameterType="com.hmsh.admin.vo.wms.GoodsSkuInfo">
+    	insert into wms_goods_sku_info (id, goodsName, goodsID, retailPrice, marketPrice, costPrice, unit, volume, weight, type, size, specification ,shelfLifePeriod,dateOfProduction,custmrRebateRatio
+		,shopProfitRatio,supplyRebateRatio,rebateProvince,rebateCity,rebateArea,intro,taxRate,spec,value
+    	)values
+    	(#{id}, #{goodsName}, #{goodsID}, #{retailPrice}, #{marketPrice}, #{costPrice}, #{unit}, #{volume}, #{weight}, #{type}, #{size}, #{specification},
+    	 #{shelfLifePeriod}, #{dateOfProduction}, #{custmrRebateRatio}, #{shopProfitRatio}, #{supplyRebateRatio}, #{rebateProvince}, #{rebateCity}, #{rebateArea}, #{intro}, #{taxRate}, #{spec}, #{value})
+    </insert>
+    
+    <!-- 插入一条数据,只插入不为空的字段 -->
+    <insert id="insertSelective" parameterType="com.hmsh.admin.vo.wms.GoodsSkuInfo" >
+        insert into wms_goods_sku_info
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+        	<if test="id != null ">
+                id,
+            </if>
+            <if test="goodsName != null ">
+                goodsName,
+            </if>
+            <if test="goodsID != null ">
+                goodsID,
+            </if>
+            <if test="retailPrice != null ">
+                retailPrice,
+            </if>
+            <if test="marketPrice != null ">
+                marketPrice,
+            </if>
+            <if test="costPrice != null ">
+                costPrice,
+            </if>
+            <if test="unit != null ">
+                unit,
+            </if>
+            <if test="volume != null ">
+                volume,
+            </if>
+            <if test="weight != null ">
+                weight,
+            </if>
+            <if test="type != null ">
+                type,
+            </if>
+            <if test="size != null ">
+                size,
+            </if>
+            <if test="specification != null ">
+                specification,
+            </if>
+            <if test="shelfLifePeriod != null ">
+                shelfLifePeriod,
+            </if>
+            <if test="dateOfProduction != null ">
+                dateOfProduction,
+            </if>
+            <if test="custmrRebateRatio != null ">
+                custmrRebateRatio,
+            </if>
+            <if test="shopProfitRatio != null ">
+                shopProfitRatio,
+            </if>
+            <if test="supplyRebateRatio != null ">
+                supplyRebateRatio,
+            </if>
+            <if test="rebateProvince != null ">
+                rebateProvince,
+            </if>
+            <if test="rebateCity != null ">
+                rebateCity,
+            </if>
+            <if test="supplyRebateRatio != null ">
+                rebateArea,
+            </if>
+            <if test="intro != null ">
+                intro,
+            </if>
+            <if test="taxRate != null ">
+                taxRate,
+            </if>
+            <if test="spec != null ">
+                spec,
+            </if>
+            <if test="value != null ">
+                value,
+            </if>
+        </trim>
+   	    <trim prefix="values (" suffix=")" suffixOverrides="," >
+	        <if test="id != null ">
+                #{id},
+            </if>
+            <if test="goodsName != null ">
+                #{goodsName},
+            </if>
+            <if test="goodsID != null ">
+                #{goodsID},
+            </if>
+            <if test="retailPrice != null ">
+                #{retailPrice},
+            </if>
+            <if test="marketPrice != null ">
+                #{marketPrice},
+            </if>
+            <if test="costPrice != null ">
+                #{costPrice},
+            </if>
+            <if test="unit != null ">
+                #{unit},
+            </if>
+            <if test="volume != null ">
+                #{volume},
+            </if>
+            <if test="weight != null ">
+                #{weight},
+            </if>
+            <if test="type != null ">
+                #{type},
+            </if>
+            <if test="size != null ">
+                #{size},
+            </if>
+            <if test="specification != null ">
+                #{specification},
+            </if>
+            <if test="shelfLifePeriod != null ">
+                #{shelfLifePeriod},
+            </if>
+            <if test="dateOfProduction != null ">
+                #{dateOfProduction},
+            </if>
+            <if test="custmrRebateRatio != null ">
+                #{custmrRebateRatio},
+            </if>
+            <if test="shopProfitRatio != null ">
+                #{shopProfitRatio},
+            </if>
+            <if test="supplyRebateRatio != null ">
+                #{supplyRebateRatio},
+            </if>
+            <if test="rebateProvince != null ">
+                #{rebateProvince},
+            </if>
+            <if test="rebateCity != null ">
+                #{rebateCity},
+            </if>
+            <if test="rebateArea != null ">
+                #{rebateArea},
+            </if>
+            <if test="intro != null ">
+                #{intro},
+            </if>
+            <if test="taxRate != null ">
+                #{taxRate},
+            </if>
+             <if test="spec != null ">
+                #{spec},
+            </if>
+            <if test="value != null ">
+                #{value},
+            </if>
+        </trim>
+    </insert>
+    
+    <!-- 插入多条数据 -->
+    <insert id="insertList" parameterType="java.util.List">
+    	insert into wms_goods_sku_info
+    	(id, goodsName, goodsID, retailPrice, marketPrice, costPrice, unit, volume, weight, type, size, specification ,shelfLifePeriod,dateOfProduction,custmrRebateRatio
+		,shopProfitRatio,supplyRebateRatio,rebateProvince,rebateCity,rebateArea,intro,taxRate,spec,value)
+    	values
+    	<foreach collection="list" item="item" index="index" separator=",">
+    		(#{item.id}, #{item.goodsName}, #{item.goodsID}, #{item.retailPrice}, #{item.marketPrice}, #{item.costPrice}, #{item.unit}, #{item.volume}
+    		, #{item.weight}, #{item.type}, #{item.size}, #{item.specification}, #{item.shelfLifePeriod}, 
+    		#{item.dateOfProduction}, #{item.custmrRebateRatio}, #{item.shopProfitRatio}, #{item.supplyRebateRatio}, #{item.rebateProvince},
+    		 #{item.rebateCity}, #{item.rebateArea}, #{item.intro}, #{item.taxRate}, #{item.spec}, #{item.value})
+    	</foreach>
+    </insert>
+    
+    <!-- 修改数据 -->
+    <update id="modify" parameterType="com.hmsh.admin.vo.wms.GoodsSkuInfo">
+    	update wms_goods_sku_info set (goodsName=#{goodsName},goodsID=#{goodsID},retailPrice=#{retailPrice},
+    	marketPrice=#{marketPrice},costPrice=#{costPrice},unit=#{unit},volume=#{volume},weight=#{weight},
+    	type=#{type},size=#{size},specification=#{specification},shelfLifePeriod=#{shelfLifePeriod},
+    	dateOfProduction=#{dateOfProduction},custmrRebateRatio=#{custmrRebateRatio},shopProfitRatio=#{shopProfitRatio},supplyRebateRatio=#{supplyRebateRatio}
+    	,rebateProvince=#{rebateProvince},rebateCity=#{rebateCity},rebateArea=#{rebateArea},intro=#{intro},taxRate=#{taxRate},spec=#{spec},value=#{value}) 
+    		where id=#{id}
+    </update>
+    
+    <!--根据主键修改不为空的字段-->
+	<update id="modifyNotNull" parameterType="com.hmsh.admin.vo.wms.GoodsSkuInfo">
+		update wms_goods_sku_info
+		<set >
+            <if test="goodsName != null ">
+                 goodsName=#{goodsName},
+            </if>
+            <if test="goodsID != null ">
+                 goodsID=#{goodsID},
+            </if>
+            <if test="retailPrice != null ">
+                 retailPrice=#{retailPrice},
+            </if>
+            <if test="marketPrice != null ">
+                 marketPrice=#{marketPrice},
+            </if>
+            <if test="costPrice != null ">
+                 costPrice=#{costPrice},
+            </if>
+            <if test="unit != null ">
+                 unit=#{unit},
+            </if>
+            <if test="volume != null ">
+                 volume=#{volume},
+            </if>
+            <if test="weight != null ">
+                 weight=#{weight},
+            </if>
+            <if test="type != null ">
+                 type=#{type},
+            </if>
+            <if test="size != null ">
+                 size=#{size},
+            </if>
+            <if test="specification != null ">
+                 specification=#{specification},
+            </if>
+            <if test="shelfLifePeriod != null ">
+                 shelfLifePeriod=#{shelfLifePeriod},
+            </if>
+            <if test="dateOfProduction != null ">
+                 dateOfProduction=#{dateOfProduction},
+            </if>
+            <if test="custmrRebateRatio != null ">
+                 custmrRebateRatio=#{custmrRebateRatio},
+            </if>
+            <if test="shopProfitRatio != null ">
+                 shopProfitRatio=#{shopProfitRatio},
+            </if>
+            <if test="supplyRebateRatio != null ">
+                 supplyRebateRatio=#{supplyRebateRatio},
+            </if>
+            <if test="rebateProvince != null ">
+                 rebateProvince=#{rebateProvince},
+            </if>
+            <if test="rebateCity != null ">
+                rebateCity=#{rebateCity},
+            </if>
+            <if test="rebateArea != null ">
+                 rebateArea=#{rebateArea},
+            </if>
+             <if test="intro != null ">
+                intro=#{intro},
+            </if>
+            <if test="taxRate != null ">
+                 taxRate=#{taxRate},
+            </if>
+            <if test="spec != null ">
+                spec=#{spec},
+            </if>
+            <if test="value != null ">
+                 value=#{value},
+            </if>
+		</set>
+		where id=#{id}
+	</update>
+	
+	<!--根据主键删除数据-->
+	<delete id="remove" parameterType="java.lang.Long">
+		delete from wms_goods_sku_info where id=#{id}
+	</delete>
+	
+	<!-- 批量删除-->
+	<delete id="removeList" parameterType="java.util.List">
+		delete from wms_goods_sku_info where id in
+		<foreach item="idItem" collection="list" open="(" separator="," close=")"> #{idItem}  </foreach>
+	</delete>
+	
+	<!--根据主键查询-->
+	<select id="findOne" resultMap="BaseResultMap" parameterType="java.lang.Long">
+		select <include refid="Base_Column_List" /> from wms_goods_sku_info where id=#{id}
+	</select>
+	<!--查询全部 分页排序交给插件完成-->
+	<select id="findAll" resultMap="BaseResultMap" parameterType="com.hmsh.admin.vo.wms.GoodsSkuInfo">
+		select <include refid="Base_Column_List" /> from wms_goods_sku_info <include refid="Example_Where_Clause"/>
+	</select>
+	
+	<!--获取总条数-->
+	<select id="count" resultType="java.lang.Long" parameterType="com.hmsh.admin.vo.wms.GoodsSkuInfo">
+		select count(id) from wms_goods_sku_info <include refid="Example_Where_Clause"/>
+	</select>
+	
+	<!-- ##########################################自动生成MyBatils XML 已经完成,上面的所有方法都在BaseDao里面体现###########################################################-->
+</mapper>

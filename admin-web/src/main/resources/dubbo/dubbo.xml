@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans        
+    http://www.springframework.org/schema/beans/spring-beans.xsd        
+    http://code.alibabatech.com/schema/dubbo        
+    http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+	<!-- 消费方应用名，用于计算依赖关系，不是匹配条件，不要与提供方一样 -->
+	<dubbo:application name="admin-web"/>
+	<!-- 使用multicast广播注册中心暴露发现服务地址 -->
+	<dubbo:registry protocol="zookeeper" address="${zookeeper.servers}" />
+	<dubbo:provider version="1.0.0" timeout="5000" />
+	<!-- 消费者,需要根据具体情况在reference上来设置 -->
+	<dubbo:consumer version="1.0.0" check="false"/>
+    <!-- 帐号管理 -->
+	<dubbo:reference interface="com.hmsh.admin.service.facade.user.AccountFacadeService" id="accountService" />
+	
+	<dubbo:reference interface="com.hmsh.admin.service.facade.system.MenuFacadeService" id="menuService" />
+	<!-- 商品管理 -->
+	<dubbo:reference interface="com.hmsh.app.service.facade.goods.GoodsFacadeService" id="goodsService" />
+</beans>

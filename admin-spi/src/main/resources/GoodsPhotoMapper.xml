@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hmsh.admin.dao.wms.GoodsPhotoMapper">
+  <resultMap id="BaseResultMap" type="com.hmsh.admin.vo.wms.GoodsPhoto">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="skuID" jdbcType="BIGINT" property="skuid" />
+    <result column="path" jdbcType="VARCHAR" property="path" />
+    <result column="type" jdbcType="BIGINT" property="type" />
+    <result column="sequence" jdbcType="BIGINT" property="sequence" />
+    <result column="context" jdbcType="VARCHAR" property="context" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, skuID, path, type, sequence, context
+  </sql>
+  <select id="selectByExample" parameterType="com.hmsh.admin.vo.wms.GoodsPhotoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from wms_goods_photo
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from wms_goods_photo
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from wms_goods_photo
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.hmsh.admin.vo.wms.GoodsPhotoExample">
+    delete from wms_goods_photo
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.hmsh.admin.vo.wms.GoodsPhoto">
+    insert into wms_goods_photo (id, skuID, path, 
+      type, sequence, context
+      )
+    values (#{id,jdbcType=BIGINT}, #{skuid,jdbcType=BIGINT}, #{path,jdbcType=VARCHAR}, 
+      #{type,jdbcType=BIGINT}, #{sequence,jdbcType=BIGINT}, #{context,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.hmsh.admin.vo.wms.GoodsPhoto">
+    insert into wms_goods_photo
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="skuid != null">
+        skuID,
+      </if>
+      <if test="path != null">
+        path,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="sequence != null">
+        sequence,
+      </if>
+      <if test="context != null">
+        context,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="skuid != null">
+        #{skuid,jdbcType=BIGINT},
+      </if>
+      <if test="path != null">
+        #{path,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=BIGINT},
+      </if>
+      <if test="sequence != null">
+        #{sequence,jdbcType=BIGINT},
+      </if>
+      <if test="context != null">
+        #{context,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hmsh.admin.vo.wms.GoodsPhotoExample" resultType="java.lang.Long">
+    select count(*) from wms_goods_photo
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update wms_goods_photo
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.skuid != null">
+        skuID = #{record.skuid,jdbcType=BIGINT},
+      </if>
+      <if test="record.path != null">
+        path = #{record.path,jdbcType=VARCHAR},
+      </if>
+      <if test="record.type != null">
+        type = #{record.type,jdbcType=BIGINT},
+      </if>
+      <if test="record.sequence != null">
+        sequence = #{record.sequence,jdbcType=BIGINT},
+      </if>
+      <if test="record.context != null">
+        context = #{record.context,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update wms_goods_photo
+    set id = #{record.id,jdbcType=BIGINT},
+      skuID = #{record.skuid,jdbcType=BIGINT},
+      path = #{record.path,jdbcType=VARCHAR},
+      type = #{record.type,jdbcType=BIGINT},
+      sequence = #{record.sequence,jdbcType=BIGINT},
+      context = #{record.context,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hmsh.admin.vo.wms.GoodsPhoto">
+    update wms_goods_photo
+    <set>
+      <if test="skuid != null">
+        skuID = #{skuid,jdbcType=BIGINT},
+      </if>
+      <if test="path != null">
+        path = #{path,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=BIGINT},
+      </if>
+      <if test="sequence != null">
+        sequence = #{sequence,jdbcType=BIGINT},
+      </if>
+      <if test="context != null">
+        context = #{context,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hmsh.admin.vo.wms.GoodsPhoto">
+    update wms_goods_photo
+    set skuID = #{skuid,jdbcType=BIGINT},
+      path = #{path,jdbcType=VARCHAR},
+      type = #{type,jdbcType=BIGINT},
+      sequence = #{sequence,jdbcType=BIGINT},
+      context = #{context,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

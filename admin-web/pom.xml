@@ -1,0 +1,196 @@
+<?xml version="1.0"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.hmsh.admin</groupId>
+		<artifactId>hmsh-admin</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>admin-web</artifactId>
+	<packaging>jar</packaging>
+	<url>http://maven.apache.org</url>
+	<dependencies>
+		<dependency>
+			<groupId>com.hmsh.admin</groupId>
+			<artifactId>admin-spi</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-redis</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-websocket</artifactId>
+		</dependency>
+			
+		<dependency>  
+            <groupId>org.springframework</groupId>  
+            <artifactId>spring-context-support</artifactId>  
+        </dependency>  
+        <!-- 任务调度 -->
+        <dependency>  
+            <groupId>org.quartz-scheduler</groupId>  
+            <artifactId>quartz</artifactId>  
+            <version>2.2.1</version>  
+        </dependency>  
+        
+		<dependency>
+			<groupId>com.aliyun.oss</groupId>
+			<artifactId>aliyun-sdk-oss</artifactId>
+			<version>2.0.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>aopalliance</groupId>
+			<artifactId>aopalliance</artifactId>
+			<version>1.0</version>
+		</dependency>
+		
+		
+	</dependencies>
+
+	<build>
+		<finalName>admin-web</finalName>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+				<excludes>
+					<exclude>static/**</exclude>
+				</excludes>
+			</resource>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>false</filtering>
+				<includes>
+					<include>static/**</include>
+				</includes>
+			</resource>
+			<resource>
+				<directory>src/main/scripts</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+					<encoding>UTF-8</encoding>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>2.4</version>
+				<configuration>
+					<includes>
+						<include>**/com/hmsh/admin/**/*</include>
+					</includes>
+				</configuration>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<!--assembly打包 -->
+			<plugin>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<executions>  <!--执行器 mvn assembly:assembly -->
+					<execution>
+						<id>make-tgz</id><!--名字任意 -->
+						<phase>package</phase><!-- 绑定到package生命周期阶段上 -->
+						<goals>
+							<goal>single</goal><!-- 只运行一次 -->
+						</goals>
+						<configuration>
+							<descriptors> <!--描述文件路径 -->
+								<descriptor>src/main/assembly/assembly.xml</descriptor>
+							</descriptors>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<version>1.4.1.RELEASE</version>
+				<configuration>
+					<executable>true</executable>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>repackage</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+	<profiles>
+		<profile>
+			<id>dev</id>
+			<activation>
+				<!--默认激活开发配制 -->
+				<activeByDefault>true</activeByDefault>
+				<property>
+					<name>env</name>
+					<value>dev</value>
+				</property>
+			</activation>
+			<build>
+				<filters>
+					<filter>src/main/filters/dev.properties</filter>
+				</filters>
+			</build>
+		</profile>
+		<profile>
+			<id>test</id>
+			<activation>
+				<property>
+					<name>env</name>
+					<value>test</value>
+				</property>
+			</activation>
+			<build>
+				<filters>
+					<filter>src/main/filters/test.properties</filter>
+				</filters>
+			</build>
+		</profile>
+		<profile>
+			<id>pro</id>
+			<activation>
+				<property>
+					<name>env</name>
+					<value>pro</value>
+				</property>
+			</activation>
+			<build>
+				<filters>
+					<filter>src/main/filters/pro.properties</filter>
+				</filters>
+			</build>
+		</profile>
+	</profiles>
+</project>

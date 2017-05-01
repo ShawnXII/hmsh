@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hmsh.app.dao.agent.AgentRegionContactDao">
+	<resultMap id="BaseResultMap" type="com.hmsh.app.vo.agent.AgentRegionContact">
+		<id column="dmId" jdbcType="BIGINT" property="dmid" />
+		<result column="agentId" jdbcType="BIGINT" property="agentid" />
+		<result column="region" jdbcType="VARCHAR" property="region" />
+		<result column="contactPhone" jdbcType="VARCHAR" property="contactphone" />
+		<result column="contactName" jdbcType="VARCHAR" property="contactname" />
+		<result column="createBy" jdbcType="BIGINT" property="createby" />
+		<result column="createTime" jdbcType="BIGINT" property="createtime" />
+		<result column="updateBy" jdbcType="BIGINT" property="updateby" />
+		<result column="updateOn" jdbcType="BIGINT" property="updateon" />
+	</resultMap>
+
+</mapper>

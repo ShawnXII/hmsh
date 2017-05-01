@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>商品属性Key</title> 	  
+	</head>
+	<body>
+		<div class="row">
+			<div class="portlet light" >
+				<div class="portlet-title">
+					<div class="caption font-red-sunglo">
+						<i class="icon-user"></i> 
+						<span class="caption-subject font-green bold uppercase">商品属性Key</span>
+					</div>
+					<div class="actions">
+						<div class="dt-buttons">
+							<a class="dt-button btn blue btn-outline" data-role="add"> 
+							 	<span>添加</span>
+							</a>
+						</div>
+					</div>
+				</div>
+				<div class="portlet-body">
+					<div class="row table-search"> 
+						<!-- <form action="" role="form" class="form-inline" id="search_form" autocomplete="off" data-role="search">
+		                     <button type="button" class="btn btn-sm green" id="search" >搜索<i class="fa fa-search"></i></button>  
+						</form> -->
+					</div>
+					<table class="table table-striped table-bordered table-hover dt-responsive overflow" width="100%" id="consumptionRecommendBonus_table" th:action="@{/goods/goodsSpecification/query}" data-role="table">
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade" tabindex="-1" aria-hidden="true" data-role="modal">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+						<h4 class="modal-title">添加商品属性Key</h4>
+					</div>
+					<div class="modal-body">
+						<form th:action="@{/goods/goodsSpecification/save}" class="form-horizontal form-bordered" autocomplete="off"   id="account_form" role="form" method="post" data-role="form">
+							<input type="hidden"  id="dmId" name="dmId"/>
+							<div class="form-body">
+								<div class="form-group">
+									<label class="col-md-3 control-label" for="name">名称</label>
+									<div class="col-md-9">
+										<div class="input-icon">
+		                                    <i class="fa fa-user"></i>
+											<input type="text" id="title" name="title" class="form-control"  maxlength="20" placeholder="KEY" value=""/>
+										</div>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-md-3 control-label" for="name">排序号</label>
+									<div class="col-md-9">
+										<div class="input-icon">
+		                                    <i class="fa fa-user"></i>
+											<input type="text" id="sequence" name="sequence" class="form-control"  maxlength="20" placeholder="KEY" value=""/>
+										</div>
+									</div>
+								</div>
+								
+							</div>
+						</form>
+					</div>
+					<div class="modal-footer">
+	                     <button type="button" data-dismiss="modal" class="btn dark btn-outline">关闭</button>
+	                     <button type="button" class="btn green" data-role="save">保存</button>
+	                 </div>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript" th:src="@{/assets/custom/goods/goodsSpecification.js}"></script>
+	   <script type="text/javascript" th:inline="javascript">
+		   jQuery(document).ready(function() {
+			   GoodsSpecification.init();
+			});
+		   //页面 colums
+		   function colums(){
+			   return [
+				    {title:'值',bSortable:false,data:'title',width:90,render:function(row,type,set){
+						 return isEmpty(row)?'':row;
+				    }},
+				    {title:'排序号',bSortable:true,data:'sequence',width:90,render:function(row,type,set){
+						 return isEmpty(row)?'0':row;
+				    }},
+					{title:'创建人',bSortable:false,data:'createBy',render:function(row,type,set){
+						return isEmpty(row)?'':row; 
+					}},
+					{title:'创建时间',bSortable:true,data:'createTime',render:function(row,type,set){
+						return LongToDateStr(row,'yyyy-MM-dd HH:mm:ss'); 
+					}},
+					{title:'更新人',bSortable:false,data:'updateBy',render:function(row,type,set){
+						return isEmpty(row)?'':row; 
+					}},
+					{title:'更新时间',bSortable:false,data:'updateTime',render:function(row,type,set){
+						 return LongToDateStr(row,'yyyy-MM-dd HH:mm:ss'); 
+					}},
+					{title:'操作',bSortable:false,data:'dmId',width:270,render:function(row,type,set){
+						 var token=/*[[${_csrf.token}]]*/;
+						 var name=/*[[${_csrf.parameterName}]]*/;
+						var btn='<a class="btn btn-xs grey-cascade" onclick="GoodsSpecification.edit('+row+')">修改<i class="fa fa-edit"></i></a>';
+					/* 	btn+='<a class="btn btn-xs red" onclick="GoodsSpecification.remove('+row+',\''+name+'\',\''+token+'\');">删除<i class="fa fa-delete"></i></a>'; */
+						return  btn;
+					}}
+	               ];
+		  	 }
+	   </script>
+	</body>
+</html>

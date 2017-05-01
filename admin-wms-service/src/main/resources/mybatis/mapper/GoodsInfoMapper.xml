@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hmsh.admin.wms.dao.GoodsInfoDao">
+    <!-- wms_goods_info table all BaseResultMap-->
+    <resultMap id="BaseResultMap" type="com.hmsh.admin.vo.wms.GoodsInfo">
+        <result property="id" column="id"/>
+        <result column="goodsName"  property="goodsName"/>
+        <result column="image"  property="image"/>
+        <result column="goodsID"  property="goodsID"/>
+    </resultMap>
+    <!-- wms_goods_info 表的全部字段-->
+    <sql id="Base_Column_List" >
+		id, goodsName, image,goodsID
+    </sql>
+    
+    <!-- 查询条件[可自行扩展]-->
+    <sql id="Example_Where_Clause">
+        <where>
+            <if test="id != null ">
+                and id=#{id}
+            </if>
+            <if test="goodsName != null ">
+                and goodsName=#{goodsName}
+            </if>
+            <if test="image != null ">
+                and image=#{image}
+            </if>
+            <if test="goodsID != null ">
+                and goodsID=#{goodsID}
+            </if>
+        </where>
+    </sql>
+    
+    <!-- 插入一条数据 -->
+    <insert id="insert" parameterType="com.hmsh.admin.vo.wms.GoodsInfo">
+    	insert into wms_goods_info (
+    		id, goodsName, image,goodsID
+    	)values
+    	(#{id}, #{goodsName}, #{image},#{goodsID})
+    </insert>
+    
+    <!-- 插入一条数据,只插入不为空的字段 -->
+    <insert id="insertSelective" parameterType="com.hmsh.admin.vo.wms.GoodsInfo" >
+        insert into wms_goods_info
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+        	<if test="id!=null">
+        		id,
+        	</if>
+        	<if test="goodsName!=null">
+        		goodsName,
+        	</if>
+        	<if test="image!=null">
+        		image,
+        	</if>
+        	<if test="goodsID!=null">
+        		goodsID,
+        	</if>
+        </trim>
+   	    <trim prefix="values (" suffix=")" suffixOverrides="," >
+	     		<if test="id!=null">
+	     			#{id},
+	     		</if>
+	     		<if test="goodsName!=null">
+	     			#{goodsName},
+	     		</if>
+	     		<if test="image!=null">
+	     			#{image},
+	     		</if>
+	     		<if test="goodsID!=null">
+	     			#{goodsID},
+	     		</if>
+        </trim>
+    </insert>
+    
+    <!-- 插入多条数据 -->
+    <insert id="insertList" parameterType="java.util.List">
+    	insert into wms_goods_info
+    	(id, goodsName, image , goodsID)
+    	values
+    	<foreach collection="list" item="item" index="index" separator=",">
+    		(#{item.id},#{item.goodsName},#{item.image},#{item.goodsID})
+    	</foreach>
+    </insert>
+    
+    <!-- 修改数据 -->
+    <update id="modify" parameterType="com.hmsh.admin.vo.wms.GoodsInfo">
+    	update wms_goods_info set (goodsName=#{goodsName},image=#{image},goodsID=#{goodsID}) 
+    		where id=#{id}
+    </update>
+    
+    <!--根据主键修改不为空的字段-->
+	<update id="modifyNotNull" parameterType="com.hmsh.admin.vo.wms.GoodsInfo">
+		update wms_goods_info
+		<set >
+			<if test="goodsName!=null">
+				goodsName=#{goodsName},
+			</if>
+			<if test="image!=null">
+				image=#{image},
+			</if>
+			<if test="goodsID!=null">
+				goodsID=#{goodsID},
+			</if>
+		</set>
+		where id=#{id}
+	</update>
+	
+	<!--根据主键删除数据-->
+	<delete id="remove" parameterType="java.lang.Long">
+		delete from wms_goods_info where id=#{id}
+	</delete>
+	
+	<!-- 批量删除-->
+	<delete id="removeList" parameterType="java.util.List">
+		delete from wms_goods_info where id in
+		<foreach item="idItem" collection="list" open="(" separator="," close=")"> #{idItem}  </foreach>
+	</delete>
+	
+	<!--根据主键查询-->
+	<select id="findOne" resultMap="BaseResultMap" parameterType="java.lang.Long">
+		select <include refid="Base_Column_List" /> from wms_goods_info where id=#{id}
+	</select>
+		<select id="findGoodsInfo" resultMap="BaseResultMap" parameterType="java.lang.Long">
+		select <include refid="Base_Column_List" /> from wms_goods_info where goodsID=#{goodsID}
+	</select>
+	
+	<!--查询全部 分页排序交给插件完成-->
+	<select id="findAll" resultMap="BaseResultMap" parameterType="com.hmsh.admin.vo.wms.GoodsInfo">
+		select <include refid="Base_Column_List" /> from wms_goods_info <include refid="Example_Where_Clause"/>
+	</select>
+	
+	<!--获取总条数-->
+	<select id="count" resultType="java.lang.Long" parameterType="com.hmsh.admin.vo.wms.GoodsInfo">
+		select count(id) from wms_goods_info <include refid="Example_Where_Clause"/>
+	</select>
+	
+	<!-- ##########################################自动生成MyBatils XML 已经完成,上面的所有方法都在BaseDao里面体现###########################################################-->
+</mapper>

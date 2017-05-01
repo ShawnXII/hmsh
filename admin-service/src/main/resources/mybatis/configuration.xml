@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<settings>
+		<setting name="cacheEnabled" value="true" />
+		<setting name="defaultExecutorType" value="REUSE" />
+	</settings>
+	<!-- <typeAliases>
+		&lt;!&ndash; 这里配置别名 &ndash;&gt;
+		<typeAlias type="com.qtz.dm.user.vo.User" alias="User" />
+		<typeAlias type="com.qtz.dm.system.vo.Category" alias="Category" />
+		<typeAlias alias="Region" type="com.qtz.dm.system.vo.Region"/>
+			<typeAlias alias="goodsCategory"
+				type="com.qtz.goods.spi.goods.dto.GoodsCategory" />
+			<typeAlias alias="goodsUnit" type="com.qtz.goods.spi.goods.dto.GoodsUnit" />
+			<typeAlias alias="ppServiceGoods"
+				type="com.qtz.goods.spi.goods.dto.PpServiceGoods" />
+			<typeAlias alias="storeGoods" type="com.qtz.base.dto.order.StoreGoods" />
+			<package name="com.hmsh.admin.core.dao" />
+	</typeAliases> -->
+	 <plugins>
+		<plugin interceptor="com.github.abel533.mapperhelper.MapperInterceptor">
+			<!-- 主键自增回写方法,默认值MYSQL,详细说明请看文档 -->
+			<property name="IDENTITY" value="MYSQL" />
+			<!-- 通用Mapper接口，多个通用接口用逗号隔开 -->
+			<property name="mappers" value="com.github.abel533.mapper.Mapper" />
+		</plugin>
+	</plugins>
+</configuration>

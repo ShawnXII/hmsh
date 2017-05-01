@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"  xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"  xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+<!--/*/ <th:block th:include="fragments/headerinc :: head"></th:block> /*/-->
+<title>角色管理</title>
+</head>
+<!-- 固定菜单和底部 -->
+<body
+	class="page-sidebar-closed-hide-logo page-content-white page-header-fixed  page-footer-fixed page-sidebar-fixed">
+	<!--/*/ <th:block th:include="fragments/headerinc :: top"></th:block> /*/-->
+	<div class="clearfix"></div>
+	<div class="page-container">
+		<!--/*/ <th:block th:include="fragments/headerinc :: menu"></th:block> /*/-->
+		<div class="page-content-wrapper">
+			<div class="page-content">
+				<!--/*/ <th:block th:include="fragments/headerinc :: bar"></th:block> /*/-->
+				<div class="row"> 
+					<div class="portlet light bordered">
+						<div class="portlet-body form">
+							<div class="tab-content">
+								<div class="tab-pane fade in active" id="role_list">
+									<div id="role-toolbar" class="">
+										<form class="form-inline " autocomplete="off">
+											<input type="text" class="form-control" id="searchName" name="searchName" placeholder="角色名称/编号" />
+											<button type="button" class="btn btn-default" data-type="search">
+												<i class="fa fa-search"></i> <span data-zh="搜索">搜索</span>
+											</button>
+											<button type="button" class="btn btn-default" onclick="Role.add();">
+												<i class="fa fa-plus"></i> <span data-zh="转换">新增</span>
+											</button>
+										</form>
+									</div>
+									<table
+										class="table table-striped table-bordered table-hover dt-responsive"
+										id="role_table" th:attr="data-url=@{/role/query}"
+										data-unique-id="id" data-side-pagination="server"
+										data-pagination="true" data-height="680"  
+										data-toolbar="#role-toolbar">
+										<thead>
+											<tr>
+												<th data-field="roleName">角色名称</th>
+												<th data-field="roleCode">角色编号</th>
+												<th data-field="type" data-formatter="$transformation.toKey">角色类型</th>
+												<th data-field="info">备注</th>
+												<th data-field="id" data-formatter="Role.toBtn" data-width="270">操作</th>
+											</tr>
+										</thead>
+									</table>
+								</div>
+								<div class="tab-pane fade" id="role_power">
+									<form th:action="@{/role/save}" role="form"
+										class="form-horizontal" autocomplete="off"
+										novalidate="novalidate" method="post" id="role_power_form">
+										<input type="hidden" id="id" name="id" />
+										<div class="form-body">
+											<div class="form-group">
+												<label class="col-sm-3 control-label">URL :</label>
+												<div class="col-md-6 col-xs-9">
+													<select multiple="multiple" class="form-control multi-select" id="power" name="power" data-width="100%"  size="50" data-type="resource_power">
+															
+													</select>
+													<span class="help-block help-block-ignore"><i
+														class="fa fa-exclamation-circle"></i>
+														需要URL的权限才能操作和访问页面!</span>
+												</div>
+											</div>
+										</div>
+										<div class="form-actions">
+											<div class="row">
+												<div class="col-md-offset-3 col-md-9">
+													<button type="button" class="btn green" onclick="Role.save(this);">提交</button>
+													<a href="javascript:;" class="btn default" data-type="cancel">取消</a>
+												</div>
+											</div>
+										</div>
+									</form>
+								</div>
+								<div class="tab-pane fade" id="role_add">
+									<form th:action="@{/role/save}" role="form"
+										class="form-horizontal" autocomplete="off"
+										novalidate="novalidate" method="post" id="role_add_form">
+										<input type="hidden" id="id" name="id" />
+										<input type="hidden" id="resources" name="resources" />
+										<div class="form-body">
+											<div class="form-group">
+												<label class="col-md-3 control-label">角色名称<span
+													class="required">*</span>:
+												</label>
+												<div class="col-md-6 col-xs-9">
+													<input type="text" class="form-control" placeholder="角色名称"
+														maxLength="15" id="roleName" name="roleName" /> <span
+														class="help-block help-block-ignore"><i
+														class="fa fa-exclamation-circle"></i>
+														支持中文、字母、数字、“-”“_”的组合，2-15个字符 </span>
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="col-md-3 control-label">角色编号<span
+													class="required">*</span>:
+												</label>
+												<div class="col-md-6 col-xs-9">
+													<input type="text" class="form-control" placeholder="ROLE_"
+														maxLength="20" id="roleCode" name="roleCode" /> <span
+														class="help-block help-block-ignore"><i
+														class="fa fa-exclamation-circle"></i>
+														“ROLE_”开头,支持大写字母、数字、“_”的组合，2-20个字符 </span>
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="col-sm-3 control-label">角色类型 <span
+													class="required">*</span>:
+												</label>
+												<div class="col-md-6 col-xs-9">
+													<select class="form-control select2" id="type" name="type"
+														th:attr="data-url=@{/dictionaries/retrieval/role_type}"
+														data-width="100%"></select> <span
+														class="help-block help-block-ignore"><i
+														class="fa fa-exclamation-circle"></i>
+														系统角色一但创建,则无法删除、修改基本信息.</span>
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="col-sm-3 control-label">菜单权限 :</label>
+												<div class="col-md-6 col-xs-9">
+													<select multiple="multiple" class="form-control multi-select" id="power" name="power" data-width="100%" data-type="menu_power">
+
+													</select>
+													<span class="help-block help-block-ignore"><i
+														class="fa fa-exclamation-circle"></i>
+														没有菜单权限则无法访问该菜单内容,如需更细分的权限控制可以去编辑URL权限.</span>
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="col-sm-3 control-label">备注: </label>
+												<div class="col-md-6 col-xs-9">
+													<textarea class="form-control" rows="4" name="info"
+														id="info" placeholder="备注" maxLength="100"></textarea>
+												</div>
+											</div>
+										</div>
+										<div class="form-actions">
+											<div class="row">
+												<div class="col-md-offset-3 col-md-9">
+													<button type="button" class="btn green" onclick="Role.save(this);">提交</button>
+													<a href="javascript:;" class="btn default" data-type="cancel">取消</a>
+												</div>
+											</div>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--/*/ <th:block th:include="fragments/headerinc :: footer"></th:block> /*/-->
+	<!--/*/ <th:block th:include="fragments/headerinc :: script"></th:block> /*/-->
+	<script type="text/javascript"
+		th:src="@{/assets/custom/system/role.js}"></script>
+	<script type="text/javascript" th:inline="javascript">
+    	$(function(){
+    		
+    	});
+    	
+    	
+    	var flag=false;
+    	var isFirst=true;
+    	var power=function(e){
+    		isFirst=true;
+    		var modal=$('#power_modal');
+    		if(!flag){
+    			//
+    			$('#power_menu',modal).jstree({
+    				'plugins': ["wholerow", "checkbox", "types"],
+    	            'core': {
+    	                "themes" : {
+    	                    "responsive": false
+    	                },    
+    	                'data': menuList
+    	            },
+    	            "types" : {
+    	                "default" : {
+    	                    "icon" : "fa fa-folder icon-state-warning icon-lg"
+    	                },
+    	                "file" : {
+    	                    "icon" : "fa fa-file icon-state-warning icon-lg"
+    	                }
+    	            }
+    			});	 			
+    		}
+    		if(!isFirst){
+				$('#power_menu',modal).jstree(false).refresh();
+			}
+			isFirst=false;
+    		flag=true;
+    		modal.modal();
+    	}
+    	//保存
+    	var save=function(e){
+    		var modal=$(e).parents('.modal');
+    		var power=$('#power_modal');
+    		var data=power.jstree('get_checked');
+    		modal.modal('hide');
+    	}
+    </script>
+</body>
+</html>

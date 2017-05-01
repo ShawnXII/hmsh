@@ -1,0 +1,427 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hmsh.app.dao.user.UserwalletMapper">
+  <resultMap id="BaseResultMap" type="com.hmsh.app.vo.user.Userwallet">
+    <id column="dmId" jdbcType="BIGINT" property="dmid" />
+    <result column="userId" jdbcType="BIGINT" property="userid" />
+    <result column="userType" jdbcType="SMALLINT" property="usertype" />
+    <result column="runSubTotalAmount" jdbcType="DECIMAL" property="runsubtotalamount" />
+    <result column="reimburseTotalAmount" jdbcType="DECIMAL" property="reimbursetotalamount" />
+    <result column="reconciliationTotalAmount" jdbcType="DECIMAL" property="reconciliationtotalamount" />
+    <result column="cashBackTotalAmount" jdbcType="DECIMAL" property="cashbacktotalamount" />
+    <result column="goodsTotalAmount" jdbcType="DECIMAL" property="goodstotalamount" />
+    <result column="goldTotalAmount" jdbcType="DECIMAL" property="goldtotalamount" />
+    <result column="createBy" jdbcType="BIGINT" property="createby" />
+    <result column="createOn" jdbcType="TIMESTAMP" property="createon" />
+    <result column="updateBy" jdbcType="BIGINT" property="updateby" />
+    <result column="updateOn" jdbcType="TIMESTAMP" property="updateon" />
+    <result column="payPwd" jdbcType="VARCHAR" property="paypwd" />
+    <result column="consumeTotalAmount" jdbcType="DECIMAL" property="consumetotalamount" />
+    <result column="htsubsidyTotalAmount" jdbcType="DECIMAL" property="htsubsidytotalamount" />
+    <result column="cashdepositTotalAmount" jdbcType="DECIMAL" property="cashdeposittotalamount" />
+    <result column="depositPwd" jdbcType="VARCHAR" property="depositpwd" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    dmId, userId, userType, runSubTotalAmount, reimburseTotalAmount, reconciliationTotalAmount, 
+    cashBackTotalAmount, goodsTotalAmount, goldTotalAmount, createBy, createOn, updateBy, 
+    updateOn, payPwd, consumeTotalAmount, htsubsidyTotalAmount, cashdepositTotalAmount, 
+    depositPwd
+  </sql>
+  <select id="selectByExample" parameterType="com.hmsh.app.vo.user.UserwalletExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from uw_userwallet
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from uw_userwallet
+    where dmId = #{dmid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from uw_userwallet
+    where dmId = #{dmid,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.hmsh.app.vo.user.UserwalletExample">
+    delete from uw_userwallet
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.hmsh.app.vo.user.Userwallet">
+    insert into uw_userwallet (dmId, userId, userType, 
+      runSubTotalAmount, reimburseTotalAmount, 
+      reconciliationTotalAmount, cashBackTotalAmount, 
+      goodsTotalAmount, goldTotalAmount, createBy, 
+      createOn, updateBy, updateOn, 
+      payPwd, consumeTotalAmount, htsubsidyTotalAmount, 
+      cashdepositTotalAmount, depositPwd)
+    values (#{dmid,jdbcType=BIGINT}, #{userid,jdbcType=BIGINT}, #{usertype,jdbcType=SMALLINT}, 
+      #{runsubtotalamount,jdbcType=DECIMAL}, #{reimbursetotalamount,jdbcType=DECIMAL}, 
+      #{reconciliationtotalamount,jdbcType=DECIMAL}, #{cashbacktotalamount,jdbcType=DECIMAL}, 
+      #{goodstotalamount,jdbcType=DECIMAL}, #{goldtotalamount,jdbcType=DECIMAL}, #{createby,jdbcType=BIGINT}, 
+      #{createon,jdbcType=TIMESTAMP}, #{updateby,jdbcType=BIGINT}, #{updateon,jdbcType=TIMESTAMP}, 
+      #{paypwd,jdbcType=VARCHAR}, #{consumetotalamount,jdbcType=DECIMAL}, #{htsubsidytotalamount,jdbcType=DECIMAL}, 
+      #{cashdeposittotalamount,jdbcType=DECIMAL}, #{depositpwd,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hmsh.app.vo.user.Userwallet">
+    insert into uw_userwallet
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="dmid != null">
+        dmId,
+      </if>
+      <if test="userid != null">
+        userId,
+      </if>
+      <if test="usertype != null">
+        userType,
+      </if>
+      <if test="runsubtotalamount != null">
+        runSubTotalAmount,
+      </if>
+      <if test="reimbursetotalamount != null">
+        reimburseTotalAmount,
+      </if>
+      <if test="reconciliationtotalamount != null">
+        reconciliationTotalAmount,
+      </if>
+      <if test="cashbacktotalamount != null">
+        cashBackTotalAmount,
+      </if>
+      <if test="goodstotalamount != null">
+        goodsTotalAmount,
+      </if>
+      <if test="goldtotalamount != null">
+        goldTotalAmount,
+      </if>
+      <if test="createby != null">
+        createBy,
+      </if>
+      <if test="createon != null">
+        createOn,
+      </if>
+      <if test="updateby != null">
+        updateBy,
+      </if>
+      <if test="updateon != null">
+        updateOn,
+      </if>
+      <if test="paypwd != null">
+        payPwd,
+      </if>
+      <if test="consumetotalamount != null">
+        consumeTotalAmount,
+      </if>
+      <if test="htsubsidytotalamount != null">
+        htsubsidyTotalAmount,
+      </if>
+      <if test="cashdeposittotalamount != null">
+        cashdepositTotalAmount,
+      </if>
+      <if test="depositpwd != null">
+        depositPwd,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="dmid != null">
+        #{dmid,jdbcType=BIGINT},
+      </if>
+      <if test="userid != null">
+        #{userid,jdbcType=BIGINT},
+      </if>
+      <if test="usertype != null">
+        #{usertype,jdbcType=SMALLINT},
+      </if>
+      <if test="runsubtotalamount != null">
+        #{runsubtotalamount,jdbcType=DECIMAL},
+      </if>
+      <if test="reimbursetotalamount != null">
+        #{reimbursetotalamount,jdbcType=DECIMAL},
+      </if>
+      <if test="reconciliationtotalamount != null">
+        #{reconciliationtotalamount,jdbcType=DECIMAL},
+      </if>
+      <if test="cashbacktotalamount != null">
+        #{cashbacktotalamount,jdbcType=DECIMAL},
+      </if>
+      <if test="goodstotalamount != null">
+        #{goodstotalamount,jdbcType=DECIMAL},
+      </if>
+      <if test="goldtotalamount != null">
+        #{goldtotalamount,jdbcType=DECIMAL},
+      </if>
+      <if test="createby != null">
+        #{createby,jdbcType=BIGINT},
+      </if>
+      <if test="createon != null">
+        #{createon,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateby != null">
+        #{updateby,jdbcType=BIGINT},
+      </if>
+      <if test="updateon != null">
+        #{updateon,jdbcType=TIMESTAMP},
+      </if>
+      <if test="paypwd != null">
+        #{paypwd,jdbcType=VARCHAR},
+      </if>
+      <if test="consumetotalamount != null">
+        #{consumetotalamount,jdbcType=DECIMAL},
+      </if>
+      <if test="htsubsidytotalamount != null">
+        #{htsubsidytotalamount,jdbcType=DECIMAL},
+      </if>
+      <if test="cashdeposittotalamount != null">
+        #{cashdeposittotalamount,jdbcType=DECIMAL},
+      </if>
+      <if test="depositpwd != null">
+        #{depositpwd,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hmsh.app.vo.user.UserwalletExample" resultType="java.lang.Long">
+    select count(*) from uw_userwallet
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update uw_userwallet
+    <set>
+      <if test="record.dmid != null">
+        dmId = #{record.dmid,jdbcType=BIGINT},
+      </if>
+      <if test="record.userid != null">
+        userId = #{record.userid,jdbcType=BIGINT},
+      </if>
+      <if test="record.usertype != null">
+        userType = #{record.usertype,jdbcType=SMALLINT},
+      </if>
+      <if test="record.runsubtotalamount != null">
+        runSubTotalAmount = #{record.runsubtotalamount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.reimbursetotalamount != null">
+        reimburseTotalAmount = #{record.reimbursetotalamount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.reconciliationtotalamount != null">
+        reconciliationTotalAmount = #{record.reconciliationtotalamount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.cashbacktotalamount != null">
+        cashBackTotalAmount = #{record.cashbacktotalamount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.goodstotalamount != null">
+        goodsTotalAmount = #{record.goodstotalamount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.goldtotalamount != null">
+        goldTotalAmount = #{record.goldtotalamount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.createby != null">
+        createBy = #{record.createby,jdbcType=BIGINT},
+      </if>
+      <if test="record.createon != null">
+        createOn = #{record.createon,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateby != null">
+        updateBy = #{record.updateby,jdbcType=BIGINT},
+      </if>
+      <if test="record.updateon != null">
+        updateOn = #{record.updateon,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.paypwd != null">
+        payPwd = #{record.paypwd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.consumetotalamount != null">
+        consumeTotalAmount = #{record.consumetotalamount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.htsubsidytotalamount != null">
+        htsubsidyTotalAmount = #{record.htsubsidytotalamount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.cashdeposittotalamount != null">
+        cashdepositTotalAmount = #{record.cashdeposittotalamount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.depositpwd != null">
+        depositPwd = #{record.depositpwd,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update uw_userwallet
+    set dmId = #{record.dmid,jdbcType=BIGINT},
+      userId = #{record.userid,jdbcType=BIGINT},
+      userType = #{record.usertype,jdbcType=SMALLINT},
+      runSubTotalAmount = #{record.runsubtotalamount,jdbcType=DECIMAL},
+      reimburseTotalAmount = #{record.reimbursetotalamount,jdbcType=DECIMAL},
+      reconciliationTotalAmount = #{record.reconciliationtotalamount,jdbcType=DECIMAL},
+      cashBackTotalAmount = #{record.cashbacktotalamount,jdbcType=DECIMAL},
+      goodsTotalAmount = #{record.goodstotalamount,jdbcType=DECIMAL},
+      goldTotalAmount = #{record.goldtotalamount,jdbcType=DECIMAL},
+      createBy = #{record.createby,jdbcType=BIGINT},
+      createOn = #{record.createon,jdbcType=TIMESTAMP},
+      updateBy = #{record.updateby,jdbcType=BIGINT},
+      updateOn = #{record.updateon,jdbcType=TIMESTAMP},
+      payPwd = #{record.paypwd,jdbcType=VARCHAR},
+      consumeTotalAmount = #{record.consumetotalamount,jdbcType=DECIMAL},
+      htsubsidyTotalAmount = #{record.htsubsidytotalamount,jdbcType=DECIMAL},
+      cashdepositTotalAmount = #{record.cashdeposittotalamount,jdbcType=DECIMAL},
+      depositPwd = #{record.depositpwd,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hmsh.app.vo.user.Userwallet">
+    update uw_userwallet
+    <set>
+      <if test="userid != null">
+        userId = #{userid,jdbcType=BIGINT},
+      </if>
+      <if test="usertype != null">
+        userType = #{usertype,jdbcType=SMALLINT},
+      </if>
+      <if test="runsubtotalamount != null">
+        runSubTotalAmount = #{runsubtotalamount,jdbcType=DECIMAL},
+      </if>
+      <if test="reimbursetotalamount != null">
+        reimburseTotalAmount = #{reimbursetotalamount,jdbcType=DECIMAL},
+      </if>
+      <if test="reconciliationtotalamount != null">
+        reconciliationTotalAmount = #{reconciliationtotalamount,jdbcType=DECIMAL},
+      </if>
+      <if test="cashbacktotalamount != null">
+        cashBackTotalAmount = #{cashbacktotalamount,jdbcType=DECIMAL},
+      </if>
+      <if test="goodstotalamount != null">
+        goodsTotalAmount = #{goodstotalamount,jdbcType=DECIMAL},
+      </if>
+      <if test="goldtotalamount != null">
+        goldTotalAmount = #{goldtotalamount,jdbcType=DECIMAL},
+      </if>
+      <if test="createby != null">
+        createBy = #{createby,jdbcType=BIGINT},
+      </if>
+      <if test="createon != null">
+        createOn = #{createon,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateby != null">
+        updateBy = #{updateby,jdbcType=BIGINT},
+      </if>
+      <if test="updateon != null">
+        updateOn = #{updateon,jdbcType=TIMESTAMP},
+      </if>
+      <if test="paypwd != null">
+        payPwd = #{paypwd,jdbcType=VARCHAR},
+      </if>
+      <if test="consumetotalamount != null">
+        consumeTotalAmount = #{consumetotalamount,jdbcType=DECIMAL},
+      </if>
+      <if test="htsubsidytotalamount != null">
+        htsubsidyTotalAmount = #{htsubsidytotalamount,jdbcType=DECIMAL},
+      </if>
+      <if test="cashdeposittotalamount != null">
+        cashdepositTotalAmount = #{cashdeposittotalamount,jdbcType=DECIMAL},
+      </if>
+      <if test="depositpwd != null">
+        depositPwd = #{depositpwd,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where dmId = #{dmid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hmsh.app.vo.user.Userwallet">
+    update uw_userwallet
+    set userId = #{userid,jdbcType=BIGINT},
+      userType = #{usertype,jdbcType=SMALLINT},
+      runSubTotalAmount = #{runsubtotalamount,jdbcType=DECIMAL},
+      reimburseTotalAmount = #{reimbursetotalamount,jdbcType=DECIMAL},
+      reconciliationTotalAmount = #{reconciliationtotalamount,jdbcType=DECIMAL},
+      cashBackTotalAmount = #{cashbacktotalamount,jdbcType=DECIMAL},
+      goodsTotalAmount = #{goodstotalamount,jdbcType=DECIMAL},
+      goldTotalAmount = #{goldtotalamount,jdbcType=DECIMAL},
+      createBy = #{createby,jdbcType=BIGINT},
+      createOn = #{createon,jdbcType=TIMESTAMP},
+      updateBy = #{updateby,jdbcType=BIGINT},
+      updateOn = #{updateon,jdbcType=TIMESTAMP},
+      payPwd = #{paypwd,jdbcType=VARCHAR},
+      consumeTotalAmount = #{consumetotalamount,jdbcType=DECIMAL},
+      htsubsidyTotalAmount = #{htsubsidytotalamount,jdbcType=DECIMAL},
+      cashdepositTotalAmount = #{cashdeposittotalamount,jdbcType=DECIMAL},
+      depositPwd = #{depositpwd,jdbcType=VARCHAR}
+    where dmId = #{dmid,jdbcType=BIGINT}
+  </update>
+</mapper>

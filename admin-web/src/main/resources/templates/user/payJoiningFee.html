@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>诚意金管理</title> 	  
+	</head>
+	<body>
+		<div class="row">
+			<div class="portlet light" >
+				<div class="portlet-title">
+					<div class="caption font-red-sunglo">
+						<i class="icon-user"></i> 
+						<span class="caption-subject font-green bold uppercase">诚意金管理</span>
+					</div>
+					<div class="actions">
+						<div class="dt-buttons">
+							<a class="dt-button btn blue btn-outline" data-role="add"> 
+							 	<span>添加</span>
+							</a>
+						</div>
+					</div>
+				</div>
+				<div class="portlet-body">
+					<div class="row table-search"> 
+						<form action="" role="form" class="form-inline" id="search_form" autocomplete="off" data-role="search">
+		                     <button type="button" class="btn btn-sm green" id="search" >搜索<i class="fa fa-search"></i></button>  
+						</form>
+					</div>
+					<table class="table table-striped table-bordered table-hover dt-responsive overflow" width="100%" id="payJoiningFee_table" th:action="@{/finance/payJoiningFee/query}" data-role="table">
+					</table>
+				</div>
+			</div>
+		</div>
+	    <script type="text/javascript" th:inline="javascript">
+		   //页面 colums
+		   function colums(){
+			   return [
+						{title:'商家ID',bSortable:false,data:'dmId',render:function(row,type,set){
+							 return isEmpty(row)?'':row; 
+						}},
+						{title:'商家名称',bSortable:false,data:'shopName',render:function(row,type,set){
+							 return isEmpty(row)?'':row; 
+						}},
+					    {title:'用户类型',bSortable:false,data:'userType',width:90,render:function(row,type,set){
+					    	return Select2.getText('userType_key',row);
+					    }},
+						{title:'加盟费总',bSortable:false,data:'joiningFee',render:function(row,type,set){
+							 return isEmpty(row)?'':row; 
+						}},
+						{title:'诚意金',bSortable:false,data:'earnestMoney',render:function(row,type,set){
+							return isEmpty(row)?'':row; 
+						}},
+						{title:'收益扣费总金额',bSortable:false,data:'returnFee',render:function(row,type,set){
+							 return isEmpty(row)?'':row; 
+						}},
+						{title:'创建 时间',bSortable:false,data:'crtime',render:function(row,type,set){	 
+							 return  isEmpty(row)?'':row;
+						}},
+						{title:'更新时间',bSortable:false,data:'updateTime',render:function(row,type,set){	 
+							 return  isEmpty(row)?'':row;
+						}}
+		               ];
+		  	 }
+	   </script>
+	</body>
+</html>

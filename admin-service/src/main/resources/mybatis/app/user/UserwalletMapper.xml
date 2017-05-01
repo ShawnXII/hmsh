@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hmsh.app.dao.user.UserwalletDao">
+  <resultMap id="BaseResultMap" type="com.hmsh.app.vo.user.Userwallet">
+    <id column="dmId" jdbcType="BIGINT" property="dmid" />
+    <result column="userId" jdbcType="BIGINT" property="userid" />
+    <result column="userType" jdbcType="SMALLINT" property="usertype" />
+    <result column="runSubTotalAmount" jdbcType="DECIMAL" property="runsubtotalamount" />
+    <result column="reimburseTotalAmount" jdbcType="DECIMAL" property="reimbursetotalamount" />
+    <result column="reconciliationTotalAmount" jdbcType="DECIMAL" property="reconciliationtotalamount" />
+    <result column="cashBackTotalAmount" jdbcType="DECIMAL" property="cashbacktotalamount" />
+    <result column="goodsTotalAmount" jdbcType="DECIMAL" property="goodstotalamount" />
+    <result column="goldTotalAmount" jdbcType="DECIMAL" property="goldtotalamount" />
+    <result column="createBy" jdbcType="BIGINT" property="createby" />
+    <result column="createOn" jdbcType="TIMESTAMP" property="createon" />
+    <result column="updateBy" jdbcType="BIGINT" property="updateby" />
+    <result column="updateOn" jdbcType="TIMESTAMP" property="updateon" />
+    <result column="payPwd" jdbcType="VARCHAR" property="paypwd" />
+    <result column="consumeTotalAmount" jdbcType="DECIMAL" property="consumetotalamount" />
+    <result column="htsubsidyTotalAmount" jdbcType="DECIMAL" property="htsubsidytotalamount" />
+    <result column="cashdepositTotalAmount" jdbcType="DECIMAL" property="cashdeposittotalamount" />
+    <result column="depositPwd" jdbcType="VARCHAR" property="depositpwd" />
+  </resultMap>
+ 
+</mapper>

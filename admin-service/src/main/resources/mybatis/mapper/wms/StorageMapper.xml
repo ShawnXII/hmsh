@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hmsh.admin.dao.wms.StorageDao">
+	<resultMap id="BaseResultMap" type="com.hmsh.admin.vo.wms.StorageEntity">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<id column="storageNo" property="storageNo" jdbcType="BIGINT" />
+		<result column="supplierNo" property="supplierNo" jdbcType="BIGINT" />
+		<result column="supplierName" property="supplierName" jdbcType="VARCHAR" />
+		<result column="customerNo" property="customerNo" jdbcType="BIGINT" />
+		<result column="customerName" property="customerName" jdbcType="VARCHAR" />
+		<result column="storageDate" property="storageDate" jdbcType="BIGINT" />
+		<result column="deliveryDate" property="deliveryDate" jdbcType="BIGINT" />
+		<result column="status" property="status" jdbcType="BIGINT" />
+		<result column="remarks" property="remarks" jdbcType="VARCHAR" />
+	</resultMap>
+
+</mapper>

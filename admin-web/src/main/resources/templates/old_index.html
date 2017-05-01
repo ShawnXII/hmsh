@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<!-- Mirrored from www.zi-han.net/theme/hplus/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Jan 2016 14:16:41 GMT -->
+<head>
+	<meta charset="utf-8" />
+    <title>主页</title>
+    <!--/*/ <th:block th:include="fragments/common :: head"></th:block> /*/-->
+</head>
+
+<body class="fixed-sidebar full-height-layout gray-bg" style="overflow:hidden">
+    <div id="wrapper">
+      <nav class="navbar-default navbar-static-side" role="navigation">
+		  <div class="nav-close"><i class="fa fa-times-circle"></i></div>
+		  <div class="sidebar-collapse">
+		  	<ul class="nav" id="side-menu">
+		  		<li class="nav-header">
+		  			<div class="dropdown profile-element">
+		  				<span><img alt="image" class="img-circle" th:src="@{/hplus/img/p.jpg}" width="64" height="64"/></span>
+		  				<a data-toggle="dropdown" class="dropdown-toggle" href="javascript:;">
+		  					<span class="clear">
+		  						<span class="block m-t-xs"><strong class="font-bold">妮特丽</strong></span>
+		  						<span class="text-muted text-xs block">超级管理员<b class="caret"></b></span>
+		  					</span>
+		  				</a>
+		  				<ul class="dropdown-menu animated fadeInRight m-t-xs">
+		  					<li><a class="J_menuItem" href="javascript:;">修改头像</a></li>
+		  					<li><a class="J_menuItem" href="javascript:;">个人资料</a></li>
+		  					<li><a class="J_menuItem" href="javascript:;">联系我们</a></li>
+		  					<li><a class="J_menuItem" href="layouts.html">信箱</a></li>
+		  					<li class="divider"></li>
+		  					<li><a href="javascript:;">安全退出</a></li>
+		  				</ul>
+		  			</div>
+		  			<div class="logo-element">阿凡达</div>
+		  		</li>
+		  		<!-- 主页 菜单是写死的 别的页面都需要靠ajax动态生成 -->
+		  		<li><a class="J_menuItem" href="layouts.html"><i class="fa fa-columns"></i> <span class="nav-label">主页</span></a></li>
+		  	</ul>
+		  </div>
+		</nav>
+      <div id="page-wrapper" class="gray-bg dashbard-1">
+			<div class="row border-bottom">
+				 <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
+				 	<div class="navbar-header"><a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="javascript:;"><i class="fa fa-bars"></i> </a></div>
+				 	<ul class="nav navbar-top-links navbar-right">
+				 		<!-- 如果有消息通知机制 可以都放这里 -->
+				 		<li class="dropdown">
+				 			<a class="dropdown-toggle count-info" data-toggle="dropdown" href="javascript:;">
+                               	<i class="fa fa-bell"></i> <span class="label label-primary">0</span>
+                          		 </a>
+                          		 <ul class="dropdown-menu dropdown-alerts">
+                          		 	<li>还没有消息哦!</li>
+                          		 	<li class="divider"></li>
+                          		 	<li>
+                                    <div class="text-center link-block">
+                                        <a class="J_menuItem" href="notifications.html">
+                                            <strong>查看所有 </strong>
+                                            <i class="fa fa-angle-right"></i>
+                                        </a>
+                                    </div>
+                                </li>
+                          		 </ul>
+				 		</li>
+				 	</ul>
+				 </nav>
+			</div>
+			<div class="row content-tabs">
+				 <button class="roll-nav roll-left J_tabLeft"><i class="fa fa-backward"></i></button>
+				 <nav class="page-tabs J_menuTabs">
+                    <div class="page-tabs-content">
+                        <a href="javascript:;" class="active J_menuTab" data-id="index_v1.html">首页</a>
+                    </div>
+                </nav>
+                <button class="roll-nav roll-right J_tabRight"><i class="fa fa-forward"></i></button>
+                <div class="btn-group roll-nav roll-right">
+                   	<button class="dropdown J_tabClose" data-toggle="dropdown">关闭操作<span class="caret"></span></button>
+                    <ul role="menu" class="dropdown-menu dropdown-menu-right">
+                        <li class="J_tabShowActive"><a>定位当前选项卡</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li class="J_tabCloseAll"><a>关闭全部选项卡</a>
+                        </li>
+                        <li class="J_tabCloseOther"><a>关闭其他选项卡</a>
+                        </li>
+                    </ul>
+                </div>
+                <a href="login.html" class="roll-nav roll-right J_tabExit"><i class="fa fa fa-sign-out"></i> 退出</a>
+			</div>
+			<div class="row J_mainContent" id="content-main">
+				<iframe class="J_iframe" name="iframe0" width="100%" height="100%" th:src="@{/system/menu.htm}" frameborder="0" data-id="index_v1.html" seamless=""></iframe>
+			</div>
+			<div class="footer">
+				<div class="pull-right">2015-2018 &copy; All Rights Reserved.粤ICP备15020515号.优爵正品（深圳）网络科技有限公司 版权所有 </div>
+			</div>
+		</div>
+    </div>
+    <!--/*/ <th:block th:include="fragments/common :: scripts"></th:block> /*/-->
+   
+</body>
+</html>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hmsh.app.dao.goods.GoodsSpecpropertyDao">
+	<resultMap id="BaseResultMap" type="com.hmsh.app.vo.goods.GoodsSpecproperty">
+		<id column="dmId" jdbcType="BIGINT" property="dmid" />
+		<result column="value" jdbcType="VARCHAR" property="value" />
+		<result column="sequence" jdbcType="INTEGER" property="sequence" />
+		<result column="type" jdbcType="VARCHAR" property="type" />
+		<result column="goodsSpecificationId" jdbcType="BIGINT"
+			property="goodsspecificationid" />
+		<result column="createBy" jdbcType="VARCHAR" property="createby" />
+		<result column="createTime" jdbcType="BIGINT" property="createtime" />
+		<result column="updateBy" jdbcType="VARCHAR" property="updateby" />
+		<result column="updateTime" jdbcType="BIGINT" property="updatetime" />
+		<result column="image" jdbcType="VARCHAR" property="image" />
+	</resultMap>
+
+</mapper>

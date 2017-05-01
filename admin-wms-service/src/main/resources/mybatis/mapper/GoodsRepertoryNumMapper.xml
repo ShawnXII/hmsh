@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hmsh.admin.wms.dao.GoodsRepertoryNumDao">
+    <!-- wms_repertory_num table all BaseResultMap-->
+    <resultMap id="BaseResultMap" type="com.hmsh.admin.vo.wms.GoodsRepertoryNum">
+        <result column="id"  property="id" jdbcType="BIGINT"/>
+        <result column="skuID"  property="skuID" jdbcType="BIGINT"/>
+        <result column="num"  property="num" jdbcType="BIGINT"/>
+    </resultMap>
+    
+    <!-- wms_repertory_num 表的全部字段-->
+    <sql id="Base_Column_List" >
+		id, skuID, num
+    </sql>
+    
+    <!-- 查询条件[可自行扩展]-->
+    <sql id="Example_Where_Clause">
+        <where>
+            <if test="id != null ">
+                and id=#{id}
+            </if>
+            <if test="skuID != null ">
+                and skuID=#{skuID}
+            </if>
+            <if test="num != null ">
+                and num=#{num}
+            </if>
+        </where>
+    </sql>
+    
+    <!-- 插入一条数据 -->
+    <insert id="insert" parameterType="com.hmsh.admin.vo.wms.GoodsRepertoryNum">
+    	insert into wms_repertory_num (
+    		id, skuID, num
+    	)values
+    	(#{id,jdbcType=BIGINT}, #{skuID,jdbcType=BIGINT}, #{num,jdbcType=BIGINT})
+    </insert>
+    
+    <!-- 插入一条数据,只插入不为空的字段 -->
+    <insert id="insertSelective" parameterType="com.hmsh.admin.vo.wms.GoodsRepertoryNum" >
+        insert into wms_repertory_num
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+        	<if test="id!=null">
+        		id,
+        	</if>
+        	<if test="skuID!=null">
+        		skuID,
+        	</if>
+        	<if test="num!=null">
+        		num,
+        	</if>
+        </trim>
+   	    <trim prefix="values (" suffix=")" suffixOverrides="," >
+	     		<if test="id!=null">
+	     			#{id,jdbcType=BIGINT},
+	     		</if>
+	     		<if test="skuID!=null">
+	     			#{skuID,jdbcType=BIGINT},
+	     		</if>
+	     		<if test="num!=null">
+	     			#{num,jdbcType=BIGINT},
+	     		</if>
+        </trim>
+    </insert>
+    
+    <!-- 插入多条数据 -->
+    <insert id="insertList" parameterType="java.util.List">
+    	insert into wms_repertory_num
+    	(id, skuID, num)
+    	values
+    	<foreach collection="list" item="item" index="index" separator=",">
+    		(#{item.id,jdbcType=BIGINT},#{item.skuID,jdbcType=BIGINT},#{item.num,jdbcType=BIGINT})
+    	</foreach>
+    </insert>
+    
+    <!-- 修改数据 -->
+    <update id="modify" parameterType="com.hmsh.admin.vo.wms.GoodsRepertoryNum">
+    	update wms_repertory_num set (skuID=#{skuID,jdbcType=BIGINT},num=#{num,jdbcType=BIGINT}) 
+    		where id=#{id,jdbcType=BIGINT}
+    </update>
+    
+    <!--根据主键修改不为空的字段-->
+	<update id="modifyNotNull" parameterType="com.hmsh.admin.vo.wms.GoodsRepertoryNum">
+		update wms_repertory_num
+		<set >
+			<if test="skuID!=null">
+				skuID=#{skuID,jdbcType=BIGINT},
+			</if>
+			<if test="num!=null">
+				num=#{num,jdbcType=BIGINT},
+			</if>
+		</set>
+		where id=#{id,jdbcType=BIGINT}
+	</update>
+	
+	<!--根据主键删除数据-->
+	<delete id="remove" parameterType="java.lang.Long">
+		delete from wms_repertory_num where id=#{id,jdbcType=BIGINT}
+	</delete>
+	
+	<!-- 批量删除-->
+	<delete id="removeList" parameterType="java.util.List">
+		delete from wms_repertory_num where id in
+		<foreach item="idItem" collection="list" open="(" separator="," close=")"> #{idItem,jdbcType=BIGINT}  </foreach>
+	</delete>
+	
+	<!--根据主键查询-->
+	<select id="findOne" resultMap="BaseResultMap" parameterType="java.lang.Long">
+		select <include refid="Base_Column_List" /> from wms_repertory_num where id=#{id,jdbcType=BIGINT}
+	</select>
+	<select id="findOneNum" resultMap="BaseResultMap" parameterType="java.lang.Long">
+		select <include refid="Base_Column_List" /> from wms_repertory_num where skuID=#{skuID,jdbcType=BIGINT}
+	</select>
+	<!--查询全部 分页排序交给插件完成-->
+	<select id="findAll" resultMap="BaseResultMap" parameterType="com.hmsh.admin.vo.wms.GoodsRepertoryNum">
+		select <include refid="Base_Column_List" /> from wms_repertory_num <include refid="Example_Where_Clause"/>
+	</select>
+	
+	<!--获取总条数-->
+	<select id="count" resultType="java.lang.Long" parameterType="com.hmsh.admin.vo.wms.GoodsRepertoryNum">
+		select count(id) from wms_repertory_num <include refid="Example_Where_Clause"/>
+	</select>
+	
+	<!-- ##########################################自动生成MyBatils XML 已经完成,上面的所有方法都在BaseDao里面体现###########################################################-->
+</mapper>

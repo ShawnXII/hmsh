@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hmsh.admin.wms.dao.StorageDao">
+    <!-- wms_storage table all BaseResultMap-->
+    <resultMap id="BaseResultMap" type="com.hmsh.admin.vo.wms.Storage">
+        <result column="id"  property="id"/>
+        <result column="storageNo"  property="storageNo"/>
+        <result column="supplierNo"  property="supplierNo"/>
+        <result column="supplierName"  property="supplierName"/>
+        <result column="customerNo"  property="customerNo"/>
+        <result column="customerName"  property="customerName"/>
+        <result column="storageDate"  property="storageDate"/>
+        <result column="deliveryDate"  property="deliveryDate"/>
+        <result column="status"  property="status"/>
+        <result column="remarks"  property="remarks"/>
+        <collection property="storageInfos" ofType="com.hmsh.admin.vo.wms.StorageInfo" column="storageNo" select="com.hmsh.admin.wms.dao.StorageInfoDao.findStorageInfo" />
+    </resultMap>
+    
+    <!-- wms_storage 表的全部字段-->
+    <sql id="Base_Column_List" >
+		id, storageNo, supplierNo, supplierName, customerNo, customerName, storageDate, deliveryDate, status, remarks
+    </sql>
+    
+    <!-- 查询条件[可自行扩展]-->
+    <sql id="Example_Where_Clause">
+        <where>
+            <if test="id != null ">
+                and id=#{id}
+            </if>
+            <if test="storageNo != null ">
+                and storageNo=#{storageNo}
+            </if>
+            <if test="supplierNo != null ">
+                and supplierNo=#{supplierNo}
+            </if>
+            <if test="supplierName != null ">
+                and supplierName=#{supplierName}
+            </if>
+            <if test="customerNo != null ">
+                and customerNo=#{customerNo}
+            </if>
+            <if test="customerName != null ">
+                and customerName=#{customerName}
+            </if>
+            <if test="storageDate != null ">
+                and storageDate=#{storageDate}
+            </if>
+            <if test="deliveryDate != null ">
+                and deliveryDate=#{deliveryDate}
+            </if>
+            <if test="status != null ">
+                and status=#{status}
+            </if>
+            <if test="remarks != null ">
+                and remarks=#{remarks}
+            </if>
+        </where>
+    </sql>
+    
+    <!-- 插入一条数据 -->
+    <insert id="insert" parameterType="com.hmsh.admin.vo.wms.Storage">
+    	insert into wms_storage (
+    		id, storageNo, supplierNo, supplierName, customerNo, customerName, storageDate, deliveryDate, status, remarks
+    	)values
+    	(#{id}, #{storageNo}, #{supplierNo}, #{supplierName}, #{customerNo}, #{customerName}, #{storageDate}, #{deliveryDate}, #{status}, #{remarks})
+    </insert>
+    
+    <!-- 插入一条数据,只插入不为空的字段 -->
+    <insert id="insertSelective" parameterType="com.hmsh.admin.vo.wms.Storage" >
+        insert into wms_storage
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+        	<if test="id!=null">
+        		id,
+        	</if>
+        	<if test="storageNo!=null">
+        		storageNo,
+        	</if>
+        	<if test="supplierNo!=null">
+        		supplierNo,
+        	</if>
+        	<if test="supplierName!=null">
+        		supplierName,
+        	</if>
+        	<if test="customerNo!=null">
+        		customerNo,
+        	</if>
+        	<if test="customerName!=null">
+        		customerName,
+        	</if>
+        	<if test="storageDate!=null">
+        		storageDate,
+        	</if>
+        	<if test="deliveryDate!=null">
+        		deliveryDate,
+        	</if>
+        	<if test="status!=null">
+        		status,
+        	</if>
+        	<if test="remarks!=null">
+        		remarks,
+        	</if>
+        </trim>
+   	    <trim prefix="values (" suffix=")" suffixOverrides="," >
+	     		<if test="id!=null">
+	     			#{id},
+	     		</if>
+	     		<if test="storageNo!=null">
+	     			#{storageNo},
+	     		</if>
+	     		<if test="supplierNo!=null">
+	     			#{supplierNo},
+	     		</if>
+	     		<if test="supplierName!=null">
+	     			#{supplierName},
+	     		</if>
+	     		<if test="customerNo!=null">
+	     			#{customerNo},
+	     		</if>
+	     		<if test="customerName!=null">
+	     			#{customerName},
+	     		</if>
+	     		<if test="storageDate!=null">
+	     			#{storageDate},
+	     		</if>
+	     		<if test="deliveryDate!=null">
+	     			#{deliveryDate},
+	     		</if>
+	     		<if test="status!=null">
+	     			#{status},
+	     		</if>
+	     		<if test="remarks!=null">
+	     			#{remarks},
+	     		</if>
+        </trim>
+    </insert>
+    
+    <!-- 插入多条数据 -->
+    <insert id="insertList" parameterType="java.util.List">
+    	insert into wms_storage
+    	(id, storageNo, supplierNo, supplierName, customerNo, customerName, storageDate, deliveryDate, status, remarks)
+    	values
+    	<foreach collection="list" item="item" index="index" separator=",">
+    		(#{item.id},#{item.storageNo},#{item.supplierNo},#{item.supplierName},#{item.customerNo},#{item.customerName},#{item.storageDate},#{item.deliveryDate},#{item.status},#{item.remarks})
+    	</foreach>
+    </insert>
+	<!--根据主键查询-->
+	<select id="findOne" resultMap="BaseResultMap" parameterType="java.lang.Long">
+		select <include refid="Base_Column_List" /> from wms_storage where id=#{id}
+	</select>
+	<!--根据主键查询-->
+	<select id="findOneStorage" resultMap="BaseResultMap" parameterType="java.lang.Long">
+		select <include refid="Base_Column_List" /> from wms_storage where storageNo=#{storageNo}
+	</select>
+	<!--查询全部 分页排序交给插件完成-->
+	<select id="findAll" resultMap="BaseResultMap" parameterType="com.hmsh.admin.vo.wms.Storage">
+		select <include refid="Base_Column_List" /> from wms_storage <include refid="Example_Where_Clause"/>
+	</select>
+	
+	<!--获取总条数-->
+	<select id="count" resultType="java.lang.Long" parameterType="com.hmsh.admin.vo.wms.Storage">
+		select count(id) from wms_storage <include refid="Example_Where_Clause"/>
+	</select>
+	
+	<!-- ##########################################自动生成MyBatils XML 已经完成,上面的所有方法都在BaseDao里面体现###########################################################-->
+</mapper>

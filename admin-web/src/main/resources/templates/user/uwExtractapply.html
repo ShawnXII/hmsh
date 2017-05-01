@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>提现管理</title> 	  
+	</head>
+	<body>
+		<div class="row">
+			<div class="portlet light" >
+				<div class="portlet-title">
+					<div class="caption font-red-sunglo">
+						<i class="icon-user"></i> 
+						<span class="caption-subject font-green bold uppercase">提现管理</span>
+					</div>
+				</div>
+				<div class="portlet-body">
+					<div class="row table-search"> 
+						<form action="" role="form" class="form-inline" id="search_form" autocomplete="off" data-role="search">
+		                     <button type="button" class="btn btn-sm green" id="search">搜索<i class="fa fa-search"></i></button>  
+						</form>
+					</div>
+					<table class="table table-striped table-bordered table-hover dt-responsive overflow" width="100%" id="uwExtractapply_table" th:action="@{/finance/uwExtractapply/query}" data-role="table">
+					</table>
+				</div>
+			</div>
+		</div>
+		
+	   <script type="text/javascript">
+		 
+		   //页面 colums
+		   function colums(){
+			   return [
+					    {title:'持卡人',bSortable:false,data:'cardholderName',render:function(row,type,set){
+							 return isEmpty(row)?'':row;
+					    }},
+					    {title:'收款银行',bSortable:false,data:'bankName',render:function(row,type,set){
+							 return isEmpty(row)?'':row;
+					    }},
+					    {title:'收款卡号',bSortable:false,data:'bankNo',render:function(row,type,set){
+							 return isEmpty(row)?'':row;
+					    }},
+						{title:'银行所属省',bSortable:false,data:'provinceType',render:function(row,type,set){
+							 return isEmpty(row)?'':row;
+						}},
+						{title:'银行所属市/县',bSortable:true,data:'cityType',render:function(row,type,set){
+							 return isEmpty(row)?'':row;
+						}},
+						{title:'提现金额',bSortable:true,data:'amount',render:function(row,type,set){
+							 return isEmpty(row)?'':row; 
+						}},
+						{title:'单号',bSortable:true,data:'saleOrderId',render:function(row,type,set){
+							 return isEmpty(row)?'':row; 
+						}},
+						{title:'预计到账',bSortable:true,data:'arrivalAmount',render:function(row,type,set){
+							 return isEmpty(row)?'':row; 
+						}},
+						{title:'钱包余额',bSortable:true,data:'walletBalance',render:function(row,type,set){
+							 return isEmpty(row)?'':row; 
+						}},
+						{title:'用户信息',bSortable:true,data:'nickname',render:function(row,type,set){
+							 return isEmpty(row)?'':row; 
+						}},
+						{title:'用户手机号码',bSortable:true,data:'mphonenum',render:function(row,type,set){
+							 return isEmpty(row)?'':row; 
+						}},
+						{title:'处理状态',bSortable:true,data:'statusType',render:function(row,type,set){
+							 return isEmpty(row)?'':row; 
+						}},
+						{title:'操作时间',bSortable:true,data:'applyTime',render:function(row,type,set){
+							 return isEmpty(row)?'':row; 
+						}},
+						{title:'备注',bSortable:true,data:'dealRemark',render:function(row,type,set){
+							 return isEmpty(row)?'':row; 
+						}},
+						{title:'操作',bSortable:false,data:'dmId',width:100,render:function(row,type,set){
+                             var html = "";
+						     html = '<a class="editcls" href="javascript:recordView(\''+row+'\')">操作记录</a>&nbsp;&nbsp;&nbsp;';
+						     if(set.status == 1){
+						    	 html += '<a class="editcls" href="javascript:rejectApply(\''+row+'\')">驳回</a>';
+						     } else if (set.status == 2) {
+						    	 html += '<a class="editcls" href="javascript:recoverApply(\''+row+'\')">追回货款</a>';
+						     }
+						     return html;
+						}}
+		               ];
+		  	 }
+	   </script>
+	</body>
+</html>

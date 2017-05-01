@@ -1,0 +1,594 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hmsh.admin.dao.wms.StorageMapper">
+  <resultMap id="BaseResultMap" type="com.hmsh.admin.vo.wms.Storage">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <id column="storageNo" jdbcType="BIGINT" property="storageno" />
+    <result column="supplierNo" jdbcType="BIGINT" property="supplierno" />
+    <result column="supplierName" jdbcType="VARCHAR" property="suppliername" />
+    <result column="customerNo" jdbcType="BIGINT" property="customerno" />
+    <result column="customerName" jdbcType="VARCHAR" property="customername" />
+    <result column="storageDate" jdbcType="BIGINT" property="storagedate" />
+    <result column="deliveryDate" jdbcType="BIGINT" property="deliverydate" />
+    <result column="status" jdbcType="BIGINT" property="status" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, storageNo, supplierNo, supplierName, customerNo, customerName, storageDate, deliveryDate, 
+    status, remarks
+  </sql>
+  <select id="selectByExample" parameterType="com.hmsh.admin.vo.wms.StorageExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from wms_storage
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="com.hmsh.admin.vo.wms.StorageKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from wms_storage
+    where id = #{id,jdbcType=BIGINT}
+      and storageNo = #{storageno,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.hmsh.admin.vo.wms.StorageKey">
+    delete from wms_storage
+    where id = #{id,jdbcType=BIGINT}
+      and storageNo = #{storageno,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.hmsh.admin.vo.wms.StorageExample">
+    delete from wms_storage
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.hmsh.admin.vo.wms.Storage">
+    insert into wms_storage (id, storageNo, supplierNo, 
+      supplierName, customerNo, customerName, 
+      storageDate, deliveryDate, status, 
+      remarks)
+    values (#{id,jdbcType=BIGINT}, #{storageno,jdbcType=BIGINT}, #{supplierno,jdbcType=BIGINT}, 
+      #{suppliername,jdbcType=VARCHAR}, #{customerno,jdbcType=BIGINT}, #{customername,jdbcType=VARCHAR}, 
+      #{storagedate,jdbcType=BIGINT}, #{deliverydate,jdbcType=BIGINT}, #{status,jdbcType=BIGINT}, 
+      #{remarks,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hmsh.admin.vo.wms.Storage">
+    insert into wms_storage
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="storageno != null">
+        storageNo,
+      </if>
+      <if test="supplierno != null">
+        supplierNo,
+      </if>
+      <if test="suppliername != null">
+        supplierName,
+      </if>
+      <if test="customerno != null">
+        customerNo,
+      </if>
+      <if test="customername != null">
+        customerName,
+      </if>
+      <if test="storagedate != null">
+        storageDate,
+      </if>
+      <if test="deliverydate != null">
+        deliveryDate,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="remarks != null">
+        remarks,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="storageno != null">
+        #{storageno,jdbcType=BIGINT},
+      </if>
+      <if test="supplierno != null">
+        #{supplierno,jdbcType=BIGINT},
+      </if>
+      <if test="suppliername != null">
+        #{suppliername,jdbcType=VARCHAR},
+      </if>
+      <if test="customerno != null">
+        #{customerno,jdbcType=BIGINT},
+      </if>
+      <if test="customername != null">
+        #{customername,jdbcType=VARCHAR},
+      </if>
+      <if test="storagedate != null">
+        #{storagedate,jdbcType=BIGINT},
+      </if>
+      <if test="deliverydate != null">
+        #{deliverydate,jdbcType=BIGINT},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=BIGINT},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hmsh.admin.vo.wms.StorageExample" resultType="java.lang.Long">
+    select count(*) from wms_storage
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update wms_storage
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.storageno != null">
+        storageNo = #{record.storageno,jdbcType=BIGINT},
+      </if>
+      <if test="record.supplierno != null">
+        supplierNo = #{record.supplierno,jdbcType=BIGINT},
+      </if>
+      <if test="record.suppliername != null">
+        supplierName = #{record.suppliername,jdbcType=VARCHAR},
+      </if>
+      <if test="record.customerno != null">
+        customerNo = #{record.customerno,jdbcType=BIGINT},
+      </if>
+      <if test="record.customername != null">
+        customerName = #{record.customername,jdbcType=VARCHAR},
+      </if>
+      <if test="record.storagedate != null">
+        storageDate = #{record.storagedate,jdbcType=BIGINT},
+      </if>
+      <if test="record.deliverydate != null">
+        deliveryDate = #{record.deliverydate,jdbcType=BIGINT},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=BIGINT},
+      </if>
+      <if test="record.remarks != null">
+        remarks = #{record.remarks,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update wms_storage
+    set id = #{record.id,jdbcType=BIGINT},
+      storageNo = #{record.storageno,jdbcType=BIGINT},
+      supplierNo = #{record.supplierno,jdbcType=BIGINT},
+      supplierName = #{record.suppliername,jdbcType=VARCHAR},
+      customerNo = #{record.customerno,jdbcType=BIGINT},
+      customerName = #{record.customername,jdbcType=VARCHAR},
+      storageDate = #{record.storagedate,jdbcType=BIGINT},
+      deliveryDate = #{record.deliverydate,jdbcType=BIGINT},
+      status = #{record.status,jdbcType=BIGINT},
+      remarks = #{record.remarks,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hmsh.admin.vo.wms.Storage">
+    update wms_storage
+    <set>
+      <if test="supplierno != null">
+        supplierNo = #{supplierno,jdbcType=BIGINT},
+      </if>
+      <if test="suppliername != null">
+        supplierName = #{suppliername,jdbcType=VARCHAR},
+      </if>
+      <if test="customerno != null">
+        customerNo = #{customerno,jdbcType=BIGINT},
+      </if>
+      <if test="customername != null">
+        customerName = #{customername,jdbcType=VARCHAR},
+      </if>
+      <if test="storagedate != null">
+        storageDate = #{storagedate,jdbcType=BIGINT},
+      </if>
+      <if test="deliverydate != null">
+        deliveryDate = #{deliverydate,jdbcType=BIGINT},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=BIGINT},
+      </if>
+      <if test="remarks != null">
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+      and storageNo = #{storageno,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hmsh.admin.vo.wms.Storage">
+    update wms_storage
+    set supplierNo = #{supplierno,jdbcType=BIGINT},
+      supplierName = #{suppliername,jdbcType=VARCHAR},
+      customerNo = #{customerno,jdbcType=BIGINT},
+      customerName = #{customername,jdbcType=VARCHAR},
+      storageDate = #{storagedate,jdbcType=BIGINT},
+      deliveryDate = #{deliverydate,jdbcType=BIGINT},
+      status = #{status,jdbcType=BIGINT},
+      remarks = #{remarks,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+      and storageNo = #{storageno,jdbcType=BIGINT}
+  </update>
+  <resultMap id="BaseResultMap" type="com.hmsh.admin.vo.wms.Storage">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <id column="storageNo" jdbcType="BIGINT" property="storageno" />
+    <result column="supplierNo" jdbcType="BIGINT" property="supplierno" />
+    <result column="supplierName" jdbcType="VARCHAR" property="suppliername" />
+    <result column="customerNo" jdbcType="BIGINT" property="customerno" />
+    <result column="customerName" jdbcType="VARCHAR" property="customername" />
+    <result column="storageDate" jdbcType="BIGINT" property="storagedate" />
+    <result column="deliveryDate" jdbcType="BIGINT" property="deliverydate" />
+    <result column="status" jdbcType="BIGINT" property="status" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, storageNo, supplierNo, supplierName, customerNo, customerName, storageDate, deliveryDate, 
+    status, remarks
+  </sql>
+  <select id="selectByExample" parameterType="com.hmsh.admin.vo.wms.StorageExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from wms_storage
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="com.hmsh.admin.vo.wms.StorageKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from wms_storage
+    where id = #{id,jdbcType=BIGINT}
+      and storageNo = #{storageno,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.hmsh.admin.vo.wms.StorageKey">
+    delete from wms_storage
+    where id = #{id,jdbcType=BIGINT}
+      and storageNo = #{storageno,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.hmsh.admin.vo.wms.StorageExample">
+    delete from wms_storage
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.hmsh.admin.vo.wms.Storage">
+    insert into wms_storage (id, storageNo, supplierNo, 
+      supplierName, customerNo, customerName, 
+      storageDate, deliveryDate, status, 
+      remarks)
+    values (#{id,jdbcType=BIGINT}, #{storageno,jdbcType=BIGINT}, #{supplierno,jdbcType=BIGINT}, 
+      #{suppliername,jdbcType=VARCHAR}, #{customerno,jdbcType=BIGINT}, #{customername,jdbcType=VARCHAR}, 
+      #{storagedate,jdbcType=BIGINT}, #{deliverydate,jdbcType=BIGINT}, #{status,jdbcType=BIGINT}, 
+      #{remarks,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hmsh.admin.vo.wms.Storage">
+    insert into wms_storage
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="storageno != null">
+        storageNo,
+      </if>
+      <if test="supplierno != null">
+        supplierNo,
+      </if>
+      <if test="suppliername != null">
+        supplierName,
+      </if>
+      <if test="customerno != null">
+        customerNo,
+      </if>
+      <if test="customername != null">
+        customerName,
+      </if>
+      <if test="storagedate != null">
+        storageDate,
+      </if>
+      <if test="deliverydate != null">
+        deliveryDate,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="remarks != null">
+        remarks,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="storageno != null">
+        #{storageno,jdbcType=BIGINT},
+      </if>
+      <if test="supplierno != null">
+        #{supplierno,jdbcType=BIGINT},
+      </if>
+      <if test="suppliername != null">
+        #{suppliername,jdbcType=VARCHAR},
+      </if>
+      <if test="customerno != null">
+        #{customerno,jdbcType=BIGINT},
+      </if>
+      <if test="customername != null">
+        #{customername,jdbcType=VARCHAR},
+      </if>
+      <if test="storagedate != null">
+        #{storagedate,jdbcType=BIGINT},
+      </if>
+      <if test="deliverydate != null">
+        #{deliverydate,jdbcType=BIGINT},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=BIGINT},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hmsh.admin.vo.wms.StorageExample" resultType="java.lang.Long">
+    select count(*) from wms_storage
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update wms_storage
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.storageno != null">
+        storageNo = #{record.storageno,jdbcType=BIGINT},
+      </if>
+      <if test="record.supplierno != null">
+        supplierNo = #{record.supplierno,jdbcType=BIGINT},
+      </if>
+      <if test="record.suppliername != null">
+        supplierName = #{record.suppliername,jdbcType=VARCHAR},
+      </if>
+      <if test="record.customerno != null">
+        customerNo = #{record.customerno,jdbcType=BIGINT},
+      </if>
+      <if test="record.customername != null">
+        customerName = #{record.customername,jdbcType=VARCHAR},
+      </if>
+      <if test="record.storagedate != null">
+        storageDate = #{record.storagedate,jdbcType=BIGINT},
+      </if>
+      <if test="record.deliverydate != null">
+        deliveryDate = #{record.deliverydate,jdbcType=BIGINT},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=BIGINT},
+      </if>
+      <if test="record.remarks != null">
+        remarks = #{record.remarks,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update wms_storage
+    set id = #{record.id,jdbcType=BIGINT},
+      storageNo = #{record.storageno,jdbcType=BIGINT},
+      supplierNo = #{record.supplierno,jdbcType=BIGINT},
+      supplierName = #{record.suppliername,jdbcType=VARCHAR},
+      customerNo = #{record.customerno,jdbcType=BIGINT},
+      customerName = #{record.customername,jdbcType=VARCHAR},
+      storageDate = #{record.storagedate,jdbcType=BIGINT},
+      deliveryDate = #{record.deliverydate,jdbcType=BIGINT},
+      status = #{record.status,jdbcType=BIGINT},
+      remarks = #{record.remarks,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hmsh.admin.vo.wms.Storage">
+    update wms_storage
+    <set>
+      <if test="supplierno != null">
+        supplierNo = #{supplierno,jdbcType=BIGINT},
+      </if>
+      <if test="suppliername != null">
+        supplierName = #{suppliername,jdbcType=VARCHAR},
+      </if>
+      <if test="customerno != null">
+        customerNo = #{customerno,jdbcType=BIGINT},
+      </if>
+      <if test="customername != null">
+        customerName = #{customername,jdbcType=VARCHAR},
+      </if>
+      <if test="storagedate != null">
+        storageDate = #{storagedate,jdbcType=BIGINT},
+      </if>
+      <if test="deliverydate != null">
+        deliveryDate = #{deliverydate,jdbcType=BIGINT},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=BIGINT},
+      </if>
+      <if test="remarks != null">
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+      and storageNo = #{storageno,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hmsh.admin.vo.wms.Storage">
+    update wms_storage
+    set supplierNo = #{supplierno,jdbcType=BIGINT},
+      supplierName = #{suppliername,jdbcType=VARCHAR},
+      customerNo = #{customerno,jdbcType=BIGINT},
+      customerName = #{customername,jdbcType=VARCHAR},
+      storageDate = #{storagedate,jdbcType=BIGINT},
+      deliveryDate = #{deliverydate,jdbcType=BIGINT},
+      status = #{status,jdbcType=BIGINT},
+      remarks = #{remarks,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+      and storageNo = #{storageno,jdbcType=BIGINT}
+  </update>
+</mapper>

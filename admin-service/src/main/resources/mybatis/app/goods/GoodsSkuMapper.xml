@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hmsh.app.dao.goods.GoodsSkuDao">
+	<resultMap id="BaseResultMap" type="com.hmsh.app.vo.goods.GoodsSku">
+		<id column="dmId" jdbcType="BIGINT" property="dmid" />
+		<result column="name" jdbcType="VARCHAR" property="name" />
+		<result column="price" jdbcType="DECIMAL" property="price" />
+		<result column="marketPrice" jdbcType="DECIMAL" property="marketprice" />
+		<result column="scmGoodsId" jdbcType="VARCHAR" property="scmgoodsid" />
+		<result column="remarks" jdbcType="VARCHAR" property="remarks" />
+		<result column="state" jdbcType="INTEGER" property="state" />
+		<result column="isCoupon" jdbcType="INTEGER" property="iscoupon" />
+		<result column="createBy" jdbcType="VARCHAR" property="createby" />
+		<result column="createTime" jdbcType="BIGINT" property="createtime" />
+		<result column="updateBy" jdbcType="VARCHAR" property="updateby" />
+		<result column="updateTime" jdbcType="BIGINT" property="updatetime" />
+		<result column="goodsId" jdbcType="BIGINT" property="goodsid" />
+		<result column="volume" jdbcType="VARCHAR" property="volume" />
+		<result column="weight" jdbcType="DECIMAL" property="weight" />
+		<result column="rebateConsumers" jdbcType="DECIMAL" property="rebateconsumers" />
+		<result column="rebateSeller" jdbcType="DECIMAL" property="rebateseller" />
+		<result column="rebateSupply" jdbcType="DECIMAL" property="rebatesupply" />
+		<result column="rebateProvince" jdbcType="DECIMAL" property="rebateprovince" />
+		<result column="rebateCity" jdbcType="DECIMAL" property="rebatecity" />
+		<result column="rebateArea" jdbcType="DECIMAL" property="rebatearea" />
+		<result column="purchasePrice" jdbcType="DECIMAL" property="purchaseprice" />
+		<result column="mainImage" jdbcType="VARCHAR" property="mainimage" />
+		<result column="details" jdbcType="VARCHAR" property="details" />
+		<result column="forVipMall" jdbcType="INTEGER" property="forvipmall" />
+		<result column="returnPointPercent" jdbcType="DECIMAL"
+			property="returnpointpercent" />
+		<result column="deductPricePercent" jdbcType="DECIMAL"
+			property="deductpricepercent" />
+	</resultMap>
+
+</mapper>

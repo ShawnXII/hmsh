@@ -1,0 +1,409 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hmsh.admin.dao.wms.GoodsSkuInfoMapper">
+  <resultMap id="BaseResultMap" type="com.hmsh.admin.vo.wms.GoodsSkuInfo">
+    <result column="id" jdbcType="BIGINT" property="id" />
+    <result column="goodsName" jdbcType="VARCHAR" property="goodsname" />
+    <result column="goodsID" jdbcType="BIGINT" property="goodsid" />
+    <result column="retailPrice" jdbcType="DECIMAL" property="retailprice" />
+    <result column="marketPrice" jdbcType="DECIMAL" property="marketprice" />
+    <result column="costPrice" jdbcType="DECIMAL" property="costprice" />
+    <result column="unit" jdbcType="VARCHAR" property="unit" />
+    <result column="volume" jdbcType="VARCHAR" property="volume" />
+    <result column="weight" jdbcType="DECIMAL" property="weight" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="size" jdbcType="BIGINT" property="size" />
+    <result column="specification" jdbcType="VARCHAR" property="specification" />
+    <result column="shelfLifePeriod" jdbcType="BIGINT" property="shelflifeperiod" />
+    <result column="dateOfProduction" jdbcType="BIGINT" property="dateofproduction" />
+    <result column="custmrRebateRatio" jdbcType="DECIMAL" property="custmrrebateratio" />
+    <result column="shopProfitRatio" jdbcType="DECIMAL" property="shopprofitratio" />
+    <result column="supplyRebateRatio" jdbcType="DECIMAL" property="supplyrebateratio" />
+    <result column="rebateProvince" jdbcType="DECIMAL" property="rebateprovince" />
+    <result column="rebateCity" jdbcType="DECIMAL" property="rebatecity" />
+    <result column="rebateArea" jdbcType="DECIMAL" property="rebatearea" />
+    <result column="intro" jdbcType="VARCHAR" property="intro" />
+    <result column="taxRate" jdbcType="DECIMAL" property="taxrate" />
+    <result column="spec" jdbcType="VARCHAR" property="spec" />
+    <result column="value" jdbcType="VARCHAR" property="value" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, goodsName, goodsID, retailPrice, marketPrice, costPrice, unit, volume, weight, 
+    type, size, specification, shelfLifePeriod, dateOfProduction, custmrRebateRatio, 
+    shopProfitRatio, supplyRebateRatio, rebateProvince, rebateCity, rebateArea, intro, 
+    taxRate, spec, value
+  </sql>
+  <select id="selectByExample" parameterType="com.hmsh.admin.vo.wms.GoodsSkuInfoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from wms_goods_sku_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.hmsh.admin.vo.wms.GoodsSkuInfoExample">
+    delete from wms_goods_sku_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.hmsh.admin.vo.wms.GoodsSkuInfo">
+    insert into wms_goods_sku_info (id, goodsName, goodsID, 
+      retailPrice, marketPrice, costPrice, 
+      unit, volume, weight, 
+      type, size, specification, 
+      shelfLifePeriod, dateOfProduction, custmrRebateRatio, 
+      shopProfitRatio, supplyRebateRatio, rebateProvince, 
+      rebateCity, rebateArea, intro, 
+      taxRate, spec, value
+      )
+    values (#{id,jdbcType=BIGINT}, #{goodsname,jdbcType=VARCHAR}, #{goodsid,jdbcType=BIGINT}, 
+      #{retailprice,jdbcType=DECIMAL}, #{marketprice,jdbcType=DECIMAL}, #{costprice,jdbcType=DECIMAL}, 
+      #{unit,jdbcType=VARCHAR}, #{volume,jdbcType=VARCHAR}, #{weight,jdbcType=DECIMAL}, 
+      #{type,jdbcType=VARCHAR}, #{size,jdbcType=BIGINT}, #{specification,jdbcType=VARCHAR}, 
+      #{shelflifeperiod,jdbcType=BIGINT}, #{dateofproduction,jdbcType=BIGINT}, #{custmrrebateratio,jdbcType=DECIMAL}, 
+      #{shopprofitratio,jdbcType=DECIMAL}, #{supplyrebateratio,jdbcType=DECIMAL}, #{rebateprovince,jdbcType=DECIMAL}, 
+      #{rebatecity,jdbcType=DECIMAL}, #{rebatearea,jdbcType=DECIMAL}, #{intro,jdbcType=VARCHAR}, 
+      #{taxrate,jdbcType=DECIMAL}, #{spec,jdbcType=VARCHAR}, #{value,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.hmsh.admin.vo.wms.GoodsSkuInfo">
+    insert into wms_goods_sku_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="goodsname != null">
+        goodsName,
+      </if>
+      <if test="goodsid != null">
+        goodsID,
+      </if>
+      <if test="retailprice != null">
+        retailPrice,
+      </if>
+      <if test="marketprice != null">
+        marketPrice,
+      </if>
+      <if test="costprice != null">
+        costPrice,
+      </if>
+      <if test="unit != null">
+        unit,
+      </if>
+      <if test="volume != null">
+        volume,
+      </if>
+      <if test="weight != null">
+        weight,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="size != null">
+        size,
+      </if>
+      <if test="specification != null">
+        specification,
+      </if>
+      <if test="shelflifeperiod != null">
+        shelfLifePeriod,
+      </if>
+      <if test="dateofproduction != null">
+        dateOfProduction,
+      </if>
+      <if test="custmrrebateratio != null">
+        custmrRebateRatio,
+      </if>
+      <if test="shopprofitratio != null">
+        shopProfitRatio,
+      </if>
+      <if test="supplyrebateratio != null">
+        supplyRebateRatio,
+      </if>
+      <if test="rebateprovince != null">
+        rebateProvince,
+      </if>
+      <if test="rebatecity != null">
+        rebateCity,
+      </if>
+      <if test="rebatearea != null">
+        rebateArea,
+      </if>
+      <if test="intro != null">
+        intro,
+      </if>
+      <if test="taxrate != null">
+        taxRate,
+      </if>
+      <if test="spec != null">
+        spec,
+      </if>
+      <if test="value != null">
+        value,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="goodsname != null">
+        #{goodsname,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsid != null">
+        #{goodsid,jdbcType=BIGINT},
+      </if>
+      <if test="retailprice != null">
+        #{retailprice,jdbcType=DECIMAL},
+      </if>
+      <if test="marketprice != null">
+        #{marketprice,jdbcType=DECIMAL},
+      </if>
+      <if test="costprice != null">
+        #{costprice,jdbcType=DECIMAL},
+      </if>
+      <if test="unit != null">
+        #{unit,jdbcType=VARCHAR},
+      </if>
+      <if test="volume != null">
+        #{volume,jdbcType=VARCHAR},
+      </if>
+      <if test="weight != null">
+        #{weight,jdbcType=DECIMAL},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="size != null">
+        #{size,jdbcType=BIGINT},
+      </if>
+      <if test="specification != null">
+        #{specification,jdbcType=VARCHAR},
+      </if>
+      <if test="shelflifeperiod != null">
+        #{shelflifeperiod,jdbcType=BIGINT},
+      </if>
+      <if test="dateofproduction != null">
+        #{dateofproduction,jdbcType=BIGINT},
+      </if>
+      <if test="custmrrebateratio != null">
+        #{custmrrebateratio,jdbcType=DECIMAL},
+      </if>
+      <if test="shopprofitratio != null">
+        #{shopprofitratio,jdbcType=DECIMAL},
+      </if>
+      <if test="supplyrebateratio != null">
+        #{supplyrebateratio,jdbcType=DECIMAL},
+      </if>
+      <if test="rebateprovince != null">
+        #{rebateprovince,jdbcType=DECIMAL},
+      </if>
+      <if test="rebatecity != null">
+        #{rebatecity,jdbcType=DECIMAL},
+      </if>
+      <if test="rebatearea != null">
+        #{rebatearea,jdbcType=DECIMAL},
+      </if>
+      <if test="intro != null">
+        #{intro,jdbcType=VARCHAR},
+      </if>
+      <if test="taxrate != null">
+        #{taxrate,jdbcType=DECIMAL},
+      </if>
+      <if test="spec != null">
+        #{spec,jdbcType=VARCHAR},
+      </if>
+      <if test="value != null">
+        #{value,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hmsh.admin.vo.wms.GoodsSkuInfoExample" resultType="java.lang.Long">
+    select count(*) from wms_goods_sku_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update wms_goods_sku_info
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.goodsname != null">
+        goodsName = #{record.goodsname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.goodsid != null">
+        goodsID = #{record.goodsid,jdbcType=BIGINT},
+      </if>
+      <if test="record.retailprice != null">
+        retailPrice = #{record.retailprice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.marketprice != null">
+        marketPrice = #{record.marketprice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.costprice != null">
+        costPrice = #{record.costprice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.unit != null">
+        unit = #{record.unit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.volume != null">
+        volume = #{record.volume,jdbcType=VARCHAR},
+      </if>
+      <if test="record.weight != null">
+        weight = #{record.weight,jdbcType=DECIMAL},
+      </if>
+      <if test="record.type != null">
+        type = #{record.type,jdbcType=VARCHAR},
+      </if>
+      <if test="record.size != null">
+        size = #{record.size,jdbcType=BIGINT},
+      </if>
+      <if test="record.specification != null">
+        specification = #{record.specification,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shelflifeperiod != null">
+        shelfLifePeriod = #{record.shelflifeperiod,jdbcType=BIGINT},
+      </if>
+      <if test="record.dateofproduction != null">
+        dateOfProduction = #{record.dateofproduction,jdbcType=BIGINT},
+      </if>
+      <if test="record.custmrrebateratio != null">
+        custmrRebateRatio = #{record.custmrrebateratio,jdbcType=DECIMAL},
+      </if>
+      <if test="record.shopprofitratio != null">
+        shopProfitRatio = #{record.shopprofitratio,jdbcType=DECIMAL},
+      </if>
+      <if test="record.supplyrebateratio != null">
+        supplyRebateRatio = #{record.supplyrebateratio,jdbcType=DECIMAL},
+      </if>
+      <if test="record.rebateprovince != null">
+        rebateProvince = #{record.rebateprovince,jdbcType=DECIMAL},
+      </if>
+      <if test="record.rebatecity != null">
+        rebateCity = #{record.rebatecity,jdbcType=DECIMAL},
+      </if>
+      <if test="record.rebatearea != null">
+        rebateArea = #{record.rebatearea,jdbcType=DECIMAL},
+      </if>
+      <if test="record.intro != null">
+        intro = #{record.intro,jdbcType=VARCHAR},
+      </if>
+      <if test="record.taxrate != null">
+        taxRate = #{record.taxrate,jdbcType=DECIMAL},
+      </if>
+      <if test="record.spec != null">
+        spec = #{record.spec,jdbcType=VARCHAR},
+      </if>
+      <if test="record.value != null">
+        value = #{record.value,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update wms_goods_sku_info
+    set id = #{record.id,jdbcType=BIGINT},
+      goodsName = #{record.goodsname,jdbcType=VARCHAR},
+      goodsID = #{record.goodsid,jdbcType=BIGINT},
+      retailPrice = #{record.retailprice,jdbcType=DECIMAL},
+      marketPrice = #{record.marketprice,jdbcType=DECIMAL},
+      costPrice = #{record.costprice,jdbcType=DECIMAL},
+      unit = #{record.unit,jdbcType=VARCHAR},
+      volume = #{record.volume,jdbcType=VARCHAR},
+      weight = #{record.weight,jdbcType=DECIMAL},
+      type = #{record.type,jdbcType=VARCHAR},
+      size = #{record.size,jdbcType=BIGINT},
+      specification = #{record.specification,jdbcType=VARCHAR},
+      shelfLifePeriod = #{record.shelflifeperiod,jdbcType=BIGINT},
+      dateOfProduction = #{record.dateofproduction,jdbcType=BIGINT},
+      custmrRebateRatio = #{record.custmrrebateratio,jdbcType=DECIMAL},
+      shopProfitRatio = #{record.shopprofitratio,jdbcType=DECIMAL},
+      supplyRebateRatio = #{record.supplyrebateratio,jdbcType=DECIMAL},
+      rebateProvince = #{record.rebateprovince,jdbcType=DECIMAL},
+      rebateCity = #{record.rebatecity,jdbcType=DECIMAL},
+      rebateArea = #{record.rebatearea,jdbcType=DECIMAL},
+      intro = #{record.intro,jdbcType=VARCHAR},
+      taxRate = #{record.taxrate,jdbcType=DECIMAL},
+      spec = #{record.spec,jdbcType=VARCHAR},
+      value = #{record.value,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

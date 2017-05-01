@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hmsh.app.dao.user.UwWalletExchangeApplyDao">
+  <resultMap id="BaseResultMap" type="com.hmsh.app.vo.user.UwWalletExchangeApply">
+    <id column="dmId" jdbcType="BIGINT" property="dmid" />
+    <result column="userId" jdbcType="BIGINT" property="userid" />
+    <result column="acceptorId" jdbcType="BIGINT" property="acceptorid" />
+    <result column="userType" jdbcType="TINYINT" property="usertype" />
+    <result column="currentBalance" jdbcType="DECIMAL" property="currentbalance" />
+    <result column="amount" jdbcType="DECIMAL" property="amount" />
+    <result column="exchangeType" jdbcType="TINYINT" property="exchangetype" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="createTime" jdbcType="BIGINT" property="createtime" />
+    <result column="createBy" jdbcType="BIGINT" property="createby" />
+    <result column="updateBy" jdbcType="BIGINT" property="updateby" />
+    <result column="updateTime" jdbcType="BIGINT" property="updatetime" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="voucher" jdbcType="VARCHAR" property="voucher" />
+    <result column="fromWalletType" jdbcType="TINYINT" property="fromwallettype" />
+    <result column="toWalletType" jdbcType="TINYINT" property="towallettype" />
+    <result column="actionRemark" jdbcType="VARCHAR" property="actionremark" />
+    <result column="withdrawId" jdbcType="BIGINT" property="withdrawid" />
+    <result column="verifyTime" jdbcType="BIGINT" property="verifytime" />
+    <result column="reVerifyTime" jdbcType="BIGINT" property="reverifytime" />
+  </resultMap>
+ 
+</mapper>

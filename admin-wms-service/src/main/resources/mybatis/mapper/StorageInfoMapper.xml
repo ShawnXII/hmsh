@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hmsh.admin.wms.dao.StorageInfoDao">
+    <!-- wms_storage_info table all BaseResultMap-->
+    <resultMap id="BaseResultMap" type="com.hmsh.admin.vo.wms.StorageInfo">
+        <result column="id"  property="id" />
+        <result column="skuID"  property="skuID" />
+        <result column="goodsID"  property="goodsID" />
+        <result column="goodsName"  property="goodsName" />
+        <result column="goodsImg"  property="goodsImg" />
+        <result column="num"  property="num" />
+        <result column="storageNo"  property="storageNo" />
+        <collection property="goodsSkuInfos" ofType="com.hmsh.admin.vo.wms.GoodsSkuInfo" column="skuID" select="com.hmsh.admin.wms.dao.GoodsSkuInfoDao.findOne" />
+    </resultMap>
+    
+    <!-- wms_storage_info 表的全部字段-->
+    <sql id="Base_Column_List" >
+		id, skuID, goodsID, num, storageNo,goodsName,goodsImg
+    </sql>
+    
+    <!-- 查询条件[可自行扩展]-->
+    <sql id="Example_Where_Clause">
+        <where>
+            <if test="id != null ">
+                and id=#{id}
+            </if>
+            <if test="skuID != null ">
+                and skuID=#{skuID}
+            </if>
+            <if test="goodsID != null ">
+                and goodsID=#{goodsID}
+            </if>
+            <if test="num != null ">
+                and num=#{num}
+            </if>
+            <if test="storageNo != null ">
+                and storageNo=#{storageNo}
+            </if>
+            <if test="goodsName != null ">
+                and goodsName=#{goodsName}
+            </if>
+            <if test="goodsImg != null ">
+                and goodsImg=#{goodsImg}
+            </if>
+        </where>
+    </sql>
+    
+    <!-- 插入一条数据 -->
+    <insert id="insert" parameterType="com.hmsh.admin.vo.wms.StorageInfo">
+    	insert into wms_storage_info (
+    		id, skuID, goodsID, num, storageNo,goodsName,goodsImg
+    	)values
+    	(#{id}, #{skuID}, #{goodsID}, #{num}, #{storageNo}, #{goodsName}, #{goodsImg})
+    </insert>
+    
+    <!-- 插入一条数据,只插入不为空的字段 -->
+    <insert id="insertSelective" parameterType="com.hmsh.admin.vo.wms.StorageInfo" >
+        insert into wms_storage_info
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+        	<if test="id!=null">
+        		id,
+        	</if>
+        	<if test="skuID!=null">
+        		skuID,
+        	</if>
+        	<if test="goodsID!=null">
+        		goodsID,
+        	</if>
+        	<if test="num!=null">
+        		num,
+        	</if>
+        	<if test="storageNo!=null">
+        		storageNo,
+        	</if>
+        	<if test="goodsName!=null">
+        		goodsName,
+        	</if>
+        	<if test="goodsImg!=null">
+        		goodsImg,
+        	</if>
+        </trim>
+   	    <trim prefix="values (" suffix=")" suffixOverrides="," >
+	     		<if test="id!=null">
+	     			#{id},
+	     		</if>
+	     		<if test="skuID!=null">
+	     			#{skuID},
+	     		</if>
+	     		<if test="goodsID!=null">
+	     			#{goodsID},
+	     		</if>
+	     		<if test="num!=null">
+	     			#{num},
+	     		</if>
+	     		<if test="storageNo!=null">
+	     			#{storageNo},
+	     		</if>
+	     		<if test="goodsName!=null">
+	     			#{goodsName},
+	     		</if>
+	     		<if test="goodsImg!=null">
+	     			#{goodsImg},
+	     		</if>
+        </trim>
+    </insert>
+    
+    <!-- 插入多条数据 -->
+    <insert id="insertList" parameterType="java.util.List">
+    	insert into wms_storage_info
+    	(id, skuID, goodsID, num,storageNo,goodsName,goodsImg)
+    	values
+    	<foreach collection="list" item="item" index="index" separator=",">
+    		(#{item.id},#{item.skuID},#{item.goodsID},#{item.num},#{item.storageNo},#{item.goodsName},#{item.goodsImg})
+    	</foreach>
+    </insert>
+    
+    <!-- 修改数据 -->
+    <update id="modify" parameterType="com.hmsh.admin.vo.wms.StorageInfo">
+    	update wms_storage_info set (skuID=#{skuID},goodsID=#{goodsID},num=#{num},storageNo=#{storageNo},goodsName=#{goodsName},goodsImg=#{goodsImg}) 
+    		where id=#{id}
+    </update>
+    
+    <!--根据主键修改不为空的字段-->
+	<update id="modifyNotNull" parameterType="com.hmsh.admin.vo.wms.StorageInfo">
+		update wms_storage_info
+		<set >
+			<if test="skuID!=null">
+				skuID=#{skuID},
+			</if>
+			<if test="goodsID!=null">
+				goodsID=#{goodsID},
+			</if>
+			<if test="num!=null">
+				num=#{num},
+			</if>
+			<if test="storageNo!=null">
+				storageNo=#{storageNo},
+			</if>
+			<if test="goodsName!=null">
+				goodsName=#{goodsName},
+			</if>
+			<if test="goodsImg!=null">
+				goodsImg=#{goodsImg},
+			</if>
+		</set>
+		where id=#{id}
+	</update>
+	
+	<!--根据主键删除数据-->
+	<delete id="remove" parameterType="java.lang.Long">
+		delete from wms_storage_info where id=#{id}
+	</delete>
+	
+	<!-- 批量删除-->
+	<delete id="removeList" parameterType="java.util.List">
+		delete from wms_storage_info where id in
+		<foreach item="idItem" collection="list" open="(" separator="," close=")"> #{idItem}  </foreach>
+	</delete>
+	
+	<!--根据主键查询-->
+	<select id="findOne" resultMap="BaseResultMap" parameterType="java.lang.Long">
+		select <include refid="Base_Column_List" /> from wms_storage_info where id=#{id}
+	</select>
+	<!--根据主键查询-->
+	<select id="findStorageInfo" resultMap="BaseResultMap" parameterType="java.lang.Long">
+		select <include refid="Base_Column_List" /> from wms_storage_info where storageNo=#{storageNo}
+	</select>
+	<!--查询全部 分页排序交给插件完成-->
+	<select id="findAll" resultMap="BaseResultMap" parameterType="com.hmsh.admin.vo.wms.StorageInfo">
+		select <include refid="Base_Column_List" /> from wms_storage_info <include refid="Example_Where_Clause"/>
+	</select>
+	
+	<!--获取总条数-->
+	<select id="count" resultType="java.lang.Long" parameterType="com.hmsh.admin.vo.wms.StorageInfo">
+		select count(id) from wms_storage_info <include refid="Example_Where_Clause"/>
+	</select>
+	
+	<!-- ##########################################自动生成MyBatils XML 已经完成,上面的所有方法都在BaseDao里面体现###########################################################-->
+</mapper>

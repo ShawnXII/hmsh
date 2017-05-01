@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hmsh.app.dao.user.UserOperationLogDao">
+  <resultMap id="BaseResultMap" type="com.hmsh.app.vo.user.UserOperationLog">
+    <id column="dmId" jdbcType="BIGINT" property="dmid" />
+    <result column="operUserId" jdbcType="BIGINT" property="operuserid" />
+    <result column="operUserName" jdbcType="VARCHAR" property="operusername" />
+    <result column="operContent" jdbcType="VARCHAR" property="opercontent" />
+    <result column="operResult" jdbcType="VARCHAR" property="operresult" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+    <result column="userId" jdbcType="BIGINT" property="userid" />
+    <result column="userType" jdbcType="INTEGER" property="usertype" />
+    <result column="crtime" jdbcType="BIGINT" property="crtime" />
+  </resultMap>
+ 
+</mapper>

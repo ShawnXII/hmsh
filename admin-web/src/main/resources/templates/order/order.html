@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"  xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"  xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+	<head>
+		<!--/*/ <th:block th:include="fragments/headerinc :: head"></th:block> /*/-->
+		<title>订单管理</title> 	  
+	</head>
+	<body class="page-sidebar-closed-hide-logo page-content-white page-header-fixed  page-footer-fixed page-sidebar-fixed">	
+	<!--/*/ <th:block th:include="fragments/headerinc :: top"></th:block> /*/-->
+	<div class="clearfix"></div>
+	<div class="page-container">
+		<!--/*/ <th:block th:include="fragments/headerinc :: menu"></th:block> /*/-->
+		<div class="page-content-wrapper">
+		<div class="page-content">
+		<!--/*/ <th:block th:include="fragments/headerinc :: bar"></th:block> /*/-->
+		<div class="row">
+			 <div class="portlet light bordered" >
+				<div class="portlet-body" >
+					<div id="order-buttons">
+						<form class="form-inline " autocomplete="off">
+							<input type="text" class="form-control" id="searchName" name="searchName" placeholder="订单编号/商家名称" />
+							<button type="button" class="btn btn-default" data-type="search">
+								<i class="fa fa-search"></i> <span data-zh="搜索">搜索</span>
+							</button>
+							<button type="button" class="btn btn-default" onclick="$unit.optn('#search')">
+								<i class="fa fa-tripadvisor"></i> <span data-zh="高级检索">高级检索</span>
+							</button>
+						 </form>
+					</div>
+					<table class="table table-striped table-bordered table-hover dt-responsive" 
+							width="100%" id="table"
+							th:attr="data-url=@{/order/query}"
+							data-height="700"
+							data-unique-id="dmId" 
+							data-side-pagination="server"
+							data-pagination="true"
+							data-toolbar="#order-buttons">
+						<thead>
+							<tr>
+								<th data-field="dmId">订单编号</th>
+								<th data-field="nickname" data-formatter="$transformation.toBusinessCard" data-card-data="">商家</th>
+								<th data-field="orderPrice">用户</th>
+								<th data-field="scale">购买商品</th>
+								<th data-field="crtime" data-formatter="$transformation.toTime">下单时间</th>
+								<th data-field="couponPrice">订单金额</th>
+								<th data-field="couponPrice">优惠金额</th>
+								<th data-field="dmId">实付金额</th>
+								<th data-field="dmId">收货地址</th>
+								<th data-field="orderStatus">支付状态</th>
+								<th data-field="chargeTime" data-formatter="$transformation.toTime">支付时间</th>
+								<th data-field="dmId">备注</th>
+								<th data-field="dmId">操作</th>
+							</tr>
+						</thead> 
+					</table>
+				</div>
+			</div> 
+		</div>
+		</div>
+		</div>
+		</div>
+		<!-- <form class="form-inline" id="search_form" autocomplete="off">
+						<div class="form-group">
+							 <label class="" for="keyword">关键字:</label>
+							 <input type="text" class="form-control input-medium" placeholder="手机号/呢称" name="keyword" id="keyword"/>
+						</div>
+						<div class="form-group">
+							 <label class="" for="search_time">下单时间:</label>
+							 <input type="hidden" name="startTime" id="startTime" data-receive="start"/>
+							 <input type="hidden" name="endTime" id="endTime" data-receive="end"/>
+							 <input type="text" class="form-control input-medium" placeholder="注册时间" name="search_time" id="search_time" readonly="readonly" data-register="daterangepicker"/>
+						</div>
+						<div class="form-group">
+							 <label class="" for="search_time">支付时间:</label>
+							 <input type="hidden" name="zfStartTime" id="startTime" data-receive="start"/>
+							 <input type="hidden" name="zfEndTime" id="endTime" data-receive="end"/>
+							 <input type="text" class="form-control input-medium" placeholder="注册时间" name="search_time" id="search_time" readonly="readonly" data-register="daterangepicker"/>
+						</div>
+						<div class="form-group">
+							 <label class="" for="state">状态:</label>
+							 <select class="form-control select2-multiple  input-medium" name="state" id="state" data-down="order_state" />
+						</div>
+						<div class="form-group">
+							 <label class="" for="type">订单模块:</label>
+							 <select class="form-control select2-multiple  input-medium" name="type" id="type" data-down="order_modular"/>
+						</div>
+						<div class="form-group">
+							 <label class="" for="sex">支付状态:</label>
+							 <select class="form-control select2-multiple  input-medium" name="sex" id="sex" data-down="pay_state"/>
+						</div>
+						<div class="form-group">
+							 <label class="" for="sex">订单类别:</label>
+							 <select class="form-control select2-multiple  input-medium" name="sex" id="sex" data-down="order_type"/>
+						</div>
+						<button type="button" class="btn btn-sm green" onclick="Conversion.search();" >搜索<i class="fa fa-search"></i></button>  
+					 </form> -->
+		<!--/*/ <th:block th:include="fragments/headerinc :: footer"></th:block> /*/-->
+    	<!--/*/ <th:block th:include="fragments/headerinc :: script"></th:block> /*/-->
+	</body>
+</html>

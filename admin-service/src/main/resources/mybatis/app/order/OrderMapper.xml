@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hmsh.app.dao.order.OrderDao">
+  <resultMap id="BaseResultMap" type="com.hmsh.app.vo.order.Order">
+    <id column="dmId" jdbcType="BIGINT" property="dmid" />
+    <result column="sellerId" jdbcType="BIGINT" property="sellerid" />
+    <result column="couponId" jdbcType="BIGINT" property="couponid" />
+    <result column="userId" jdbcType="BIGINT" property="userid" />
+    <result column="crtime" jdbcType="BIGINT" property="crtime" />
+    <result column="orderType" jdbcType="INTEGER" property="ordertype" />
+    <result column="chargeTime" jdbcType="BIGINT" property="chargetime" />
+    <result column="orderStatus" jdbcType="INTEGER" property="orderstatus" />
+    <result column="threeSerialNumber" jdbcType="VARCHAR" property="threeserialnumber" />
+    <result column="orderPrice" jdbcType="DECIMAL" property="orderprice" />
+    <result column="couponPrice" jdbcType="DECIMAL" property="couponprice" />
+    <result column="deductionPrice" jdbcType="DECIMAL" property="deductionprice" />
+    <result column="sendFee" jdbcType="DECIMAL" property="sendfee" />
+    <result column="mealFee" jdbcType="DECIMAL" property="mealfee" />
+    <result column="paymentPrice" jdbcType="DECIMAL" property="paymentprice" />
+    <result column="receivingPno" jdbcType="VARCHAR" property="receivingpno" />
+    <result column="receivingPhone" jdbcType="VARCHAR" property="receivingphone" />
+    <result column="receivingName" jdbcType="VARCHAR" property="receivingname" />
+    <result column="countyId" jdbcType="INTEGER" property="countyid" />
+    <result column="houseNumber" jdbcType="VARCHAR" property="housenumber" />
+    <result column="receivingAddress" jdbcType="VARCHAR" property="receivingaddress" />
+    <result column="goodsCount" jdbcType="INTEGER" property="goodscount" />
+    <result column="payStatus" jdbcType="INTEGER" property="paystatus" />
+    <result column="makeTime" jdbcType="BIGINT" property="maketime" />
+    <result column="transactionStatus" jdbcType="INTEGER" property="transactionstatus" />
+    <result column="receivingStatus" jdbcType="INTEGER" property="receivingstatus" />
+    <result column="refundStatus" jdbcType="INTEGER" property="refundstatus" />
+    <result column="sellerOrderStatus" jdbcType="INTEGER" property="sellerorderstatus" />
+    <result column="note" jdbcType="VARCHAR" property="note" />
+    <result column="payType" jdbcType="INTEGER" property="paytype" />
+    <result column="refundNote" jdbcType="VARCHAR" property="refundnote" />
+    <result column="reviews" jdbcType="INTEGER" property="reviews" />
+    <result column="forVipMall" jdbcType="INTEGER" property="forvipmall" />
+  </resultMap>
+ 
+</mapper>

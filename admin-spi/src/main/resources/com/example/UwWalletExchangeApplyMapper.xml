@@ -1,0 +1,456 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hmsh.app.dao.user.UwWalletExchangeApplyMapper">
+  <resultMap id="BaseResultMap" type="com.hmsh.app.vo.user.UwWalletExchangeApply">
+    <id column="dmId" jdbcType="BIGINT" property="dmid" />
+    <result column="userId" jdbcType="BIGINT" property="userid" />
+    <result column="acceptorId" jdbcType="BIGINT" property="acceptorid" />
+    <result column="userType" jdbcType="TINYINT" property="usertype" />
+    <result column="currentBalance" jdbcType="DECIMAL" property="currentbalance" />
+    <result column="amount" jdbcType="DECIMAL" property="amount" />
+    <result column="exchangeType" jdbcType="TINYINT" property="exchangetype" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="createTime" jdbcType="BIGINT" property="createtime" />
+    <result column="createBy" jdbcType="BIGINT" property="createby" />
+    <result column="updateBy" jdbcType="BIGINT" property="updateby" />
+    <result column="updateTime" jdbcType="BIGINT" property="updatetime" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="voucher" jdbcType="VARCHAR" property="voucher" />
+    <result column="fromWalletType" jdbcType="TINYINT" property="fromwallettype" />
+    <result column="toWalletType" jdbcType="TINYINT" property="towallettype" />
+    <result column="actionRemark" jdbcType="VARCHAR" property="actionremark" />
+    <result column="withdrawId" jdbcType="BIGINT" property="withdrawid" />
+    <result column="verifyTime" jdbcType="BIGINT" property="verifytime" />
+    <result column="reVerifyTime" jdbcType="BIGINT" property="reverifytime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    dmId, userId, acceptorId, userType, currentBalance, amount, exchangeType, status, 
+    createTime, createBy, updateBy, updateTime, remark, voucher, fromWalletType, toWalletType, 
+    actionRemark, withdrawId, verifyTime, reVerifyTime
+  </sql>
+  <select id="selectByExample" parameterType="com.hmsh.app.vo.user.UwWalletExchangeApplyExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from uw_wallet_exchange_apply
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from uw_wallet_exchange_apply
+    where dmId = #{dmid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from uw_wallet_exchange_apply
+    where dmId = #{dmid,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.hmsh.app.vo.user.UwWalletExchangeApplyExample">
+    delete from uw_wallet_exchange_apply
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.hmsh.app.vo.user.UwWalletExchangeApply">
+    insert into uw_wallet_exchange_apply (dmId, userId, acceptorId, 
+      userType, currentBalance, amount, 
+      exchangeType, status, createTime, 
+      createBy, updateBy, updateTime, 
+      remark, voucher, fromWalletType, 
+      toWalletType, actionRemark, withdrawId, 
+      verifyTime, reVerifyTime)
+    values (#{dmid,jdbcType=BIGINT}, #{userid,jdbcType=BIGINT}, #{acceptorid,jdbcType=BIGINT}, 
+      #{usertype,jdbcType=TINYINT}, #{currentbalance,jdbcType=DECIMAL}, #{amount,jdbcType=DECIMAL}, 
+      #{exchangetype,jdbcType=TINYINT}, #{status,jdbcType=TINYINT}, #{createtime,jdbcType=BIGINT}, 
+      #{createby,jdbcType=BIGINT}, #{updateby,jdbcType=BIGINT}, #{updatetime,jdbcType=BIGINT}, 
+      #{remark,jdbcType=VARCHAR}, #{voucher,jdbcType=VARCHAR}, #{fromwallettype,jdbcType=TINYINT}, 
+      #{towallettype,jdbcType=TINYINT}, #{actionremark,jdbcType=VARCHAR}, #{withdrawid,jdbcType=BIGINT}, 
+      #{verifytime,jdbcType=BIGINT}, #{reverifytime,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hmsh.app.vo.user.UwWalletExchangeApply">
+    insert into uw_wallet_exchange_apply
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="dmid != null">
+        dmId,
+      </if>
+      <if test="userid != null">
+        userId,
+      </if>
+      <if test="acceptorid != null">
+        acceptorId,
+      </if>
+      <if test="usertype != null">
+        userType,
+      </if>
+      <if test="currentbalance != null">
+        currentBalance,
+      </if>
+      <if test="amount != null">
+        amount,
+      </if>
+      <if test="exchangetype != null">
+        exchangeType,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="createtime != null">
+        createTime,
+      </if>
+      <if test="createby != null">
+        createBy,
+      </if>
+      <if test="updateby != null">
+        updateBy,
+      </if>
+      <if test="updatetime != null">
+        updateTime,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="voucher != null">
+        voucher,
+      </if>
+      <if test="fromwallettype != null">
+        fromWalletType,
+      </if>
+      <if test="towallettype != null">
+        toWalletType,
+      </if>
+      <if test="actionremark != null">
+        actionRemark,
+      </if>
+      <if test="withdrawid != null">
+        withdrawId,
+      </if>
+      <if test="verifytime != null">
+        verifyTime,
+      </if>
+      <if test="reverifytime != null">
+        reVerifyTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="dmid != null">
+        #{dmid,jdbcType=BIGINT},
+      </if>
+      <if test="userid != null">
+        #{userid,jdbcType=BIGINT},
+      </if>
+      <if test="acceptorid != null">
+        #{acceptorid,jdbcType=BIGINT},
+      </if>
+      <if test="usertype != null">
+        #{usertype,jdbcType=TINYINT},
+      </if>
+      <if test="currentbalance != null">
+        #{currentbalance,jdbcType=DECIMAL},
+      </if>
+      <if test="amount != null">
+        #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="exchangetype != null">
+        #{exchangetype,jdbcType=TINYINT},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=BIGINT},
+      </if>
+      <if test="createby != null">
+        #{createby,jdbcType=BIGINT},
+      </if>
+      <if test="updateby != null">
+        #{updateby,jdbcType=BIGINT},
+      </if>
+      <if test="updatetime != null">
+        #{updatetime,jdbcType=BIGINT},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="voucher != null">
+        #{voucher,jdbcType=VARCHAR},
+      </if>
+      <if test="fromwallettype != null">
+        #{fromwallettype,jdbcType=TINYINT},
+      </if>
+      <if test="towallettype != null">
+        #{towallettype,jdbcType=TINYINT},
+      </if>
+      <if test="actionremark != null">
+        #{actionremark,jdbcType=VARCHAR},
+      </if>
+      <if test="withdrawid != null">
+        #{withdrawid,jdbcType=BIGINT},
+      </if>
+      <if test="verifytime != null">
+        #{verifytime,jdbcType=BIGINT},
+      </if>
+      <if test="reverifytime != null">
+        #{reverifytime,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hmsh.app.vo.user.UwWalletExchangeApplyExample" resultType="java.lang.Long">
+    select count(*) from uw_wallet_exchange_apply
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update uw_wallet_exchange_apply
+    <set>
+      <if test="record.dmid != null">
+        dmId = #{record.dmid,jdbcType=BIGINT},
+      </if>
+      <if test="record.userid != null">
+        userId = #{record.userid,jdbcType=BIGINT},
+      </if>
+      <if test="record.acceptorid != null">
+        acceptorId = #{record.acceptorid,jdbcType=BIGINT},
+      </if>
+      <if test="record.usertype != null">
+        userType = #{record.usertype,jdbcType=TINYINT},
+      </if>
+      <if test="record.currentbalance != null">
+        currentBalance = #{record.currentbalance,jdbcType=DECIMAL},
+      </if>
+      <if test="record.amount != null">
+        amount = #{record.amount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.exchangetype != null">
+        exchangeType = #{record.exchangetype,jdbcType=TINYINT},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=TINYINT},
+      </if>
+      <if test="record.createtime != null">
+        createTime = #{record.createtime,jdbcType=BIGINT},
+      </if>
+      <if test="record.createby != null">
+        createBy = #{record.createby,jdbcType=BIGINT},
+      </if>
+      <if test="record.updateby != null">
+        updateBy = #{record.updateby,jdbcType=BIGINT},
+      </if>
+      <if test="record.updatetime != null">
+        updateTime = #{record.updatetime,jdbcType=BIGINT},
+      </if>
+      <if test="record.remark != null">
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.voucher != null">
+        voucher = #{record.voucher,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fromwallettype != null">
+        fromWalletType = #{record.fromwallettype,jdbcType=TINYINT},
+      </if>
+      <if test="record.towallettype != null">
+        toWalletType = #{record.towallettype,jdbcType=TINYINT},
+      </if>
+      <if test="record.actionremark != null">
+        actionRemark = #{record.actionremark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.withdrawid != null">
+        withdrawId = #{record.withdrawid,jdbcType=BIGINT},
+      </if>
+      <if test="record.verifytime != null">
+        verifyTime = #{record.verifytime,jdbcType=BIGINT},
+      </if>
+      <if test="record.reverifytime != null">
+        reVerifyTime = #{record.reverifytime,jdbcType=BIGINT},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update uw_wallet_exchange_apply
+    set dmId = #{record.dmid,jdbcType=BIGINT},
+      userId = #{record.userid,jdbcType=BIGINT},
+      acceptorId = #{record.acceptorid,jdbcType=BIGINT},
+      userType = #{record.usertype,jdbcType=TINYINT},
+      currentBalance = #{record.currentbalance,jdbcType=DECIMAL},
+      amount = #{record.amount,jdbcType=DECIMAL},
+      exchangeType = #{record.exchangetype,jdbcType=TINYINT},
+      status = #{record.status,jdbcType=TINYINT},
+      createTime = #{record.createtime,jdbcType=BIGINT},
+      createBy = #{record.createby,jdbcType=BIGINT},
+      updateBy = #{record.updateby,jdbcType=BIGINT},
+      updateTime = #{record.updatetime,jdbcType=BIGINT},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      voucher = #{record.voucher,jdbcType=VARCHAR},
+      fromWalletType = #{record.fromwallettype,jdbcType=TINYINT},
+      toWalletType = #{record.towallettype,jdbcType=TINYINT},
+      actionRemark = #{record.actionremark,jdbcType=VARCHAR},
+      withdrawId = #{record.withdrawid,jdbcType=BIGINT},
+      verifyTime = #{record.verifytime,jdbcType=BIGINT},
+      reVerifyTime = #{record.reverifytime,jdbcType=BIGINT}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hmsh.app.vo.user.UwWalletExchangeApply">
+    update uw_wallet_exchange_apply
+    <set>
+      <if test="userid != null">
+        userId = #{userid,jdbcType=BIGINT},
+      </if>
+      <if test="acceptorid != null">
+        acceptorId = #{acceptorid,jdbcType=BIGINT},
+      </if>
+      <if test="usertype != null">
+        userType = #{usertype,jdbcType=TINYINT},
+      </if>
+      <if test="currentbalance != null">
+        currentBalance = #{currentbalance,jdbcType=DECIMAL},
+      </if>
+      <if test="amount != null">
+        amount = #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="exchangetype != null">
+        exchangeType = #{exchangetype,jdbcType=TINYINT},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="createtime != null">
+        createTime = #{createtime,jdbcType=BIGINT},
+      </if>
+      <if test="createby != null">
+        createBy = #{createby,jdbcType=BIGINT},
+      </if>
+      <if test="updateby != null">
+        updateBy = #{updateby,jdbcType=BIGINT},
+      </if>
+      <if test="updatetime != null">
+        updateTime = #{updatetime,jdbcType=BIGINT},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="voucher != null">
+        voucher = #{voucher,jdbcType=VARCHAR},
+      </if>
+      <if test="fromwallettype != null">
+        fromWalletType = #{fromwallettype,jdbcType=TINYINT},
+      </if>
+      <if test="towallettype != null">
+        toWalletType = #{towallettype,jdbcType=TINYINT},
+      </if>
+      <if test="actionremark != null">
+        actionRemark = #{actionremark,jdbcType=VARCHAR},
+      </if>
+      <if test="withdrawid != null">
+        withdrawId = #{withdrawid,jdbcType=BIGINT},
+      </if>
+      <if test="verifytime != null">
+        verifyTime = #{verifytime,jdbcType=BIGINT},
+      </if>
+      <if test="reverifytime != null">
+        reVerifyTime = #{reverifytime,jdbcType=BIGINT},
+      </if>
+    </set>
+    where dmId = #{dmid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hmsh.app.vo.user.UwWalletExchangeApply">
+    update uw_wallet_exchange_apply
+    set userId = #{userid,jdbcType=BIGINT},
+      acceptorId = #{acceptorid,jdbcType=BIGINT},
+      userType = #{usertype,jdbcType=TINYINT},
+      currentBalance = #{currentbalance,jdbcType=DECIMAL},
+      amount = #{amount,jdbcType=DECIMAL},
+      exchangeType = #{exchangetype,jdbcType=TINYINT},
+      status = #{status,jdbcType=TINYINT},
+      createTime = #{createtime,jdbcType=BIGINT},
+      createBy = #{createby,jdbcType=BIGINT},
+      updateBy = #{updateby,jdbcType=BIGINT},
+      updateTime = #{updatetime,jdbcType=BIGINT},
+      remark = #{remark,jdbcType=VARCHAR},
+      voucher = #{voucher,jdbcType=VARCHAR},
+      fromWalletType = #{fromwallettype,jdbcType=TINYINT},
+      toWalletType = #{towallettype,jdbcType=TINYINT},
+      actionRemark = #{actionremark,jdbcType=VARCHAR},
+      withdrawId = #{withdrawid,jdbcType=BIGINT},
+      verifyTime = #{verifytime,jdbcType=BIGINT},
+      reVerifyTime = #{reverifytime,jdbcType=BIGINT}
+    where dmId = #{dmid,jdbcType=BIGINT}
+  </update>
+</mapper>

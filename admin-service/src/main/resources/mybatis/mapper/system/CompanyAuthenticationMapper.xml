@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hmsh.admin.dao.system.CompanyAuthenticationDao">
+  <resultMap id="BaseResultMap" type="com.hmsh.admin.vo.system.CompanyAuthentication">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="enclosure" jdbcType="VARCHAR" property="enclosure" />
+    <result column="explain" jdbcType="VARCHAR" property="explain" />
+    <result column="state" jdbcType="TINYINT" property="state" />
+    <result column="info" jdbcType="VARCHAR" property="info" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="transit_time" jdbcType="BIGINT" property="transitTime" />
+    <result column="create_time" jdbcType="BIGINT" property="createTime" />
+    <result column="company_id" jdbcType="BIGINT" property="companyId" />
+  </resultMap>
+  
+</mapper>

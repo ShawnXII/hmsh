@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hmsh.admin.wms.dao.GoodsPhotoInfoDao">
+    <!-- wms_goods_photo table all BaseResultMap-->
+    <resultMap id="BaseResultMap" type="com.hmsh.admin.vo.wms.GoodsPhotoInfo">
+        <result column="id"  property="id" jdbcType="BIGINT"/>
+        <result column="skuID"  property="skuID" jdbcType="BIGINT"/>
+        <result column="path"  property="path" jdbcType="VARCHAR"/>
+        <result column="type"  property="type" jdbcType="BIGINT"/>
+        <result column="sequence"  property="sequence" jdbcType="BIGINT"/>
+        <result column="context"  property="context" jdbcType="VARCHAR"/>
+    </resultMap>
+    
+    <!-- wms_goods_photo 表的全部字段-->
+    <sql id="Base_Column_List" >
+		id, skuID, path, type, sequence,context
+    </sql>
+    
+    <!-- 查询条件[可自行扩展]-->
+    <sql id="Example_Where_Clause">
+        <where>
+            <if test="id != null ">
+                and id=#{id}
+            </if>
+            <if test="skuID != null ">
+                and skuID=#{skuID}
+            </if>
+            <if test="path != null ">
+                and path=#{path}
+            </if>
+            <if test="type != null ">
+                and type=#{type}
+            </if>
+            <if test="sequence != null ">
+                and sequence=#{sequence}
+            </if>
+            <if test="context != null ">
+                and context=#{context}
+            </if>
+        </where>
+    </sql>
+    
+    <!-- 插入一条数据 -->
+    <insert id="insert" parameterType="com.hmsh.admin.vo.wms.GoodsPhotoInfo">
+    	insert into wms_goods_photo (
+    		id, skuID, path, type, sequence,context
+    	)values
+    	(#{id,jdbcType=BIGINT}, #{skuID,jdbcType=BIGINT}, #{path,jdbcType=VARCHAR}, #{type,jdbcType=BIGINT}, #{sequence,jdbcType=BIGINT}, #{context,jdbcType=VARCHAR})
+    </insert>
+    
+    <!-- 插入一条数据,只插入不为空的字段 -->
+    <insert id="insertSelective" parameterType="com.hmsh.admin.vo.wms.GoodsPhotoInfo" >
+        insert into wms_goods_photo
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+        	<if test="id!=null">
+        		id,
+        	</if>
+        	<if test="skuID!=null">
+        		skuID,
+        	</if>
+        	<if test="path!=null">
+        		path,
+        	</if>
+        	<if test="type!=null">
+        		type,
+        	</if>
+        	<if test="sequence!=null">
+        		sequence,
+        	</if>
+        	<if test="context!=null">
+        		context,
+        	</if>
+        </trim>
+   	    <trim prefix="values (" suffix=")" suffixOverrides="," >
+	     		<if test="id!=null">
+	     			#{id,jdbcType=BIGINT},
+	     		</if>
+	     		<if test="skuID!=null">
+	     			#{skuID,jdbcType=BIGINT},
+	     		</if>
+	     		<if test="path!=null">
+	     			#{path,jdbcType=VARCHAR},
+	     		</if>
+	     		<if test="type!=null">
+	     			#{type,jdbcType=BIGINT},
+	     		</if>
+	     		<if test="sequence!=null">
+	     			#{sequence,jdbcType=BIGINT},
+	     		</if>
+	     		<if test="context!=null">
+	     			#{context,jdbcType=VARCHAR},
+	     		</if>
+        </trim>
+    </insert>
+    
+    <!-- 插入多条数据 -->
+    <insert id="insertList" parameterType="java.util.List">
+    	insert into wms_goods_photo
+    	(id, skuID, path, type, sequence,context)
+    	values
+    	<foreach collection="list" item="item" index="index" separator=",">
+    		(#{item.id,jdbcType=BIGINT},#{item.skuID,jdbcType=BIGINT},#{item.path,jdbcType=VARCHAR},#{item.type,jdbcType=BIGINT},#{item.sequence,jdbcType=BIGINT},#{item.context,jdbcType=VARCHAR})
+    	</foreach>
+    </insert>
+    
+    <!-- 修改数据 -->
+    <update id="modify" parameterType="com.hmsh.admin.vo.wms.GoodsPhotoInfo">
+    	update wms_goods_photo set (skuID=#{skuID,jdbcType=BIGINT},path=#{path,jdbcType=VARCHAR},type=#{type,jdbcType=BIGINT},sequence=#{sequence,jdbcType=BIGINT},context=#{context,jdbcType=VARCHAR}) 
+    		where id=#{id,jdbcType=BIGINT}
+    </update>
+    
+    <!--根据主键修改不为空的字段-->
+	<update id="modifyNotNull" parameterType="com.hmsh.admin.vo.wms.GoodsPhotoInfo">
+		update wms_goods_photo
+		<set >
+			<if test="skuID!=null">
+				skuID=#{skuID,jdbcType=BIGINT},
+			</if>
+			<if test="path!=null">
+				path=#{path,jdbcType=VARCHAR},
+			</if>
+			<if test="type!=null">
+				type=#{type,jdbcType=BIGINT},
+			</if>
+			<if test="sequence!=null">
+				sequence=#{sequence,jdbcType=BIGINT},
+			</if>
+			<if test="context!=null">
+				context=#{context,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id=#{id,jdbcType=BIGINT}
+	</update>
+	
+	<!--根据主键删除数据-->
+	<delete id="remove" parameterType="java.lang.Long">
+		delete from wms_goods_photo where id=#{id,jdbcType=BIGINT}
+	</delete>
+	
+	<!-- 批量删除-->
+	<delete id="removeList" parameterType="java.util.List">
+		delete from wms_goods_photo where id in
+		<foreach item="idItem" collection="list" open="(" separator="," close=")"> #{idItem,jdbcType=BIGINT}  </foreach>
+	</delete>
+	
+	<!--根据主键查询-->
+	<select id="findOne" resultMap="BaseResultMap" parameterType="java.lang.Long">
+		select <include refid="Base_Column_List" /> from wms_goods_photo where id=#{id,jdbcType=BIGINT}
+	</select>
+	<select id="findOnePhoto" resultType="java.lang.String" parameterType="java.lang.Long">
+		select group_concat(path) as path from wms_goods_photo where skuID=#{skuID,jdbcType=BIGINT}
+	</select>
+	<select id="findGoodsPhoto" resultMap="BaseResultMap" parameterType="java.lang.Long">
+		select <include refid="Base_Column_List" /> from wms_goods_photo where skuID=#{skuID,jdbcType=BIGINT}
+	</select>
+	<!--查询全部 分页排序交给插件完成-->
+	<select id="findAll" resultMap="BaseResultMap" parameterType="com.hmsh.admin.vo.wms.GoodsPhotoInfo">
+		select <include refid="Base_Column_List" /> from wms_goods_photo <include refid="Example_Where_Clause"/>
+	</select>
+	
+	<!--获取总条数-->
+	<select id="count" resultType="java.lang.Long" parameterType="com.hmsh.admin.vo.wms.GoodsPhotoInfo">
+		select count(id) from wms_goods_photo <include refid="Example_Where_Clause"/>
+	</select>
+	
+	<!-- ##########################################自动生成MyBatils XML 已经完成,上面的所有方法都在BaseDao里面体现###########################################################-->
+</mapper>

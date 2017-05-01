@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hmsh.app.dao.agent.AgentDao">
+	<resultMap id="BaseResultMap" type="com.hmsh.app.vo.agent.Agent">
+		<id column="dmId" jdbcType="BIGINT" property="dmid" />
+		<result column="level" jdbcType="TINYINT" property="level" />
+		<result column="name" jdbcType="VARCHAR" property="name" />
+		<result column="card" jdbcType="VARCHAR" property="card" />
+		<result column="brank_account" jdbcType="VARCHAR" property="brankAccount" />
+		<result column="brank_name" jdbcType="VARCHAR" property="brankName" />
+		<result column="regional_agent" jdbcType="VARCHAR" property="regionalAgent" />
+		<result column="agency_time" jdbcType="BIGINT" property="agencyTime" />
+		<result column="contact_phone" jdbcType="VARCHAR" property="contactPhone" />
+		<result column="account" jdbcType="VARCHAR" property="account" />
+		<result column="pwd" jdbcType="VARCHAR" property="pwd" />
+		<result column="status" jdbcType="TINYINT" property="status" />
+		<result column="regional_id" jdbcType="BIGINT" property="regionalId" />
+		<result column="company" jdbcType="VARCHAR" property="company" />
+		<result column="account_type" jdbcType="TINYINT" property="accountType" />
+	</resultMap>
+
+</mapper>

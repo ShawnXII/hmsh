@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"  xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"  xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en"  xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <!--/*/ <th:block th:include="fragments/headerinc :: head"></th:block> /*/-->
+   
+     <link rel="stylesheet" type="text/css" th:href="@{/assets/global/plugins/select2/css/select2.min.css}" />
+     <link rel="stylesheet" type="text/css" th:href="@{/assets/global/plugins/select2/css/select2-bootstrap.min.css}" />
+     
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/global/plugins/dropzone/dropzone.min.css}" />
+     <link th:href="@{/assets/layout/css/custom.min.css}" rel="stylesheet" type="text/css"/>
+    <title>添加新商品</title>
+</head>
+<!-- 固定菜单和底部 -->
+<body  class="page-sidebar-closed-hide-logo page-content-white page-header-fixed  page-footer-fixed page-sidebar-fixed">
+	<!--/*/ <th:block th:include="fragments/headerinc :: top"></th:block> /*/-->
+	<div class="clearfix"></div>
+	<div class="page-container">
+		<!--/*/ <th:block th:include="fragments/headerinc :: menu"></th:block> /*/-->
+		<div class="page-content-wrapper">
+		<div class="page-content">
+		<!--/*/ <th:block th:include="fragments/headerinc :: bar"></th:block> /*/-->
+	 	<!-- 添加商品 -->
+	 	<div class="row step-line" id="add_goods_wizard">
+	 		<div class="portlet light bordered">
+	 			<div class="portlet-title">
+	 				<div class="caption">
+	 					<span class="caption-subject font-red bold uppercase">添加新商品<span class="step-title"></span></span>	
+	 				</div>
+	 			</div>
+	 			<div class="portlet-body form">
+	 				<form class="form-horizontal" th:action="@{/goods/save}" method="POST" id="add_goods_form" autocomplete="off">
+	 					<input type="hidden" name="images" id="images"/>
+	 					<div class="form-wizard">
+	 						<div class="mt-element-step">
+		 						<ul class="nav nav-pills nav-justified steps" data-wizard="step">
+									<li class="active">
+	                                      <a href="#tab1" data-toggle="tab" class="step" aria-expanded="true">
+	                                           <span class="number"> 1 </span>
+	                                           <span class="desc"><i class="fa fa-check"></i> 选择商品类目 </span>
+	                                       </a>
+	                                   </li>
+									<li>
+	                                      <a href="#tab2" data-toggle="tab" class="step" aria-expanded="true">
+	                                          <span class="number"> 2 </span>
+	                                          <span class="desc"><i class="fa fa-check"></i> 完善商品信息 </span>
+	                                      </a>
+	                                 	 </li>
+	                                 <!--  <li>
+	                                      <a href="#tab3" data-toggle="tab" class="step">
+	                                          <span class="number"> 3 </span>
+	                                          <span class="desc"><i class="fa fa-check"></i> 设置SKU信息 </span>
+	                                      </a>
+	                                  </li> -->
+	                                  <li>
+	                                      <a href="#tab4" data-toggle="tab" class="step">
+	                                          <span class="number"> 3 </span>
+	                                          <span class="desc"><i class="fa fa-check"></i> 上传商品 </span>
+	                                      </a>
+	                                  </li>
+								</ul>
+								<div class="progress progress-striped" role="progressbar" data-wizard="bar">
+                                 	<div class="progress-bar progress-bar-success" style="width: 33%;"> </div>
+                             	</div>
+	 							<div class="tab-content">
+	 								 <div id="goodsClass_title"></div>
+	 								 <div class="tab-pane active" id="tab1">
+	 								 	<h3 class="block">选择商品类目</h3>
+	 								 	<div class="form-group">
+	 								 		<label class="col-md-3 control-label">商品类目:<span class="required" aria-required="true"> * </span></label>
+	 								 		<div class="col-md-9">
+	 								 			<select class="form-control" size="10" name="goodsClass" id="goodsClass">
+	 								 				<optgroup th:each="goodsClass,state:${goodsClassList}" th:unless="${#lists.isEmpty(goodsClass.childs) and goodsClass.state!=0}" th:label="${goodsClass.title}" th:attr="data-id=${goodsClass.dmId}" >
+	 								 					<option th:each="childs,childsState:${goodsClass.childs}" th:text="${childs.title}"  th:value="${childs.dmId}" th:unless="${goodsClass.state}!=0"></option>
+	 								 				</optgroup>
+	 								 			</select>
+	 								 			<input type="hidden" name="goodsClassId" id="goodsClassId"/>
+	 								 			<input type="hidden" name="goodsClassTitle" id="goodsClassTitle"/>
+	 								 			<span class="help-block help-block-error hide">请选择商品分类.</span>
+	 								 		</div>
+	 								 	</div>
+	 								 </div>
+	 								 <div class="tab-pane" id="tab2">
+	 								 	<h3 class="block">完善商品信息</h3>
+	 								 	<div class="portlet box blue">
+										    <div class="portlet-title">
+										        <div class="caption">商品信息</div>
+										        <div class="tools">
+			                                        <!-- <a href="javascript:;" class="collapse switch-goods" data-original-title="" title=""></a> -->
+			                                    </div>
+										    </div>
+										    <div class="portlet-body">
+										    	<div class="form-group">
+		                                            <label class="control-label col-md-3">商品名称
+		                                                <span class="required" aria-required="true"> * </span>
+		                                            </label>
+		                                            <div class="col-md-4">
+		                                                <input type="text" class="form-control" name="name" id="name" placeholder="请输入商品名称,只能输入中文,英文,&quot;-&quot;,&quot;_&quot;,1-80个字符(中文算一个字符)" maxlength="80" />
+		                                            </div>
+		                                        </div>
+		                                        <div class="form-group">
+	                                              <label class="control-label col-md-3">供应商
+	                                                  <span class="required" aria-required="true"> * </span>
+	                                              </label>
+	                                              <div class="col-md-4">
+	                                                 <select class="form-control select2-multiple  input-medium" name="mallSupplierId" id="mallSupplierId" >
+	                                                 	<option value="0">请选择</option>
+	                                                 	<option th:each="mallSupplier,state:${mallSupplierList}" th:value="${mallSupplier.dmId}" th:text="${mallSupplier.name}"></option>
+	                                                 </select>
+	                                                 <input type="hidden" name="mallSupplierTitle" id="mallSupplierTitle"/>
+	                                              </div>
+	                                            </div>
+										    	<!-- 价格 -->
+									        	<div class="form-group">
+		 								 			<label class="control-label col-md-3">成本价
+		                                               <span class="required" aria-required="true"> * </span></label>
+		                                               <div class="col-md-4">
+		                                               		<div class="input-group">
+		                                               			<span class="input-group-addon">
+			                                                        <i class="fa fa-cny font-blue-ebonyclay"></i>
+			                                                    </span>
+		                                               			<input type="text" class="form-control" name="purchasePrice" id="purchasePrice" placeholder="请输入成本价,只能输入0-999999999直接的数字,小数精度为2" />
+		                                               		</div>
+		                                               </div>
+		 								 		</div>
+		 								 		<div class="form-group">
+		 								 			<label class="control-label col-md-3">零售价
+		                                               <span class="required" aria-required="true"> * </span></label>
+		                                               <div class="col-md-4">
+		                                               	<div class="input-group">
+	                                               			<span class="input-group-addon">
+		                                                        <i class="fa fa-cny font-blue-ebonyclay"></i>
+		                                                    </span>
+	                                               			 <input type="text" class="form-control" name="price" id="price" placeholder="请输入零售价,只能输入0-999999999之间的数字,小数精度为2" />
+	                                               		 </div>
+		                                               	  <span class="help-block"><span class="label label-danger">提示:</span>零售价必须高于或者等于成本价</span>
+		                                               </div>
+		 								 		</div>
+		 								 		<div class="form-group">
+		 								 			<label class="control-label col-md-3">初始库存</label>
+		                                             <div class="col-md-4">
+	                                               	   <input type="text" class="form-control" name="stockNum" id="stockNum" placeholder="请输入初始库存,只能输入0-999999999之间的整数" />
+	                                               	   <span class="help-block"><span class="label label-danger">提示:</span>不同的SKU属性可以设置不同的库存.</span>
+	                                                 </div>  
+		 								 		</div>
+		 								 		<div class="form-group">
+		 								 			<label class="control-label col-md-3">现金积分返现比例</label>
+		                                             <div class="col-md-4">
+	                                               	  <div class="input-group">
+	                                               			 <input type="text" class="form-control" name="returnPointPercent" id="returnPointPercent"  placeholder="请输入现金积分返现比例" />
+	                                               			 <span class="input-group-addon">
+		                                                          %
+		                                                    </span>
+	                                               		 </div>
+	                                                 </div>  
+		 								 		</div>
+		 								 		<div class="form-group">
+		 								 			<label class="control-label col-md-3">积分消费抵扣百分比</label>
+		                                             <div class="col-md-4">
+		                                             	<div class="input-group">
+	                                               			 <input type="text" class="form-control" name="deductPricePercent" id="deductPricePercent" placeholder="请输入积分消费抵扣百分比"/>
+	                                               			 <span class="input-group-addon">
+		                                                        %
+		                                                    </span>
+	                                               		 </div>
+	                                                 </div>  
+		 								 		</div>
+		 								 		<div class="form-group">
+		                                             <label class="control-label col-md-3">体积</label>
+		                                             <div class="col-md-4">
+		                                                 <div class="input-group">
+	                                               			 <input type="text" class="form-control" name="volume" id="volume" placeholder="请输入商品体积"/>
+	                                               			 <span class="input-group-addon">
+		                                                        M<sup>3</sup>
+		                                                    </span>
+	                                               		 </div>
+		                                             </div>
+		                                         </div>
+		                                         <div class="form-group">
+		                                             <label class="control-label col-md-3">重量</label>
+		                                             <div class="col-md-4">
+		                                                 <div class="input-group">
+	                                               			 <input type="text" class="form-control" name="weight" id="weight" placeholder="请输入商品重量"/>
+	                                               			 <span class="input-group-addon">
+		                                                        kg
+		                                                    </span>
+	                                               		 </div>
+		                                             </div>
+		                                         </div>
+		                                         <div class="form-group">
+		                                             <label class="control-label col-md-3">保质时间</label>
+		                                             <div class="col-md-4">
+		                                                 <div class="input-group">
+	                                               			 <input type="text" class="form-control" name="shelfLifePeriod" id="shelfLifePeriod" placeholder="请输入保质时间"/>
+	                                               			 <span class="input-group-addon">
+		                                                       	 天
+		                                                    </span>
+	                                               		 </div>
+		                                             </div>
+		                                         </div>
+		 								 		<div class="form-group">
+	                                              <label class="control-label col-md-3">是否VIP商城商品
+	                                                  <span class="required" aria-required="true">  </span>
+	                                              </label>
+	                                              <div class="col-md-4">
+	                                                  <input type="checkbox" class="make-switch" checked="checked" data-on-text="是" data-off-text="否" name="forVipMall" id="forVipMall" value="0" disabled="disabled"/> 
+	                                              	   <span class="help-block"><span class="label label-danger">提示:</span>后台只能添加和修改VIP商城商品.</span>
+	                                              </div>
+	                                          </div>
+		 								 		<div class="form-group">
+		                                              <label class="control-label col-md-3">是否支持优惠券
+		                                                  <span class="required" aria-required="true"> * </span>
+		                                              </label>
+		                                              <div class="col-md-4">
+		                                                  <input type="checkbox" class="make-switch" checked="checked" data-on-text="支持" data-off-text="不支持" name="isCoupon" id="isCoupon" value="0"/> 
+		                                              </div>
+		                                          </div>
+		                                           <div class="form-group">
+		                                              <label class="control-label col-md-3">是否是海外商品
+		                                                  <span class="required" aria-required="true"> * </span>
+		                                              </label>
+		                                              <div class="col-md-4">
+		                                                  <input type="checkbox" class="make-switch" checked="checked" data-on-text="是" data-off-text="否" name="isForeign" id="isForeign" value="0"/> 
+		                                              </div>
+		                                          </div>
+		 								 		
+		 								 		<div class="form-group">
+		 								 			<label class="control-label col-md-3">商品图片<span class="required" aria-required="true"> * </span></label>
+		 								 			<div class="col-md-4">
+		 								 				<div class="uploader dropzone dropzone-file-area">
+		 								 					<h3 class="sbold">上传图片</h3>
+		 								 					<p><span class="label label-danger">NOTE:</span>请勿重复上传图片,可使用<a href="javascript:;" title="相册">相册</a>图片节省图片空间,每个商品最多可上传7张图片.</p>
+		 								 					<div class="row show-image" id="show_image"></div>
+		 								 				</div>
+		 								 				<a id="pickfiles" class="btn green " href="javascript:;" title="上传图片">上传图片</a>
+		 								 				<span class="help-block help-block-error hide">请选择商品图片.</span>
+		 								 				
+		 								 			</div>
+		 								 		</div>
+										    </div>
+										</div>
+	 								 	<div class="portlet box blue">
+										   <div class="portlet-title">
+										        <div class="caption">设置商品属性</div>
+										        <div class="tools">
+			                                        <a href="javascript:;" class="expand switch-goods" data-original-title="" title=""></a>
+			                                    </div>
+										    </div>
+										    <div class="portlet-body" style="display:none;">
+										     <div class="form-group">
+	                                             <label class="control-label col-md-3">消费者返利</label>
+	                                             <div class="col-md-4">
+	                                                 <div class="input-group">
+	                                             		<input type="text" class="form-control percent" name="rebateConsumers" id="rebateConsumers" value="" placeholder="请输入消费者返利比例"/>
+	                                             		<span class="input-group-addon">%</span>
+	                                             	</div>
+	                                             </div>
+	                                         </div>
+	                                          <div class="form-group">
+	                                             <label class="control-label col-md-3">商家返利</label>
+	                                             <div class="col-md-4">
+	                                                 <div class="input-group">
+	                                             		<input type="text" class="form-control percent" name="rebateSeller" id="rebateSeller" value="" placeholder="请输入商家返利比例"/>
+	                                             		<span class="input-group-addon">%</span>
+	                                             	</div>
+	                                             </div>
+	                                         </div>
+	                                 		 <div class="form-group">
+	                                             <label class="control-label col-md-3">供应链返利</label>
+	                                             <div class="col-md-4">
+	                                                 <div class="input-group">
+	                                             		<input type="text" class="form-control percent" name="rebateSupply" id="rebateSupply" value="" placeholder="请输入供应链返利比例"/>
+	                                             		<span class="input-group-addon">%</span>
+	                                             	</div>
+	                                             </div>
+	                                         </div>
+	                                 		<div class="form-group">
+	                                             <label class="control-label col-md-3">代理商(县)返利</label>
+	                                             <div class="col-md-4">
+	                                                 <div class="input-group">
+	                                             		<input type="text" class="form-control percent" name="rebateProvince" id="rebateProvince" value="" placeholder="请输入代理商(县)返利比例"/>
+	                                             		<span class="input-group-addon">%</span>
+	                                             	</div>
+	                                             </div>
+	                                         </div>
+	                                        <div class="form-group">
+	                                             <label class="control-label col-md-3">代理商(市)返利</label>
+	                                             <div class="col-md-4">
+	                                                 <div class="input-group">
+	                                             		<input type="text" class="form-control percent" name="rebateCity" id="rebateCity" value="" placeholder="请输入代理商(市)返利比例"/>
+	                                             		<span class="input-group-addon">%</span>
+	                                             	</div>
+	                                             </div>
+	                                         </div>
+	                                         <div class="form-group">
+	                                             <label class="control-label col-md-3">代理商(县/区)返利</label>
+	                                             <div class="col-md-4">
+	                                                 <div class="input-group">
+	                                             		<input type="text" class="form-control percent" name="rebateArea" id="rebateArea" value="" placeholder="请输入代理商(县/区)返利比例"/>
+	                                             		<span class="input-group-addon">%</span>
+	                                             	</div>
+	                                             </div>
+	                                         </div>
+										    </div>
+										</div> 
+										<div class="portlet box  blue-hoki">
+										   <div class="portlet-title">
+										        <div class="caption">选择SKU属性</div>
+										        <div class="tools">
+			                                        <a href="javascript:;" class="expand switch-goods" data-original-title="" title=""></a>
+			                                    </div>
+										    </div>
+										    <div class="portlet-body" style="display:none;">
+										    	<!-- 选择品牌 -->
+									        	<!-- <div class="form-group">
+		 								 			<label class="control-label col-md-3">品牌
+		                                               <span class="required" aria-required="true"> * </span></label>
+		                                               <div class="col-md-4">
+		                                               	  <input type="text" class="form-control" name="brand" id="brand"/>
+		                                               </div>
+		 								 		</div>	 -->
+		 								 		
+										    </div>
+										</div>		
+	 								 </div>
+	 								 <!-- <div class="tab-pane" id="tab3">
+	 								 	
+	 								 </div> -->
+	 								 <div class="tab-pane" id="tab4">
+	 								 	<h3 class="block">确认商品信息</h3>
+	 								 	<div class="row" id="goods_details">
+											<div class="mt-element-card mt-element-overlay">
+												<div class="col-md-4 col-sm-6 col-xs-12">
+													<div class="margin-left-10" data-type="image">
+														
+													</div>
+													<div class="small-img">
+														<div class="goods scroll scroll-left disabled" onclick="Goods.scrollImg(this);"><i class="fa fa-chevron-left"></i></div>
+														<!-- <ul class="image-menu" data-type="thumbnails">
+															
+														</ul> -->
+														<div class="image-menu"  data-type="thumbnails"></div>
+														<div class="goods scroll scroll-right disabled" onclick="Goods.scrollImg(this);"><i class="fa fa-chevron-right"></i></div>
+													</div>
+												</div>
+												<div class="col-md-6 col-sm-6 col-xs-12">
+													<h1 class="goods-title" data-type="goodsName"></h1>
+													<ul class="nav nav-stacked goods-ul" data-type="spec" >
+													</ul>
+												</div>
+												<div class="col-md-12 col-sm-12 col-xs-12 tab-main">
+													<ul><li class="active" data-tab="details" onclick="Goods.tab(this);">商品详情</li><li data-tab="pack" onclick="Goods.tab(this);">规格和包装</li><li data-tab="evaluate" onclick="Goods.tab(this);">商品评价</li></ul>
+												</div>
+												<div class="col-md-12 col-sm-12 col-xs-12 tab-main-html" data-tab="details" data-type="details">暂无详情</div>
+												<div class="col-md-12 col-sm-12 col-xs-12 hide tab-main-html" data-tab="pack" data-type="pack"></div>
+												<div class="col-md-12 col-sm-12 col-xs-12 hide tab-main-html" data-tab="evaluate" data-type="evaluate"></div>
+												
+											</div>
+										</div>
+	 								 </div>
+	 							</div>
+	 						</div>
+	 						
+	 						<div class="form-actions">
+	 							<div class="row">
+                                    <div class="col-md-offset-3 col-md-9">
+                                        <a href="javascript:;" class="btn default button-previous" id="button-previous">
+                                            <i class="fa fa-angle-left"></i> 上一步 </a>
+                                        <a href="javascript:;" class="btn btn-outline green button-next" id="button-next"> 下一步
+                                            <i class="fa fa-angle-right"></i>
+                                        </a>
+                                        <a href="javascript:;" class="btn green button-submit" id="button-submit" onclick="Goods.submit();"> 商品发布
+                                            <i class="fa fa-check"></i>
+                                        </a>
+                                    </div>
+                                </div>
+	 						</div>
+	 						
+	 					</div>
+	 				</form>
+	 			</div>
+	 		</div>
+	 	</div> 
+		</div>	
+		</div>
+	</div>
+	<!--/*/ <th:block th:include="fragments/headerinc :: footer"></th:block> /*/-->
+    <!--/*/ <th:block th:include="fragments/headerinc :: script"></th:block> /*/-->
+    <script type="text/javascript" th:src="@{/assets/global/plugins/select2/js/select2.full.min.js}"></script>
+    <script type="text/javascript" th:src="@{/assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js}"></script>
+    <script type="text/javascript" th:src="@{/assets/global/plugins/bootstrap-selectsplitter/bootstrap-selectsplitter.min.js}"></script>
+    <script type="text/javascript" th:src="@{/assets/global/plugins/bootstrap-wizard/jquery.bootstrap.wizard.min.js}"></script>
+    <script type="text/javascript" th:src="@{/assets/global/plugins/bootstrap-maxlength/bootstrap-maxlength.min.js}"></script>
+    <script type="text/javascript" th:src="@{/assets/global/plugins/plupload/js/plupload.full.min.js}"></script>
+    <script type="text/javascript" th:src="@{/assets/global/scripts/Upload.js}"></script>
+    <script type="text/javascript" th:src="@{/assets/custom/goods/editGoods.js}"></script>
+    <script type="text/javascript">
+    $(function(){
+    	Goods.init();
+    });
+    </script>
+</body>
+</html>
